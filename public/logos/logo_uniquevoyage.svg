@@ -1,0 +1,14 @@
+<svg width="680" height="200" viewBox="0 60 680 200" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Logo UniqueVoyage</title>
+<desc>Monogramme en forme de U vert avec un petit avion orange stylisé survolant le sommet de la lettre, suivi du nom UniqueVoyage en deux couleurs.</desc>
+<circle cx="120" cy="130" r="56" fill="none" stroke="#0F6E56" stroke-width="1.5"/>
+<path d="M95 105 L95 145 Q95 158 108 158 Q121 158 121 145 L121 118" fill="none" stroke="#0F6E56" stroke-width="6" stroke-linecap="round"/>
+<g transform="translate(133,98) rotate(35)">
+  <path d="M0 0 L26 0 L31 -3 L34 0 L31 3 L26 0 Z" fill="#D85A30"/>
+  <path d="M10 0 L2 -9 L7 -9 L16 -1 Z" fill="#D85A30"/>
+  <path d="M10 0 L2 9 L7 9 L16 1 Z" fill="#D85A30"/>
+  <path d="M22 0 L26 5 L29 5 L27 0 Z" fill="#D85A30"/>
+</g>
+<text x="200" y="122" font-family="Georgia, serif" font-size="34" fill="#0F6E56" font-weight="700">Unique</text>
+<text x="200" y="156" font-family="Georgia, serif" font-size="34" fill="#D85A30" font-weight="700">Voyage</text>
+</svg>

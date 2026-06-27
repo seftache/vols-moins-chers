@@ -15,8 +15,27 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "CARREFOUR VIP - Accès Privé",
-  description: "L'intelligence artificielle au service des voyageurs d'élite.",
+  title: "UniqueVoyage - L'art de voyager au meilleur prix",
+  description: "L'algorithme qui traque les erreurs tarifaires et les baisses de prix invisibles des compagnies aériennes.",
+  openGraph: {
+    title: "UniqueVoyage - L'art de voyager au meilleur prix",
+    description: "L'algorithme qui traque les erreurs tarifaires et les baisses de prix invisibles des compagnies aériennes.",
+    images: [
+      {
+        url: "/logos/Logo_UniqueVoyage.png",
+        width: 680,
+        height: 200,
+        alt: "Logo UniqueVoyage",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UniqueVoyage - L'art de voyager au meilleur prix",
+    description: "L'algorithme qui traque les erreurs tarifaires et les baisses de prix invisibles des compagnies aériennes.",
+    images: ["/logos/Logo_UniqueVoyage.png"],
+  },
 };
 
 export default function RootLayout({
