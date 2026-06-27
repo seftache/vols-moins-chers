@@ -93,7 +93,7 @@ export default function Home() {
         <div className="relative z-10 flex h-full flex-col justify-between px-6 py-8 md:px-16 md:py-12 lg:px-24">
           <header className="flex w-full items-center justify-between">
             <a href="#" className="flex items-center">
-              <svg viewBox="55 65 280 130" className="h-10 md:h-12 w-auto" xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="55 65 280 130" className="h-12 md:h-16 w-auto" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="120" cy="130" r="56" fill="none" stroke="white" strokeWidth="1.5"/>
                 <path d="M95 105 L95 145 Q95 158 108 158 Q121 158 121 145 L121 118" fill="none" stroke="white" strokeWidth="6" strokeLinecap="round"/>
                 <g transform="translate(133,98) rotate(35)">
