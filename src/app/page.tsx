@@ -218,12 +218,12 @@ export default function Home() {
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-black">
           <iframe
             src="https://www.youtube.com/embed/Qm7OjomqG30?autoplay=1&mute=1&loop=1&playlist=Qm7OjomqG30&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1"
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-[150%] h-[115%] -translate-x-1/2 -translate-y-1/2 object-cover opacity-70 scale-[1.2] brightness-[1.05] contrast-[1.05]"
+            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-[150%] h-[115%] -translate-x-1/2 -translate-y-1/2 object-cover opacity-90 scale-[1.2] brightness-[1.25] contrast-[1.05]"
             allow="autoplay; encrypted-media; picture-in-picture"
             frameBorder="0"
           />
-          {/* Overlay dégradé pour adoucir le haut et le bas tout en gardant une luminosité maximale au centre */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/55 to-black/90" />
+          {/* Overlay dégradé beaucoup plus clair au centre pour une luminosité maximale */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-black/85" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl">
