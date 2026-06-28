@@ -301,7 +301,7 @@ export default function Home() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-10 font-playfair text-4xl italic text-white md:text-5xl lg:text-6xl text-center max-w-4xl mx-auto drop-shadow-2xl"
         >
-          "Le monde appartient à ceux<br />qui ne patientent pas."
+          "Il y a des opportunités qui ne se présentent qu'une fois.<br />Les plus beaux voyages sont ceux que l'on ne rate pas."
         </motion.h2>
       </section>
 
