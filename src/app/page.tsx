@@ -311,7 +311,7 @@ export default function Home() {
       <section className="relative w-full py-28 md:py-32 bg-white overflow-hidden">
 
         <svg
-          className="absolute -left-24 bottom-0 w-[600px] h-[600px] opacity-[0.25] pointer-events-none"
+          className="absolute -left-24 bottom-0 w-[600px] h-[600px] pointer-events-none"
           viewBox="0 0 600 600"
           fill="none"
         >
@@ -321,8 +321,8 @@ export default function Home() {
             strokeWidth="1.5"
             fill="none"
           />
-          <circle cx="150" cy="350" r="120" stroke="#D85A30" strokeWidth="1" fill="#D85A30" fillOpacity="0.06" />
-          <circle cx="280" cy="280" r="60" stroke="#D85A30" strokeWidth="1" fill="#D85A30" fillOpacity="0.12" />
+          <circle cx="150" cy="350" r="120" stroke="#D85A30" strokeWidth="1.5" fill="#D85A30" fillOpacity="0.2" />
+          <circle cx="280" cy="280" r="60" stroke="#D85A30" strokeWidth="1.5" fill="#D85A30" fillOpacity="0.4" />
         </svg>
 
         <div className="relative mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
@@ -350,13 +350,13 @@ export default function Home() {
                 Sélection confidentielle, des expériences remarquables pour nourrir l'esprit.
               </motion.p>
 
-              {/* Filigrane discret (Monogramme en tampon de marque) */}
+              {/* Filigrane bien visible (Monogramme en tampon de marque) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
-                whileInView={{ opacity: 0.08, scale: 1 }}
+                whileInView={{ opacity: 0.5, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-                className="mt-14 hidden lg:block w-28 h-28 select-none pointer-events-none self-start"
+                className="mt-14 hidden lg:block w-32 h-32 select-none pointer-events-none self-start"
               >
                 <svg viewBox="40 60 180 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="120" cy="130" r="56" fill="none" stroke="#0F6E56" strokeWidth="1.5"/>
