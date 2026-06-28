@@ -206,7 +206,11 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-black/20" />
             </div>
-          </mo      {/* =====================================================================
+          </motion.div>
+        </div>
+      </section>
+
+      {/* =====================================================================
           2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes - Grille Apple Style)
           ===================================================================== */}
       <section className="relative w-full bg-[#0A0A0A] py-32 px-6 md:px-16 lg:px-24 border-t border-white/[0.06]">
