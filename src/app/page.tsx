@@ -9,6 +9,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isHoveringCarousel, setIsHoveringCarousel] = useState(false);
 
   const handleVIPClick = () => {
     setIsModalOpen(true);
@@ -29,6 +30,25 @@ export default function Home() {
     return () => window.removeEventListener("resize", updateScrollState);
   }, []);
 
+  // Auto-scroll pour le carrousel (se met en pause au survol)
+  useEffect(() => {
+    if (isHoveringCarousel) return;
+    
+    const interval = setInterval(() => {
+      const el = carouselRef.current;
+      if (el) {
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 10) {
+          el.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          const scrollAmount = el.clientWidth > 768 ? 380 + 24 : 300 + 16;
+          el.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+      }
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [isHoveringCarousel]);
+
   const scrollCarousel = (direction: "left" | "right") => {
     if (carouselRef.current) {
       const scrollAmount = carouselRef.current.clientWidth * 0.8;
@@ -40,12 +60,12 @@ export default function Home() {
   };
 
   const carouselItems = [
-    { id: 1, title: "DUBAÏ", image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1000&auto=format&fit=crop" },
-    { id: 2, title: "PARIS", image: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=1000&auto=format&fit=crop" },
-    { id: 3, title: "DAKAR", image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1000&auto=format&fit=crop" },
-    { id: 4, title: "MONTRÉAL", image: "https://images.unsplash.com/photo-1517737222373-c15d78a9c42c?q=80&w=1000&auto=format&fit=crop" },
-    { id: 5, title: "LONDRES", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1000&auto=format&fit=crop" },
-    { id: 6, title: "TOKYO", image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1000&auto=format&fit=crop" },
+    { id: 1, title: "DUBAÏ", image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1000&auto=format&fit=crop", description: "Découvrez l'opulence du désert, les gratte-ciels futuristes et un luxe absolu." },
+    { id: 2, title: "PARIS", image: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=1000&auto=format&fit=crop", description: "Vivez l'élégance parisienne, la haute gastronomie et le charme intemporel." },
+    { id: 3, title: "DAKAR", image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1000&auto=format&fit=crop", description: "Plongez dans l'effervescence culturelle et la chaleur de l'hospitalité." },
+    { id: 4, title: "MONTRÉAL", image: "https://images.unsplash.com/photo-1517737222373-c15d78a9c42c?q=80&w=1000&auto=format&fit=crop", description: "Explorez un mélange unique de culture et d'art de vivre francophone." },
+    { id: 5, title: "LONDRES", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1000&auto=format&fit=crop", description: "Ressentez l'énergie cosmopolite de cette métropole historique." },
+    { id: 6, title: "TOKYO", image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1000&auto=format&fit=crop", description: "Immergez-vous dans un monde fascinant entre traditions et ultra-modernité." },
   ];
 
   const journeySteps = [
@@ -350,7 +370,7 @@ export default function Home() {
                 Sélection confidentielle, des expériences remarquables pour nourrir l'esprit.
               </motion.p>
 
-              {/* Logo de la marque affiché en couleurs pleines */}
+              {/* Logo de la marque affiché en couleurs pleines avec animation flottante */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -358,21 +378,31 @@ export default function Home() {
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
                 className="mt-14 hidden lg:block w-32 h-32 select-none pointer-events-none self-start"
               >
-                <svg viewBox="40 60 180 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="120" cy="130" r="56" fill="none" stroke="#0F6E56" strokeWidth="1.5"/>
-                  <path d="M95 105 L95 145 Q95 158 108 158 Q121 158 121 145 L121 118" fill="none" stroke="#0F6E56" strokeWidth="6" strokeLinecap="round"/>
-                  <g transform="translate(133,98) rotate(35)">
-                    <path d="M0 0 L26 0 L31 -3 L34 0 L31 3 L26 0 Z" fill="#D85A30"/>
-                    <path d="M10 0 L2 -9 L7 -9 L16 -1 Z" fill="#D85A30"/>
-                    <path d="M10 0 L2 9 L7 9 L16 1 Z" fill="#D85A30"/>
-                    <path d="M22 0 L26 5 L29 5 L27 0 Z" fill="#D85A30"/>
-                  </g>
-                </svg>
+                <motion.div
+                  animate={{ y: [0, -12, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="w-full h-full"
+                >
+                  <svg viewBox="40 60 180 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="120" cy="130" r="56" fill="none" stroke="#0F6E56" strokeWidth="1.5"/>
+                    <path d="M95 105 L95 145 Q95 158 108 158 Q121 158 121 145 L121 118" fill="none" stroke="#0F6E56" strokeWidth="6" strokeLinecap="round"/>
+                    <g transform="translate(133,98) rotate(35)">
+                      <path d="M0 0 L26 0 L31 -3 L34 0 L31 3 L26 0 Z" fill="#D85A30"/>
+                      <path d="M10 0 L2 -9 L7 -9 L16 -1 Z" fill="#D85A30"/>
+                      <path d="M10 0 L2 9 L7 9 L16 1 Z" fill="#D85A30"/>
+                      <path d="M22 0 L26 5 L29 5 L27 0 Z" fill="#D85A30"/>
+                    </g>
+                  </svg>
+                </motion.div>
               </motion.div>
             </div>
 
             {/* Colonne Droite - Le Carrousel défilant */}
-            <div className="w-full lg:flex-grow overflow-hidden relative">
+            <div 
+              className="w-full lg:flex-grow overflow-hidden relative"
+              onMouseEnter={() => setIsHoveringCarousel(true)}
+              onMouseLeave={() => setIsHoveringCarousel(false)}
+            >
               <div
                 ref={carouselRef}
                 onScroll={updateScrollState}
@@ -392,15 +422,20 @@ export default function Home() {
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-105"
                       style={{ backgroundImage: `url('${item.image}')` }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent transition-opacity group-hover:from-black" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent transition-opacity duration-500 group-hover:from-black/90 group-hover:via-black/70" />
 
                     <div className="absolute inset-0 z-10 flex flex-col justify-end p-6 md:p-7">
-                      <h3 className="font-sans font-extrabold text-lg md:text-xl uppercase tracking-wide text-white leading-tight">
+                      <h3 className="font-sans font-extrabold text-lg md:text-xl uppercase tracking-wide text-white leading-tight transform transition-transform duration-500 group-hover:-translate-y-1">
                         {item.title}
                       </h3>
+                      
+                      <p className="text-white/80 text-[13px] md:text-sm mt-0 max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out group-hover:max-h-24 group-hover:opacity-100 group-hover:mt-3 leading-relaxed">
+                        {item.description}
+                      </p>
+
                       <a
                         href="#"
-                        className="mt-5 inline-flex w-fit items-center justify-center border border-white/50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-black"
+                        className="mt-5 inline-flex w-fit items-center justify-center border border-white/50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white hover:text-black"
                       >
                         Explorer le voyage
                       </a>
