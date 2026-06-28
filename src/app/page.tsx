@@ -214,16 +214,20 @@ export default function Home() {
           2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes avec vidéo)
           ===================================================================== */}
       <section className="relative w-full overflow-hidden bg-black px-6 py-32 md:px-16 lg:px-24 border-t border-white/[0.06]">
-        {/* Vidéo YouTube en arrière-plan (Emirates A380 First Class) */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-black">
+        {/* Conteneur de fond avec nuages pour remplir les bordures */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?q=80&w=2000&auto=format&fit=crop')" }}
+        >
+          {/* Vidéo YouTube centrée et contrainte au format 16/9 (pas de déformation, pas de zoom excessif) */}
           <iframe
             src="https://www.youtube.com/embed/Qm7OjomqG30?autoplay=1&mute=1&loop=1&playlist=Qm7OjomqG30&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1"
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-[250%] h-[150%] -translate-x-1/2 -translate-y-1/2 object-cover opacity-85 scale-[1.8] brightness-[1.1] contrast-[1.05]"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-video max-w-full max-h-full object-cover opacity-90 scale-[1.02] brightness-[1.05] contrast-[1.05]"
             allow="autoplay; encrypted-media; picture-in-picture"
             frameBorder="0"
           />
-          {/* Overlay ultra léger (transparent au milieu) pour une luminosité maximale, tout en gardant le texte blanc lisible */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-black/60" />
+          {/* Overlay pour la lisibilité du texte blanc sur les nuages et la vidéo */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-black/85" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-5xl">
