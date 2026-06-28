@@ -324,85 +324,93 @@ export default function Home() {
           <circle cx="280" cy="280" r="60" stroke="black" strokeWidth="1" />
         </svg>
 
-        <div className="relative mx-auto max-w-7xl px-6 md:px-16 lg:px-24 mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-          <div className="max-w-md">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-playfair font-bold text-4xl md:text-6xl text-black uppercase tracking-tight leading-[0.95]"
-            >
-              Échappées Belles
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-              className="mt-5 text-base md:text-lg font-light italic text-black/55"
-            >
-              Sélection confidentielle, des expériences remarquables pour nourrir l'esprit
-            </motion.p>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div
-            ref={carouselRef}
-            onScroll={updateScrollState}
-            className="flex gap-4 md:gap-6 overflow-x-auto pl-6 md:pl-16 lg:pl-24 pr-6 snap-x snap-mandatory hide-scrollbar"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {carouselItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
-                className="group relative flex-none w-[260px] sm:w-[300px] md:w-[340px] lg:w-[380px] aspect-[3/5] snap-center overflow-hidden cursor-pointer bg-[#0A0A0A]"
+        <div className="relative mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+            
+            {/* Colonne Gauche - Titre & Sous-titre fixes */}
+            <div className="w-full lg:w-[320px] lg:flex-shrink-0 flex flex-col py-6">
+              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-black/40 mb-3 block">SÉLECTION CONFIDENTIELLE</span>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="font-playfair font-bold text-4xl md:text-5xl lg:text-6xl text-black uppercase tracking-tight leading-[0.95]"
               >
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-105"
-                  style={{ backgroundImage: `url('${item.image}')` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent transition-opacity group-hover:from-black" />
+                Échappées<br />Belles
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+                className="mt-6 text-sm font-light italic text-black/55 leading-relaxed"
+              >
+                Sélection confidentielle, des expériences remarquables pour nourrir l'esprit.
+              </motion.p>
+            </div>
 
-                <div className="absolute inset-0 z-10 flex flex-col justify-end p-6 md:p-7">
-                  <h3 className="font-sans font-extrabold text-lg md:text-xl uppercase tracking-wide text-white leading-tight">
-                    {item.title}
-                  </h3>
-                  <a
-                    href="#"
-                    className="mt-5 inline-flex w-fit items-center justify-center border border-white/50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-black"
+            {/* Colonne Droite - Le Carrousel défilant */}
+            <div className="w-full lg:flex-grow overflow-hidden relative">
+              <div
+                ref={carouselRef}
+                onScroll={updateScrollState}
+                className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                {carouselItems.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
+                    className="group relative flex-none w-[260px] sm:w-[300px] md:w-[340px] lg:w-[380px] aspect-[3/5] snap-center overflow-hidden cursor-pointer bg-[#0A0A0A]"
                   >
-                    Explorer le voyage
-                  </a>
-                </div>
-              </motion.div>
-            ))}
+                    <div
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-105"
+                      style={{ backgroundImage: `url('${item.image}')` }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent transition-opacity group-hover:from-black" />
+
+                    <div className="absolute inset-0 z-10 flex flex-col justify-end p-6 md:p-7">
+                      <h3 className="font-sans font-extrabold text-lg md:text-xl uppercase tracking-wide text-white leading-tight">
+                        {item.title}
+                      </h3>
+                      <a
+                        href="#"
+                        className="mt-5 inline-flex w-fit items-center justify-center border border-white/50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-black"
+                      >
+                        Explorer le voyage
+                      </a>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Boutons de navigation (flèches flottantes) */}
+              <button
+                onClick={() => scrollCarousel("left")}
+                aria-label="Défiler à gauche"
+                className={`absolute left-3 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black ${
+                  canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+              >
+                <ChevronLeft size={22} strokeWidth={1.5} />
+              </button>
+
+              <button
+                onClick={() => scrollCarousel("right")}
+                aria-label="Défiler à droite"
+                className={`absolute right-3 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black ${
+                  canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+              >
+                <ChevronRight size={22} strokeWidth={1.5} />
+              </button>
+            </div>
+
           </div>
-
-          <button
-            onClick={() => scrollCarousel("left")}
-            aria-label="Défiler à gauche"
-            className={`absolute left-3 md:left-8 top-[38%] -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black ${
-              canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-          >
-            <ChevronLeft size={22} strokeWidth={1.5} />
-          </button>
-
-          <button
-            onClick={() => scrollCarousel("right")}
-            aria-label="Défiler à droite"
-            className={`absolute right-3 md:right-8 top-[38%] -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black ${
-              canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-          >
-            <ChevronRight size={22} strokeWidth={1.5} />
-          </button>
         </div>
 
         <style dangerouslySetInnerHTML={{ __html: `
