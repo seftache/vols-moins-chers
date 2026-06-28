@@ -635,26 +635,33 @@ export default function Home() {
       {/* =====================================================================
           5. L'OFFRE VIP (avec contraste Gratuit / VIP)
           ===================================================================== */}
-      <section className="relative w-full bg-[#0A0A0A] px-6 py-40 md:px-16 lg:px-24">
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8 font-playfair text-4xl text-white md:text-6xl"
-          >
-            Le Club Privé
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            className="mb-16 max-w-2xl font-sans text-sm font-light leading-relaxed text-[#A3A3A3] md:text-base"
-          >
-            Le temps est le vrai luxe. Accédez à nos itinéraires secrets et aux alertes instantanées avant tout le monde.
-          </motion.p>
+      <section 
+        className="relative w-full px-6 py-32 md:py-40 md:px-16 lg:px-24 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80&w=3000&auto=format&fit=crop')" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/20" />
+        
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-start text-left">
+          <div className="max-w-2xl">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="mb-6 font-playfair text-5xl text-white md:text-6xl lg:text-7xl"
+            >
+              Le Club Privé
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+              className="mb-16 font-sans text-sm font-light leading-relaxed text-[#D1D1D1] md:text-base lg:text-lg"
+            >
+              Le temps est le vrai luxe. Accédez à nos itinéraires secrets et aux alertes instantanées avant tout le monde.
+            </motion.p>
+          </div>
 
           {/* Contraste Gratuit / VIP */}
           <motion.div
@@ -662,54 +669,56 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-            className="grid w-full grid-cols-1 sm:grid-cols-2 mb-16 border border-white/10"
+            className="grid w-full max-w-4xl grid-cols-1 sm:grid-cols-2 mb-16 border border-white/20 bg-black/40 backdrop-blur-md"
           >
-            <div className="p-8 md:p-10 border-b sm:border-b-0 sm:border-r border-white/10 text-left">
-              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white/40">Membre Gratuit</span>
-              <p className="mt-4 text-sm md:text-base font-light leading-relaxed text-[#A3A3A3]">
+            <div className="p-8 md:p-10 border-b sm:border-b-0 sm:border-r border-white/20 text-left">
+              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white/50">Membre Gratuit</span>
+              <p className="mt-4 text-sm md:text-base font-light leading-relaxed text-[#D1D1D1]">
                 Alertes reçues 12 à 24 heures après les membres VIP — souvent trop tard pour réserver.
               </p>
             </div>
-            <div className="p-8 md:p-10 text-left bg-white/[0.03]">
-              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white">Membre VIP</span>
-              <p className="mt-4 text-sm md:text-base font-light leading-relaxed text-white/80">
+            <div className="p-8 md:p-10 text-left bg-white/5">
+              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white font-bold">Membre VIP</span>
+              <p className="mt-4 text-sm md:text-base font-light leading-relaxed text-white">
                 Alertes en temps réel, dès la détection de l'offre par notre algorithme.
               </p>
             </div>
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="mb-10 text-xs font-light italic text-white/50"
-          >
-            Invitez 3 amis pour débloquer une alerte en temps réel, gratuitement.
-          </motion.p>
+          <div className="flex w-full max-w-4xl flex-col items-start text-left">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              className="mb-10 text-xs font-light italic text-white/60"
+            >
+              Invitez 3 amis pour débloquer une alerte en temps réel, gratuitement.
+            </motion.p>
 
-          <motion.button
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.25 }}
-            onClick={handleVIPClick}
-            className="border border-white/30 bg-transparent px-10 py-5 transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
-          >
-            <span className="font-sans text-xs font-bold uppercase tracking-widest">
-              Accès VIP - 2 500 FCFA / mois
-            </span>
-          </motion.button>
+            <motion.button
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.25 }}
+              onClick={handleVIPClick}
+              className="border border-white/30 bg-black/40 backdrop-blur-md px-10 py-5 transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
+            >
+              <span className="font-sans text-xs font-bold uppercase tracking-widest text-white">
+                Accès VIP - 2 500 FCFA / mois
+              </span>
+            </motion.button>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-            className="mt-6 text-[10px] font-light uppercase tracking-[0.2em] text-white/35"
-          >
-            Paiement via Wave, Mobile Money ou carte bancaire
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+              className="mt-6 text-[10px] font-light uppercase tracking-[0.2em] text-white/35"
+            >
+              Paiement via Wave, Mobile Money ou carte bancaire
+            </motion.p>
+          </div>
         </div>
       </section>
 
