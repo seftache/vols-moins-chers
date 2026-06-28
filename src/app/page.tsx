@@ -61,7 +61,7 @@ export default function Home() {
 
   const carouselItems = [
     { id: 1, title: "DUBAÏ", image: "/images/destinations/dubai.jpg", description: "Découvrez l'opulence du désert, les gratte-ciels futuristes et un luxe absolu." },
-    { id: 2, title: "PARIS", image: "/images/destinations/paris.jpg", description: "Vivez l'élégance parisienne, la haute gastronomie et le charme intemporel." },
+    { id: 2, title: "PARIS", image: "/images/destinations/Paris.jpg", description: "Vivez l'élégance parisienne, la haute gastronomie et le charme intemporel." },
     { id: 3, title: "DAKAR", image: "/images/destinations/dakar.jpg", description: "Plongez dans l'effervescence culturelle et la chaleur de l'hospitalité." },
     { id: 4, title: "MONTRÉAL", image: "/images/destinations/montreal.jpg", description: "Explorez un mélange unique de culture et d'art de vivre francophone." },
     { id: 5, title: "LONDRES", image: "/images/destinations/londres.jpg", description: "Ressentez l'énergie cosmopolite de cette métropole historique." },
@@ -376,7 +376,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-                className="mt-14 hidden lg:block w-32 h-32 select-none pointer-events-none self-start"
+                className="mt-8 lg:mt-14 w-24 h-24 lg:w-32 lg:h-32 select-none pointer-events-none self-start"
               >
                 <motion.div
                   animate={{ y: [0, -12, 0] }}
