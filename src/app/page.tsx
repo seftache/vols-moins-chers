@@ -212,12 +212,23 @@ export default function Home() {
 
       {/* =====================================================================
           2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes - Grille Apple Style)
-          ===================================================================== */}
-      <section className="relative w-full bg-[#0A0A0A] py-32 px-6 md:px-16 lg:px-24 border-t border-white/[0.06]">
-        <div className="mx-auto max-w-7xl">
+          =============================      <section className="relative w-full overflow-hidden bg-black py-32 px-6 md:px-16 lg:px-24 border-t border-white/[0.06]">
+        {/* Vidéo YouTube en arrière-plan (Emirates A380 First Class) */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-black">
+          <iframe
+            src="https://www.youtube.com/embed/Qm7OjomqG30?autoplay=1&mute=1&loop=1&playlist=Qm7OjomqG30&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1"
+            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-[150%] h-[115%] -translate-x-1/2 -translate-y-1/2 object-cover opacity-70 scale-[1.2] brightness-[1.05] contrast-[1.05]"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            frameBorder="0"
+          />
+          {/* Overlay dégradé pour adoucir le haut et le bas tout en gardant une luminosité maximale au centre */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/55 to-black/90" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
-            {/* Colonne Gauche - Titre & Vidéo Collante (Sticky) */}
+            {/* Colonne Gauche - Titre */}
             <div className="lg:col-span-5 lg:sticky lg:top-32 flex flex-col gap-10">
               <div>
                 <motion.p
@@ -239,23 +250,6 @@ export default function Home() {
                   Du clic au décollage.
                 </motion.h2>
               </div>
-
-              {/* Lecteur vidéo intégré 16/9 Premium */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative w-full aspect-video overflow-hidden rounded-xl border border-white/10 bg-black shadow-2xl"
-              >
-                <iframe
-                  src="https://www.youtube.com/embed/Qm7OjomqG30?autoplay=1&mute=1&loop=1&playlist=Qm7OjomqG30&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1"
-                  className="absolute inset-0 w-full h-full object-cover scale-[1.05] brightness-95"
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  frameBorder="0"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              </motion.div>
             </div>
 
             {/* Colonne Droite - Les 5 étapes de l'expérience */}
