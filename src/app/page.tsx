@@ -311,17 +311,17 @@ export default function Home() {
       <section className="relative w-full py-28 md:py-32 bg-white overflow-hidden">
 
         <svg
-          className="absolute -left-24 bottom-0 w-[600px] h-[600px] opacity-[0.05] pointer-events-none"
+          className="absolute -left-24 bottom-0 w-[600px] h-[600px] opacity-[0.08] pointer-events-none"
           viewBox="0 0 600 600"
           fill="none"
         >
           <path
             d="M50 450C150 500 250 380 200 280C150 180 280 120 380 180C480 240 460 380 380 420C300 460 250 350 320 320"
-            stroke="black"
+            stroke="#D85A30"
             strokeWidth="1.5"
           />
-          <circle cx="150" cy="350" r="120" stroke="black" strokeWidth="1" />
-          <circle cx="280" cy="280" r="60" stroke="black" strokeWidth="1" />
+          <circle cx="150" cy="350" r="120" stroke="#D85A30" strokeWidth="1" />
+          <circle cx="280" cy="280" r="60" stroke="#D85A30" strokeWidth="1" />
         </svg>
 
         <div className="relative mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
