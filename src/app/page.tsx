@@ -211,10 +211,22 @@ export default function Home() {
       </section>
 
       {/* =====================================================================
-          2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes)
+          2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes avec vidéo)
           ===================================================================== */}
-      <section className="relative w-full bg-[#0A0A0A] px-6 py-32 md:px-16 lg:px-24 border-t border-white/[0.06]">
-        <div className="mx-auto max-w-5xl">
+      <section className="relative w-full overflow-hidden bg-black px-6 py-32 md:px-16 lg:px-24 border-t border-white/[0.06]">
+        {/* Vidéo YouTube en arrière-plan (Emirates A380 First Class) */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <iframe
+            src="https://www.youtube.com/embed/Qm7OjomqG30?autoplay=1&mute=1&loop=1&playlist=Qm7OjomqG30&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1"
+            className="absolute top-1/2 left-1/2 h-[56.25vw] w-[177.77vh] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover opacity-55 scale-[1.35] brightness-[0.75] contrast-[1.05]"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            frameBorder="0"
+          />
+          {/* Overlay de dégradé pour adoucir les transitions haut/bas et garantir la lisibilité du texte blanc */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-5xl">
           <motion.h3
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
