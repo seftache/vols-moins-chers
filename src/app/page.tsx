@@ -311,7 +311,7 @@ export default function Home() {
       <section className="relative w-full py-28 md:py-32 bg-white overflow-hidden">
 
         <svg
-          className="absolute -left-24 bottom-0 w-[600px] h-[600px] opacity-[0.08] pointer-events-none"
+          className="absolute -left-24 bottom-0 w-[600px] h-[600px] opacity-[0.25] pointer-events-none"
           viewBox="0 0 600 600"
           fill="none"
         >
