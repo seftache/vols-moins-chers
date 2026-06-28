@@ -319,9 +319,10 @@ export default function Home() {
             d="M50 450C150 500 250 380 200 280C150 180 280 120 380 180C480 240 460 380 380 420C300 460 250 350 320 320"
             stroke="#D85A30"
             strokeWidth="1.5"
+            fill="none"
           />
-          <circle cx="150" cy="350" r="120" stroke="#D85A30" strokeWidth="1" />
-          <circle cx="280" cy="280" r="60" stroke="#D85A30" strokeWidth="1" />
+          <circle cx="150" cy="350" r="120" stroke="#D85A30" strokeWidth="1" fill="#D85A30" fillOpacity="0.06" />
+          <circle cx="280" cy="280" r="60" stroke="#D85A30" strokeWidth="1" fill="#D85A30" fillOpacity="0.12" />
         </svg>
 
         <div className="relative mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
@@ -348,6 +349,26 @@ export default function Home() {
               >
                 Sélection confidentielle, des expériences remarquables pour nourrir l'esprit.
               </motion.p>
+
+              {/* Filigrane discret (Monogramme en tampon de marque) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 0.08, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
+                className="mt-14 hidden lg:block w-28 h-28 select-none pointer-events-none self-start"
+              >
+                <svg viewBox="40 60 180 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="120" cy="130" r="56" fill="none" stroke="#0F6E56" strokeWidth="1.5"/>
+                  <path d="M95 105 L95 145 Q95 158 108 158 Q121 158 121 145 L121 118" fill="none" stroke="#0F6E56" strokeWidth="6" strokeLinecap="round"/>
+                  <g transform="translate(133,98) rotate(35)">
+                    <path d="M0 0 L26 0 L31 -3 L34 0 L31 3 L26 0 Z" fill="#D85A30"/>
+                    <path d="M10 0 L2 -9 L7 -9 L16 -1 Z" fill="#D85A30"/>
+                    <path d="M10 0 L2 9 L7 9 L16 1 Z" fill="#D85A30"/>
+                    <path d="M22 0 L26 5 L29 5 L27 0 Z" fill="#D85A30"/>
+                  </g>
+                </svg>
+              </motion.div>
             </div>
 
             {/* Colonne Droite - Le Carrousel défilant */}
