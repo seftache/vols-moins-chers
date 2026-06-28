@@ -448,7 +448,7 @@ export default function Home() {
               <button
                 onClick={() => scrollCarousel("left")}
                 aria-label="Défiler à gauche"
-                className={`absolute left-3 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black ${
+                className={`absolute left-3 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white ${
                   canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"
                 }`}
               >
@@ -458,7 +458,7 @@ export default function Home() {
               <button
                 onClick={() => scrollCarousel("right")}
                 aria-label="Défiler à droite"
-                className={`absolute right-3 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black ${
+                className={`absolute right-3 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white ${
                   canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"
                 }`}
               >
@@ -572,7 +572,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             >
-              <button className="border border-white/20 px-8 py-4 uppercase font-sans tracking-[0.2em] text-[10px] text-white hover:bg-white hover:text-black transition-colors duration-500">
+              <button className="border border-white/20 px-8 py-4 uppercase font-sans tracking-[0.2em] text-[10px] text-white hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white transition-colors duration-500">
                 Découvrir la collection
               </button>
             </motion.div>
