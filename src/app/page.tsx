@@ -350,10 +350,10 @@ export default function Home() {
                 Sélection confidentielle, des expériences remarquables pour nourrir l'esprit.
               </motion.p>
 
-              {/* Filigrane bien visible (Monogramme en tampon de marque) */}
+              {/* Logo de la marque affiché en couleurs pleines */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
-                whileInView={{ opacity: 0.5, scale: 1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
                 className="mt-14 hidden lg:block w-32 h-32 select-none pointer-events-none self-start"
