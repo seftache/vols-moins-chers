@@ -60,12 +60,12 @@ export default function Home() {
   };
 
   const carouselItems = [
-    { id: 1, title: "DUBAÏ", image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1000&auto=format&fit=crop", description: "Découvrez l'opulence du désert, les gratte-ciels futuristes et un luxe absolu." },
-    { id: 2, title: "PARIS", image: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=1000&auto=format&fit=crop", description: "Vivez l'élégance parisienne, la haute gastronomie et le charme intemporel." },
-    { id: 3, title: "DAKAR", image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1000&auto=format&fit=crop", description: "Plongez dans l'effervescence culturelle et la chaleur de l'hospitalité." },
-    { id: 4, title: "MONTRÉAL", image: "https://images.unsplash.com/photo-1517737222373-c15d78a9c42c?q=80&w=1000&auto=format&fit=crop", description: "Explorez un mélange unique de culture et d'art de vivre francophone." },
-    { id: 5, title: "LONDRES", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1000&auto=format&fit=crop", description: "Ressentez l'énergie cosmopolite de cette métropole historique." },
-    { id: 6, title: "TOKYO", image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1000&auto=format&fit=crop", description: "Immergez-vous dans un monde fascinant entre traditions et ultra-modernité." },
+    { id: 1, title: "DUBAÏ", image: "/images/destinations/dubai.jpg", description: "Découvrez l'opulence du désert, les gratte-ciels futuristes et un luxe absolu." },
+    { id: 2, title: "PARIS", image: "/images/destinations/paris.jpg", description: "Vivez l'élégance parisienne, la haute gastronomie et le charme intemporel." },
+    { id: 3, title: "DAKAR", image: "/images/destinations/dakar.jpg", description: "Plongez dans l'effervescence culturelle et la chaleur de l'hospitalité." },
+    { id: 4, title: "MONTRÉAL", image: "/images/destinations/montreal.jpg", description: "Explorez un mélange unique de culture et d'art de vivre francophone." },
+    { id: 5, title: "LONDRES", image: "/images/destinations/londres.jpg", description: "Ressentez l'énergie cosmopolite de cette métropole historique." },
+    { id: 6, title: "TOKYO", image: "/images/destinations/tokyo.jpg", description: "Immergez-vous dans un monde fascinant entre traditions et ultra-modernité." },
   ];
 
   const journeySteps = [
@@ -637,7 +637,7 @@ export default function Home() {
           ===================================================================== */}
       <section 
         className="relative w-full px-6 py-32 md:py-40 md:px-16 lg:px-24 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80&w=3000&auto=format&fit=crop')" }}
+        style={{ backgroundImage: "url('/images/club-prive-bg.png')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/20" />
         
