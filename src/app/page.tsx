@@ -636,7 +636,7 @@ export default function Home() {
           5. L'OFFRE VIP (avec contraste Gratuit / VIP)
           ===================================================================== */}
       <section 
-        className="relative w-full px-6 py-32 md:py-40 md:px-16 lg:px-24 bg-cover bg-center bg-no-repeat"
+        className="relative w-full px-6 py-16 md:py-20 md:px-16 lg:px-24 bg-cover bg-[center_top_20%] bg-no-repeat"
         style={{ backgroundImage: "url('/images/club-prive-bg.png')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/20" />
@@ -657,7 +657,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-              className="mb-16 font-sans text-sm font-light leading-relaxed text-[#D1D1D1] md:text-base lg:text-lg"
+              className="mb-10 font-sans text-sm font-light leading-relaxed text-[#D1D1D1] md:text-base lg:text-lg"
             >
               Le temps est le vrai luxe. Accédez à nos itinéraires secrets et aux alertes instantanées avant tout le monde.
             </motion.p>
@@ -669,7 +669,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-            className="grid w-full max-w-4xl grid-cols-1 sm:grid-cols-2 mb-16 border border-white/20 bg-black/40 backdrop-blur-md"
+            className="grid w-full max-w-4xl grid-cols-1 sm:grid-cols-2 mb-10 border border-white/20 bg-black/40 backdrop-blur-md"
           >
             <div className="p-8 md:p-10 border-b sm:border-b-0 sm:border-r border-white/20 text-left">
               <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white/50">Membre Gratuit</span>
