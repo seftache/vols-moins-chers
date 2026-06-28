@@ -212,7 +212,8 @@ export default function Home() {
 
       {/* =====================================================================
           2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes - Grille Apple Style)
-          =============================      <section className="relative w-full overflow-hidden bg-black py-32 px-6 md:px-16 lg:px-24 border-t border-white/[0.06]">
+          ===================================================================== */}
+      <section className="relative w-full overflow-hidden bg-black py-32 px-6 md:px-16 lg:px-24 border-t border-white/[0.06]">
         {/* Vidéo YouTube en arrière-plan (Emirates A380 First Class) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-black">
           <iframe
