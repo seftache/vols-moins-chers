@@ -135,7 +135,7 @@ export default function Home() {
               </a>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-black"
+                className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
               >
                 Accès Privé
               </button>
@@ -435,7 +435,7 @@ export default function Home() {
 
                       <a
                         href="#"
-                        className="mt-5 inline-flex w-fit items-center justify-center border border-white/50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white hover:text-black"
+                        className="mt-5 inline-flex w-fit items-center justify-center border border-white/50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
                       >
                         Explorer le voyage
                       </a>
@@ -694,7 +694,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.25 }}
             onClick={handleVIPClick}
-            className="border border-white/30 bg-transparent px-10 py-5 transition-all duration-300 hover:bg-white hover:text-black"
+            className="border border-white/30 bg-transparent px-10 py-5 transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
           >
             <span className="font-sans text-xs font-bold uppercase tracking-widest">
               Accès VIP - 2 500 FCFA / mois
