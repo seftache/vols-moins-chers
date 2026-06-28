@@ -206,73 +206,80 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-black/20" />
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* =====================================================================
-          2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes avec vidéo)
+          </mo      {/* =====================================================================
+          2.5 COMMENT ÇA MARCHE (Parcours utilisateur en 5 étapes - Grille Apple Style)
           ===================================================================== */}
-      <section className="relative w-full overflow-hidden bg-black px-6 py-32 md:px-16 lg:px-24 border-t border-white/[0.06]">
-        {/* Conteneur de fond avec nuages pour remplir les bordures */}
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?q=80&w=2000&auto=format&fit=crop')" }}
-        >
-          {/* Vidéo YouTube centrée et contrainte au format 16/9 (pas de déformation, pas de zoom excessif) */}
-          <iframe
-            src="https://www.youtube.com/embed/Qm7OjomqG30?autoplay=1&mute=1&loop=1&playlist=Qm7OjomqG30&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-video max-w-full max-h-full object-cover opacity-90 scale-[1.02] brightness-[1.05] contrast-[1.05]"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            frameBorder="0"
-          />
-          {/* Overlay pour la lisibilité du texte blanc sur les nuages et la vidéo */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-black/85" />
-        </div>
+      <section className="relative w-full bg-[#0A0A0A] py-32 px-6 md:px-16 lg:px-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            {/* Colonne Gauche - Titre & Vidéo Collante (Sticky) */}
+            <div className="lg:col-span-5 lg:sticky lg:top-32 flex flex-col gap-10">
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="text-[#888888] font-sans text-xs uppercase tracking-[0.3em] mb-4"
+                >
+                  Le parcours
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="font-playfair text-4xl md:text-5xl lg:text-6xl text-white leading-tight"
+                >
+                  Du clic au décollage.
+                </motion.h2>
+              </div>
 
-        <div className="relative z-10 mx-auto max-w-5xl">
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-6 text-xs font-light uppercase tracking-[0.3em] text-[#D4D4D4]"
-          >
-            Le parcours
-          </motion.h3>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            className="mb-20 font-playfair text-4xl leading-[1.2] text-white sm:text-5xl md:text-6xl max-w-2xl"
-          >
-            Du clic au décollage, en cinq étapes.
-          </motion.h2>
-
-          <div className="flex flex-col">
-            {journeySteps.map((step, index) => (
+              {/* Lecteur vidéo intégré 16/9 Premium */}
               <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, delay: index * 0.08, ease: "easeOut" }}
-                className="group grid grid-cols-[auto_1fr] gap-6 md:gap-12 items-start py-8 md:py-10 border-b border-white/[0.08] last:border-b-0"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative w-full aspect-video overflow-hidden rounded-xl border border-white/10 bg-black shadow-2xl"
               >
-                <span className="font-playfair text-4xl md:text-5xl italic text-white/25 transition-colors duration-500 group-hover:text-white/60">
-                  {step.number}
-                </span>
-                <div>
-                  <h4 className="font-sans text-base md:text-lg font-bold uppercase tracking-[0.1em] text-white mb-3">
-                    {step.title}
-                  </h4>
-                  <p className="max-w-xl text-sm md:text-base font-light leading-relaxed text-[#A3A3A3]">
-                    {step.text}
-                  </p>
-                </div>
+                <iframe
+                  src="https://www.youtube.com/embed/Qm7OjomqG30?autoplay=1&mute=1&loop=1&playlist=Qm7OjomqG30&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1"
+                  className="absolute inset-0 w-full h-full object-cover scale-[1.05] brightness-95"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  frameBorder="0"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
               </motion.div>
-            ))}
+            </div>
+
+            {/* Colonne Droite - Les 5 étapes de l'expérience */}
+            <div className="lg:col-span-7 flex flex-col">
+              {journeySteps.map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.7, delay: index * 0.08, ease: "easeOut" }}
+                  className="group grid grid-cols-[auto_1fr] gap-6 md:gap-12 items-start py-8 md:py-10 border-b border-white/[0.08] last:border-b-0"
+                >
+                  <span className="font-playfair text-4xl md:text-5xl italic text-white/25 transition-colors duration-500 group-hover:text-white/60">
+                    {step.number}
+                  </span>
+                  <div>
+                    <h4 className="font-sans text-base md:text-lg font-bold uppercase tracking-[0.1em] text-white mb-3">
+                      {step.title}
+                    </h4>
+                    <p className="max-w-xl text-sm md:text-base font-light leading-relaxed text-[#A3A3A3]">
+                      {step.text}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
