@@ -51,18 +51,19 @@ export async function POST(request: NextRequest) {
 
       console.log(`[Webhook] ✅ is_vip mis à true pour l'utilisateur ${userId}`);
 
-      // 4. (Optionnel) Enregistrer la transaction dans une table payments
-      await supabaseAdmin.from('payments').upsert({
-        user_id: userId,
-        reference: event.data.reference,
-        amount: amount / 100,
-        currency,
-        email: customer?.email,
-        status: 'success',
-        paid_at: event.data.paid_at,
-      }).catch(() => {
+      try {
+        await supabaseAdmin.from('payments').upsert({
+          user_id: userId,
+          reference: event.data.reference,
+          amount: amount / 100,
+          currency,
+          email: customer?.email,
+          status: 'success',
+          paid_at: event.data.paid_at,
+        });
+      } catch {
         // Table payments optionnelle — on ignore si elle n'existe pas encore
-      });
+      }
     }
 
     // Toujours répondre 200 à Paystack pour arrêter les retries
@@ -73,10 +74,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Erreur serveur.' }, { status: 500 });
   }
 }
-
-// Désactiver le parsing automatique du body pour pouvoir vérifier la signature brute
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
