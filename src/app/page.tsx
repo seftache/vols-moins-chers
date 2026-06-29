@@ -2,14 +2,49 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, X, ChevronLeft, ChevronRight, Check, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "../lib/supabase";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isHoveringCarousel, setIsHoveringCarousel] = useState(false);
+
+  // Supabase Waitlist states
+  const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!whatsappNumber.trim()) return;
+    
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setErrorMessage("");
+
+    const { error } = await supabase
+      .from("waitlist")
+      .insert({ whatsapp_number: whatsappNumber.trim() });
+
+    if (error) {
+      if (error.code === "23505") { // Unique violation code in Postgres
+        setSubmitStatus("error");
+        setErrorMessage("Vous êtes déjà sur la liste !");
+      } else {
+        setSubmitStatus("error");
+        setErrorMessage("Une erreur est survenue. Veuillez réessayer.");
+      }
+    } else {
+      setSubmitStatus("success");
+      setWhatsappNumber("");
+    }
+    
+    setIsSubmitting(false);
+  };
 
   const handleVIPClick = () => {
     setIsModalOpen(true);
@@ -153,20 +188,51 @@ export default function Home() {
               depuis Abidjan.
             </h1>
 
-            <form className="group relative flex w-full max-w-md items-center border-b border-white/50 pb-2 transition-colors focus-within:border-white hover:border-white" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="text"
-                placeholder="Votre numéro WhatsApp..."
-                className="w-full bg-transparent px-2 py-2 font-playfair text-lg italic text-white placeholder:text-white/50 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="p-2 text-white/70 transition-colors hover:text-white"
-                aria-label="Valider"
+            {submitStatus === "success" ? (
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                className="flex items-center gap-3 w-full max-w-md border-b border-white pb-2 text-white"
               >
-                <ArrowRight strokeWidth={1} size={28} />
-              </button>
-            </form>
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#D85A30]">
+                  <Check size={16} strokeWidth={3} className="text-white" />
+                </div>
+                <span className="font-sans text-sm font-bold tracking-[0.2em] uppercase">Vous êtes sur la liste !</span>
+              </motion.div>
+            ) : (
+              <div className="w-full max-w-md">
+                <form 
+                  className={`group relative flex w-full items-center border-b pb-2 transition-colors focus-within:border-white hover:border-white ${submitStatus === 'error' ? 'border-[#D85A30]/80' : 'border-white/50'}`} 
+                  onSubmit={handleWaitlistSubmit}
+                >
+                  <input
+                    type="text"
+                    value={whatsappNumber}
+                    onChange={(e) => setWhatsappNumber(e.target.value)}
+                    placeholder="Votre numéro WhatsApp..."
+                    disabled={isSubmitting}
+                    className="w-full bg-transparent px-2 py-2 font-playfair text-lg italic text-white placeholder:text-white/50 focus:outline-none disabled:opacity-50"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !whatsappNumber.trim()}
+                    className="p-2 text-white/70 transition-colors hover:text-white disabled:opacity-50"
+                    aria-label="Valider"
+                  >
+                    {isSubmitting ? (
+                      <Loader2 strokeWidth={1.5} size={24} className="animate-spin text-[#D85A30]" />
+                    ) : (
+                      <ArrowRight strokeWidth={1} size={28} />
+                    )}
+                  </button>
+                </form>
+                {submitStatus === "error" && (
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-2 pl-2 text-xs font-light text-[#D85A30]">
+                    {errorMessage}
+                  </motion.p>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="flex w-full flex-col items-center justify-center gap-4">
