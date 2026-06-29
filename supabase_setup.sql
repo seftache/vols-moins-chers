@@ -62,3 +62,104 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+
+-- ==========================================
+-- 5. TABLE DETECTED_DEALS (Deals détectés par le cron)
+-- ==========================================
+CREATE TABLE public.detected_deals (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+  -- Infos vol
+  origin TEXT NOT NULL DEFAULT 'ABJ',
+  destination TEXT NOT NULL,
+  destination_name TEXT,
+  airline TEXT,
+  airline_name TEXT,
+  departure_date DATE NOT NULL,
+  return_date DATE,
+  price_fcfa INTEGER NOT NULL,
+  currency TEXT DEFAULT 'XOF',
+
+  -- Contexte marché
+  average_price_fcfa INTEGER,      -- prix moyen constaté sur la route
+  discount_percent NUMERIC(5,2),   -- % de réduction vs le prix moyen
+  is_lowest_price BOOLEAN DEFAULT false,
+
+  -- Hébergement suggéré
+  hotel_name TEXT,
+  hotel_price_fcfa INTEGER,
+  hotel_stars INTEGER,
+
+  -- Pipeline IA
+  is_processed BOOLEAN DEFAULT false,    -- L'IA a-t-elle traité cette offre ?
+  is_sent BOOLEAN DEFAULT false,         -- L'alerte a-t-elle été envoyée aux membres ?
+  sent_at TIMESTAMP WITH TIME ZONE,
+
+  -- Métadonnées source
+  source TEXT DEFAULT 'travelpayouts', -- fournisseur de données
+  raw_data JSONB,                       -- données brutes de l'API
+  detected_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+  -- Empêcher les doublons (même vol, même date, même prix)
+  UNIQUE (destination, departure_date, price_fcfa, airline)
+);
+
+-- RLS : lecture uniquement par les fonctions serveur (aucun accès client direct)
+ALTER TABLE public.detected_deals ENABLE ROW LEVEL SECURITY;
+
+-- Index pour les requêtes fréquentes
+CREATE INDEX idx_deals_unprocessed ON public.detected_deals (is_processed) WHERE is_processed = false;
+CREATE INDEX idx_deals_destination ON public.detected_deals (destination, departure_date);
+CREATE INDEX idx_deals_detected_at ON public.detected_deals (detected_at DESC);
+
+-- ==========================================
+-- 6. TABLE PAYMENTS (Historique des paiements Paystack)
+-- ==========================================
+CREATE TABLE public.payments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES public.users(id) ON DELETE CASCADE,
+  reference TEXT UNIQUE NOT NULL,
+  amount INTEGER NOT NULL,
+  currency TEXT DEFAULT 'XOF',
+  email TEXT,
+  status TEXT DEFAULT 'success',
+  paid_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE public.payments ENABLE ROW LEVEL SECURITY;
+
+-- Un utilisateur ne peut voir que ses propres paiements
+CREATE POLICY "Les utilisateurs voient leurs propres paiements"
+ON public.payments
+FOR SELECT
+USING (auth.uid() = user_id);
+
+-- ==========================================
+-- 7. TABLE PREMIUM_ITINERARIES (Itinéraires générés par l'IA)
+-- ==========================================
+CREATE TABLE public.premium_itineraries (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  deal_id UUID REFERENCES public.detected_deals(id) ON DELETE CASCADE,
+
+  -- Destination
+  destination TEXT NOT NULL,
+  destination_name TEXT,
+
+  -- Données structurées (JSON)
+  flight_details JSONB NOT NULL,
+  hotel_details JSONB NOT NULL,
+  daily_program JSONB NOT NULL,
+
+  -- Métadonnées
+  ai_model TEXT DEFAULT 'gemini',
+  generated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+  UNIQUE (deal_id)
+);
+
+ALTER TABLE public.premium_itineraries ENABLE ROW LEVEL SECURITY;
+
+-- Index pour les requêtes fréquentes
+CREATE INDEX idx_itineraries_destination ON public.premium_itineraries (destination);
+CREATE INDEX idx_itineraries_generated ON public.premium_itineraries (generated_at DESC);

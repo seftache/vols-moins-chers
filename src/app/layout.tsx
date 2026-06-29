@@ -48,6 +48,28 @@ export default function RootLayout({
       lang="fr"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
+      <head>
+        {/* Travelpayouts Drive Manual Installation */}
+        <script
+          // @ts-ignore
+          nowprocket=""
+          data-noptimize="1"
+          data-cfasync="false"
+          data-wpfc-render="false"
+          seraph-accel-crit="1"
+          data-no-defer="1"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                var script = document.createElement("script");
+                script.async = 1;
+                script.src = 'https://emrld.ltd/NTQ0NjE4.js?t=544618';
+                document.head.appendChild(script);
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="h-full bg-black text-white font-sans font-light">
         {children}
       </body>

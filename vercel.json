@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/detect-deals",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/ai/generate-itinerary",
+      "schedule": "15 */6 * * *"
+    }
+  ]
+}

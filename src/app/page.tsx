@@ -5,14 +5,17 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowRight, X, ChevronLeft, ChevronRight, Check, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../lib/supabase";
+import Link from "next/link";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isHoveringCarousel, setIsHoveringCarousel] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   // Supabase Waitlist states
+  const [email, setEmail] = useState("");
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
@@ -20,7 +23,7 @@ export default function Home() {
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!whatsappNumber.trim()) return;
+    if (!email.trim() && !whatsappNumber.trim()) return;
     
     setIsSubmitting(true);
     setSubmitStatus("idle");
@@ -28,7 +31,10 @@ export default function Home() {
 
     const { error } = await supabase
       .from("waitlist")
-      .insert({ whatsapp_number: whatsappNumber.trim() });
+      .insert({ 
+        whatsapp_number: whatsappNumber.trim() || "Sans Numéro", 
+        email: email.trim() || null 
+      });
 
     if (error) {
       if (error.code === "23505") { // Unique violation code in Postgres
@@ -41,13 +47,18 @@ export default function Home() {
     } else {
       setSubmitStatus("success");
       setWhatsappNumber("");
+      setEmail("");
     }
     
     setIsSubmitting(false);
   };
 
   const handleVIPClick = () => {
-    setIsModalOpen(true);
+    if (user) {
+      window.location.href = "/checkout";
+    } else {
+      window.location.href = "/auth?redirect=/checkout";
+    }
   };
 
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -62,6 +73,18 @@ export default function Home() {
   useEffect(() => {
     updateScrollState();
     window.addEventListener("resize", updateScrollState);
+
+    // Sauvegarde du code de parrainage s'il est présent dans l'URL
+    const params = new URLSearchParams(window.location.search);
+    const refCode = params.get("ref");
+    if (refCode) {
+      localStorage.setItem("uv_referral_code", refCode);
+    }
+
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
     return () => window.removeEventListener("resize", updateScrollState);
   }, []);
 
@@ -94,14 +117,43 @@ export default function Home() {
     }
   };
 
-  const carouselItems = [
-    { id: 1, title: "DUBAÏ", image: "/images/destinations/dubai.jpg", description: "Découvrez l'opulence du désert, les gratte-ciels futuristes et un luxe absolu." },
-    { id: 2, title: "PARIS", image: "/images/destinations/Paris.jpg", description: "Vivez l'élégance parisienne, la haute gastronomie et le charme intemporel." },
-    { id: 3, title: "DAKAR", image: "/images/destinations/dakar.jpg", description: "Plongez dans l'effervescence culturelle et la chaleur de l'hospitalité." },
-    { id: 4, title: "MONTRÉAL", image: "/images/destinations/montreal.jpg", description: "Explorez un mélange unique de culture et d'art de vivre francophone." },
-    { id: 5, title: "LONDRES", image: "/images/destinations/londres.jpg", description: "Ressentez l'énergie cosmopolite de cette métropole historique." },
-    { id: 6, title: "TOKYO", image: "/images/destinations/tokyo.jpg", description: "Immergez-vous dans un monde fascinant entre traditions et ultra-modernité." },
+  const fallbackItems = [
+    { id: "fallback-1", title: "DUBAÏ", image: "/images/destinations/dubai.jpg", description: "Découvrez l'opulence du désert, les gratte-ciels futuristes et un luxe absolu." },
+    { id: "fallback-2", title: "PARIS", image: "/images/destinations/Paris.jpg", description: "Vivez l'élégance parisienne, la haute gastronomie et le charme intemporel." },
+    { id: "fallback-3", title: "DAKAR", image: "/images/destinations/dakar.jpg", description: "Plongez dans l'effervescence culturelle et la chaleur de l'hospitalité." },
+    { id: "fallback-4", title: "MONTRÉAL", image: "/images/destinations/montreal.jpg", description: "Explorez un mélange unique de culture et d'art de vivre francophone." },
+    { id: "fallback-5", title: "LONDRES", image: "/images/destinations/londres.jpg", description: "Ressentez l'énergie cosmopolite de cette métropole historique." },
+    { id: "fallback-6", title: "TOKYO", image: "/images/destinations/tokyo.jpg", description: "Immergez-vous dans un monde fascinant entre traditions et ultra-modernité." },
   ];
+
+  const [dynamicCarouselItems, setDynamicCarouselItems] = useState(fallbackItems);
+
+  useEffect(() => {
+    async function fetchPublicItineraries() {
+      try {
+        const res = await fetch('/api/itineraries/public');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            let newItems = [...data];
+            
+            // Éviter les doublons entre les données de l'API et les fallbacks (ex: 2 fois Paris)
+            const existingTitles = newItems.map(item => item.title.toLowerCase());
+            const availableFallbacks = fallbackItems.filter(f => !existingTitles.includes(f.title.toLowerCase()));
+
+            if (newItems.length < 6) {
+              const needed = 6 - newItems.length;
+              newItems = [...newItems, ...availableFallbacks.slice(0, needed)];
+            }
+            setDynamicCarouselItems(newItems);
+          }
+        }
+      } catch (e) {
+        console.error("Erreur chargement carrousel dynamique", e);
+      }
+    }
+    fetchPublicItineraries();
+  }, []);
 
   const journeySteps = [
     {
@@ -116,8 +168,8 @@ export default function Home() {
     },
     {
       number: "03",
-      title: "L'alerte WhatsApp",
-      text: "Notre algorithme détecte une baisse de prix sur un vol associé à un hôtel de charme. Vous recevez l'alerte directement sur WhatsApp, pour une durée limitée.",
+      title: "L'alerte Email",
+      text: "Notre algorithme détecte une baisse de prix sur un vol associé à un hôtel de charme. Vous recevez l'alerte directement dans votre boîte mail, pour une durée limitée.",
     },
     {
       number: "04",
@@ -162,18 +214,29 @@ export default function Home() {
               </svg>
             </a>
             <div className="flex items-center gap-8">
-              <a
-                href="#"
-                className="hidden text-xs font-light uppercase tracking-widest text-white transition-opacity hover:opacity-70 md:block"
-              >
-                S'identifier
-              </a>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
-              >
-                Accès Privé
-              </button>
+              {user ? (
+                <Link
+                  href="/dashboard"
+                  className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
+                >
+                  Mon Espace
+                </Link>
+              ) : (
+                <>
+                  <a
+                    href="/auth"
+                    className="hidden text-xs font-light uppercase tracking-widest text-white transition-opacity hover:opacity-70 md:block"
+                  >
+                    S'identifier
+                  </a>
+                  <a
+                    href="/auth"
+                    className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
+                  >
+                    Accès Privé
+                  </a>
+                </>
+              )}
             </div>
           </header>
 
@@ -200,31 +263,42 @@ export default function Home() {
                 <span className="font-sans text-sm font-bold tracking-[0.2em] uppercase">Vous êtes sur la liste !</span>
               </motion.div>
             ) : (
-              <div className="w-full max-w-md">
+              <div className="w-full max-w-md space-y-4">
                 <form 
-                  className={`group relative flex w-full items-center border-b pb-2 transition-colors focus-within:border-white hover:border-white ${submitStatus === 'error' ? 'border-[#D85A30]/80' : 'border-white/50'}`} 
+                  className={`group relative flex w-full flex-col gap-4 border-b pb-2 transition-colors focus-within:border-white hover:border-white ${submitStatus === 'error' ? 'border-[#D85A30]/80' : 'border-white/50'}`} 
                   onSubmit={handleWaitlistSubmit}
                 >
                   <input
-                    type="text"
-                    value={whatsappNumber}
-                    onChange={(e) => setWhatsappNumber(e.target.value)}
-                    placeholder="Votre numéro WhatsApp..."
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Votre adresse email (Requis)..."
                     disabled={isSubmitting}
+                    required
                     className="w-full bg-transparent px-2 py-2 font-playfair text-lg italic text-white placeholder:text-white/50 focus:outline-none disabled:opacity-50"
                   />
-                  <button
-                    type="submit"
-                    disabled={isSubmitting || !whatsappNumber.trim()}
-                    className="p-2 text-white/70 transition-colors hover:text-white disabled:opacity-50"
-                    aria-label="Valider"
-                  >
-                    {isSubmitting ? (
-                      <Loader2 strokeWidth={1.5} size={24} className="animate-spin text-[#D85A30]" />
-                    ) : (
-                      <ArrowRight strokeWidth={1} size={28} />
-                    )}
-                  </button>
+                  <div className="flex w-full items-center">
+                    <input
+                      type="text"
+                      value={whatsappNumber}
+                      onChange={(e) => setWhatsappNumber(e.target.value)}
+                      placeholder="Numéro WhatsApp (Optionnel)..."
+                      disabled={isSubmitting}
+                      className="w-full bg-transparent px-2 py-2 font-playfair text-lg italic text-white placeholder:text-white/50 focus:outline-none disabled:opacity-50"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || (!email.trim() && !whatsappNumber.trim())}
+                      className="p-2 text-white/70 transition-colors hover:text-white disabled:opacity-50"
+                      aria-label="Valider"
+                    >
+                      {isSubmitting ? (
+                        <Loader2 strokeWidth={1.5} size={24} className="animate-spin text-[#D85A30]" />
+                      ) : (
+                        <ArrowRight strokeWidth={1} size={28} />
+                      )}
+                    </button>
+                  </div>
                 </form>
                 {submitStatus === "error" && (
                   <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-2 pl-2 text-xs font-light text-[#D85A30]">
@@ -288,7 +362,7 @@ export default function Home() {
           >
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat grayscale-[60%] brightness-75 transition-all duration-[1.5s] hover:scale-105 hover:grayscale-0 hover:brightness-100"
-              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80&w=2000&auto=format&fit=crop')" }}
+              style={{ backgroundImage: "url('/images/air-cote-divoire.jpg')" }}
             >
               <div className="absolute inset-0 bg-black/20" />
             </div>
@@ -424,7 +498,7 @@ export default function Home() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="font-playfair font-bold text-4xl md:text-5xl lg:text-6xl text-black uppercase tracking-tight leading-[0.95]"
               >
-                Échappées<br />Belles
+                Vols<br />Secrets
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
@@ -433,7 +507,7 @@ export default function Home() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
                 className="mt-6 text-sm font-light italic text-black/55 leading-relaxed"
               >
-                Sélection confidentielle, des expériences remarquables pour nourrir l'esprit.
+                Des erreurs de prix et vols à des tarifs introuvables ailleurs, dénichés par notre algorithme.
               </motion.p>
 
               {/* Logo de la marque affiché en couleurs pleines avec animation flottante */}
@@ -475,7 +549,18 @@ export default function Home() {
                 className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
-                {carouselItems.map((item, index) => (
+                {dynamicCarouselItems.map((item, index) => {
+                  let isExpired = false;
+                  // On vérifie le type (n'est pas undefined) car les items fallback n'ont pas forcément generated_at.
+                  // Mais comme on l'a rajouté à l'API, on peut faire le calcul
+                  if ('generated_at' in item && item.generated_at) {
+                    const generatedAt = new Date(item.generated_at as string).getTime();
+                    const now = new Date().getTime();
+                    const hoursSinceGeneration = (now - generatedAt) / (1000 * 60 * 60);
+                    isExpired = hoursSinceGeneration >= 72;
+                  }
+
+                  return (
                   <motion.div
                     key={item.id}
                     initial={{ opacity: 0, x: 50 }}
@@ -485,13 +570,19 @@ export default function Home() {
                     className="group relative flex-none w-[260px] sm:w-[300px] md:w-[340px] lg:w-[380px] aspect-[3/5] snap-center overflow-hidden cursor-pointer bg-[#0A0A0A]"
                   >
                     <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-105"
+                      className={`absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-105 ${isExpired ? 'grayscale opacity-70' : ''}`}
                       style={{ backgroundImage: `url('${item.image}')` }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent transition-opacity duration-500 group-hover:from-black/90 group-hover:via-black/70" />
 
+                    {isExpired && (
+                      <div className="absolute top-4 right-4 z-20 bg-[#7a1818] text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest shadow-lg">
+                        Expiré
+                      </div>
+                    )}
+
                     <div className="absolute inset-0 z-10 flex flex-col justify-end p-6 md:p-7">
-                      <h3 className="font-sans font-extrabold text-lg md:text-xl uppercase tracking-wide text-white leading-tight transform transition-transform duration-500 group-hover:-translate-y-1">
+                      <h3 className={`font-sans font-extrabold text-lg md:text-xl uppercase tracking-wide leading-tight transform transition-transform duration-500 group-hover:-translate-y-1 ${isExpired ? 'text-white/50' : 'text-white'}`}>
                         {item.title}
                       </h3>
                       
@@ -500,14 +591,14 @@ export default function Home() {
                       </p>
 
                       <a
-                        href="#"
-                        className="mt-5 inline-flex w-fit items-center justify-center border border-white/50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
+                        href={String(item.id).startsWith("fallback") ? "#" : `/itinerary/${item.id}`}
+                        className={`mt-5 inline-flex w-fit items-center justify-center border px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${isExpired ? 'border-white/30 text-white/50 hover:bg-[#7a1818] hover:border-[#7a1818] hover:text-white' : 'border-white/50 text-white hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white'}`}
                       >
-                        Explorer le voyage
+                        {isExpired ? "Voir l'offre ratée" : "Explorer le voyage"}
                       </a>
                     </div>
                   </motion.div>
-                ))}
+                )})}
               </div>
 
               {/* Boutons de navigation (flèches flottantes) */}
@@ -533,6 +624,18 @@ export default function Home() {
             </div>
 
           </div>
+        </div>
+
+        <div className="relative z-20 mt-16 flex w-full justify-center lg:justify-end lg:pr-24">
+          <Link
+            href="/offres"
+            className="group relative inline-flex items-center justify-center overflow-hidden border border-black/10 bg-black px-10 py-5 font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all duration-500 hover:border-[#D85A30] hover:shadow-[0_0_40px_rgba(216,90,48,0.3)]"
+          >
+            <span className="relative z-10 flex items-center gap-3 transition-colors duration-300">
+              Voir toutes les offres secrètes <ChevronRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
+            <div className="absolute inset-0 z-0 h-full w-0 bg-[#D85A30] transition-all duration-500 ease-out group-hover:w-full" />
+          </Link>
         </div>
 
         <style dangerouslySetInnerHTML={{ __html: `
@@ -638,9 +741,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             >
-              <button className="border border-white/20 px-8 py-4 uppercase font-sans tracking-[0.2em] text-[10px] text-white hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white transition-colors duration-500">
+              <a href="/auth" className="inline-block border border-white/20 px-8 py-4 uppercase font-sans tracking-[0.2em] text-[10px] text-white hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white transition-colors duration-500">
                 Découvrir la collection
-              </button>
+              </a>
             </motion.div>
           </div>
 
@@ -843,59 +946,7 @@ export default function Home() {
       {/* =====================================================================
           MODALE VIP (Overlay Inscription)
           ===================================================================== */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-6 backdrop-blur-xl"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl"
-            >
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute -top-16 right-0 p-2 text-white/50 transition-colors hover:text-white"
-                aria-label="Fermer"
-              >
-                <X strokeWidth={1} size={32} />
-              </button>
-
-              <h3 className="mb-10 font-playfair text-4xl leading-[1.1] text-white sm:text-5xl md:text-6xl">
-                Déverrouillez<br />le réseau invisible.
-              </h3>
-
-              <p className="mb-10 text-xs font-light uppercase tracking-[0.2em] text-white/40">
-                2 500 FCFA / mois — Wave, Mobile Money ou carte bancaire
-              </p>
-
-              <form className="flex w-full flex-col gap-16" onSubmit={(e) => e.preventDefault()}>
-                <div className="group relative border-b border-white/50 pb-2 transition-colors focus-within:border-white hover:border-white">
-                  <input
-                    type="text"
-                    placeholder="Entrez votre numéro WhatsApp ou Wave..."
-                    className="w-full bg-transparent px-2 py-2 font-playfair text-xl italic text-white placeholder:text-white/50 focus:outline-none sm:text-2xl"
-                    autoFocus
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-white px-8 py-5 text-sm font-bold uppercase tracking-widest text-black transition-transform hover:scale-[1.01] active:scale-[0.99]"
-                >
-                  VALIDER L'ACCÈS VIP - 2 500 FCFA
-                </button>
-              </form>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* L'ancienne modale VIP a été retirée pour rediriger directement vers /auth */}
     </main>
   );
 }

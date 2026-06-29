@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
   // Si l'utilisateur n'est pas connecté et essaie d'accéder au dashboard
   if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
     const url = request.nextUrl.clone();
-    url.pathname = '/login';
+    url.pathname = '/auth';
     return NextResponse.redirect(url);
   }
 
@@ -45,6 +45,6 @@ export const config = {
      * - les fichiers statiques Next.js (_next/static, _next/image)
      * - les fichiers publics (favicon, images...)
      */
-    '/((?!_next/static|_next/image|favicon.ico|images/|icon.png).*)',
+    '/((?!_next/static|_next/image|favicon.ico|images/|icon.png|auth).*)',
   ],
 };
