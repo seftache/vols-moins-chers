@@ -7,16 +7,18 @@ import { supabaseAdmin } from '../../../../lib/supabase-admin';
 const ORIGIN = 'ABJ';
 
 const DESTINATIONS = [
-  { code: 'DXB', name: 'Dubaï',    avgPriceFCFA: 450000 },
-  { code: 'CDG', name: 'Paris',     avgPriceFCFA: 380000 },
-  { code: 'DSS', name: 'Dakar',     avgPriceFCFA: 180000 },
-  { code: 'YUL', name: 'Montréal',  avgPriceFCFA: 650000 },
-  { code: 'LHR', name: 'Londres',   avgPriceFCFA: 420000 },
-  { code: 'NRT', name: 'Tokyo',     avgPriceFCFA: 780000 },
+  { code: 'DXB', name: 'Dubaï',    avgPriceFCFA: 550000 },
+  { code: 'CDG', name: 'Paris',     avgPriceFCFA: 530000 },
+  { code: 'DSS', name: 'Dakar',     avgPriceFCFA: 250000 },
+  { code: 'YUL', name: 'Montréal',  avgPriceFCFA: 750000 },
+  { code: 'LHR', name: 'Londres',   avgPriceFCFA: 550000 },
+  { code: 'NRT', name: 'Tokyo',     avgPriceFCFA: 900000 },
+  { code: 'IST', name: 'Istanbul',  avgPriceFCFA: 400000 },
+  { code: 'CMN', name: 'Casablanca', avgPriceFCFA: 350000 },
 ];
 
 // Seuil de détection : un deal est signalé si le prix est inférieur à ce %
-const DEAL_THRESHOLD_PERCENT = 20; // 20% en dessous du prix moyen = bon plan
+const DEAL_THRESHOLD_PERCENT = 5; // 5% en dessous du prix moyen = bon plan
 
 // Taux de conversion EUR → FCFA
 const EUR_TO_FCFA = 656;
