@@ -257,7 +257,7 @@ export async function GET(request: NextRequest) {
       if (destinationImage) {
         flightDetails.destination_image = destinationImage;
       } else {
-        flightDetails.destination_image = '/images/destinations/default.jpg';
+        flightDetails.destination_image = 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop';
       }
 
       // ★ ÉTAPE 5 : Sauvegarder dans Supabase

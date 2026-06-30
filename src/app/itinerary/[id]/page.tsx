@@ -68,18 +68,21 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
     );
   };
 
-  return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white selection:bg-white/30 font-sans">
+        const heroImage = (flight?.destination_image && flight.destination_image !== '/images/destinations/default.jpg')
+          ? flight.destination_image
+          : 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop';
       
-      {/* HEADER HERO */}
-      <section className="relative h-[60vh] w-full overflow-hidden">
-        {/* On peut utiliser une image dynamique basée sur la destination plus tard, ici un placeholder luxueux */}
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop')` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0A0A0A]" />
-        </div>
+        return (
+          <main className="min-h-screen bg-[#0A0A0A] text-white selection:bg-white/30 font-sans">
+            
+            {/* HEADER HERO */}
+            <section className="relative h-[60vh] w-full overflow-hidden">
+              <div
+                className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url('${heroImage}')` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0A0A0A]" />
+              </div>
 
         <div className="relative z-10 flex h-full flex-col justify-between px-6 pt-8 pb-12 md:px-16 lg:px-24">
           <header className="flex w-full items-center justify-between">

@@ -43,15 +43,15 @@ export async function GET() {
       const dest = itinerary.destination_name.toLowerCase();
       let image = itinerary.flight_details?.destination_image;
       
-      // Fallbacks au cas où l'image n'est pas dans flight_details (anciens itinéraires)
-      if (!image) {
+      // Fallbacks au cas où l'image n'est pas dans flight_details (anciens itinéraires) ou est le default.jpg cassé
+      if (!image || image === '/images/destinations/default.jpg') {
         if (dest.includes('dubaï') || dest.includes('dubai')) image = "/images/destinations/dubai.jpg";
         else if (dest.includes('paris')) image = "/images/destinations/Paris.jpg";
         else if (dest.includes('dakar')) image = "/images/destinations/dakar.jpg";
         else if (dest.includes('montréal') || dest.includes('montreal')) image = "/images/destinations/montreal.jpg";
         else if (dest.includes('londres') || dest.includes('london')) image = "/images/destinations/londres.jpg";
         else if (dest.includes('tokyo')) image = "/images/destinations/tokyo.jpg";
-        else image = "https://picsum.photos/800/600?random=" + Math.random(); // Image aléatoire stable
+        else image = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop"; // Image avion par défaut esthétique et stable
       }
 
       return {
