@@ -7,15 +7,7 @@ export async function GET() {
   try {
     const { data: itineraries, error } = await supabaseAdmin
       .from('premium_itineraries')
-      .select(`
-        id, 
-        destination_name, 
-        generated_at,
-        detected_deals (
-          price_fcfa,
-          discount_percent
-        )
-      `)
+      .select('id, destination_name, generated_at, flight_details')
       .limit(100);
 
     if (error) {
@@ -28,8 +20,8 @@ export async function GET() {
     
     for (const itinerary of itineraries || []) {
       const destName = itinerary.destination_name.toLowerCase().trim();
-      const deal = itinerary.detected_deals as any;
-      const price = deal ? (deal.price_fcfa || Infinity) : Infinity;
+      const flight = itinerary.flight_details as any;
+      const price = flight ? (flight.price_fcfa || Infinity) : Infinity;
       
       // Si la destination n'existe pas encore ou si ce vol est moins cher, on le garde
       if (!destinationsMap[destName] || price < destinationsMap[destName].price) {
