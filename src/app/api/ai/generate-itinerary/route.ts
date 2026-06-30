@@ -99,8 +99,8 @@ Génère l'itinéraire JSON.`;
             { role: 'system', content: SYSTEM_PROMPT },
             { role: 'user', content: userPrompt }
           ],
-          temperature: 0.7,
-          top_p: 0.9,
+          temperature: 0.2,
+          top_p: 0.7,
           max_tokens: 4096,
           stream: false
         }),

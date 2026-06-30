@@ -98,7 +98,7 @@ Génère l'itinéraire JSON.`;
         body: JSON.stringify({
           model: NVIDIA_MODEL,
           messages: [{ role: 'system', content: SYSTEM_PROMPT }, { role: 'user', content: userPrompt }],
-          temperature: 0.7, top_p: 0.9, max_tokens: 4096, stream: false
+          temperature: 0.2, top_p: 0.7, max_tokens: 4096, stream: false
         }),
       },
       45000
@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
     const priceEur = bestFlight ? bestFlight.price : 800;
     const priceFcfa = Math.round(priceEur * 655.957);
     const dealData = {
-      id: `custom_${Date.now()}`,
+      id: crypto.randomUUID(),
       destination: destinationIata,
       destination_name: destinationName,
       price_fcfa: priceFcfa,
