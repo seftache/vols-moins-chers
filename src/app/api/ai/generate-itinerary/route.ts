@@ -8,7 +8,7 @@ export const maxDuration = 60; // Vercel hobby max is 60s
 // CONFIGURATION NVIDIA / DEEPSEEK
 // ============================================================
 const NVIDIA_MODEL = 'deepseek-ai/deepseek-v4-flash';
-const MAX_DEALS_PER_RUN = 2; // Traiter 2 deals maximum par appel pour éviter le timeout Vercel (60s)
+const MAX_DEALS_PER_RUN = 1; // Traiter 1 deal maximum par appel pour éviter le timeout Vercel (60s)
 
 const SYSTEM_PROMPT = `Tu es le concierge virtuel premium d'UniqueVoyage. On te fournit un VOL RÉEL et un HÔTEL RÉEL (issu de Booking.com). Tu NE DOIS PAS inventer ni modifier le nom, le prix ou les étoiles de l'hôtel. Utilise exactement les données qu'on te donne.
 
@@ -127,12 +127,6 @@ Génère l'itinéraire premium au format JSON spécifié. RAPPEL : NE MODIFIE PA
         temperature: 1,
         top_p: 0.95,
         max_tokens: 16384,
-        extra_body: {
-          chat_template_kwargs: {
-            thinking: true,
-            reasoning_effort: "high"
-          }
-        },
         stream: false
       }),
     });
