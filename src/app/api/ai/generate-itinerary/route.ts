@@ -2,11 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../lib/supabase-admin';
 import { fetchRealHotel, RealHotel } from '../../../../lib/hotel-api';
 
+export const maxDuration = 60; // Vercel hobby max is 60s
+
 // ============================================================
 // CONFIGURATION NVIDIA / DEEPSEEK
 // ============================================================
 const NVIDIA_MODEL = 'deepseek-ai/deepseek-v4-flash';
-const MAX_DEALS_PER_RUN = 10; // Traiter 10 deals maximum par appel
+const MAX_DEALS_PER_RUN = 2; // Traiter 2 deals maximum par appel pour éviter le timeout Vercel (60s)
 
 const SYSTEM_PROMPT = `Tu es le concierge virtuel premium d'UniqueVoyage. On te fournit un VOL RÉEL et un HÔTEL RÉEL (issu de Booking.com). Tu NE DOIS PAS inventer ni modifier le nom, le prix ou les étoiles de l'hôtel. Utilise exactement les données qu'on te donne.
 
