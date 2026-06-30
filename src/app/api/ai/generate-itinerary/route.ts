@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../lib/supabase-admin';
+import { fetchRealHotel, RealHotel } from '../../../../lib/hotel-api';
 
 // ============================================================
 // CONFIGURATION NVIDIA / DEEPSEEK
@@ -7,12 +8,14 @@ import { supabaseAdmin } from '../../../../lib/supabase-admin';
 const NVIDIA_MODEL = 'deepseek-ai/deepseek-v4-flash';
 const MAX_DEALS_PER_RUN = 10; // Traiter 10 deals maximum par appel
 
-const SYSTEM_PROMPT = `Tu es le concierge virtuel d'un hôtel 5 étoiles pour UniqueVoyage. En te basant sur ce vol à prix cassé au départ d'Abidjan, sélectionne un hôtel de charme ou de luxe adapté. Génère ensuite un programme de séjour jour par jour, élégant et premium, axé sur la découverte et l'exclusivité. Le ton doit être inspirant, soigné et haut de gamme.
+const SYSTEM_PROMPT = `Tu es le concierge virtuel premium d'UniqueVoyage. On te fournit un VOL RÉEL et un HÔTEL RÉEL (issu de Booking.com). Tu NE DOIS PAS inventer ni modifier le nom, le prix ou les étoiles de l'hôtel. Utilise exactement les données qu'on te donne.
 
-RÈGLES IMPORTANTES :
-- Réponds UNIQUEMENT en JSON valide, sans balises markdown autour, juste l'objet JSON pur.
-- Les prix des hôtels doivent être en FCFA.
-- Le programme journalier doit être réaliste et adapté à la destination.
+Ta mission : rédiger un programme de séjour jour par jour, élégant et premium, autour de cet hôtel réel. Le ton doit être inspirant, soigné et haut de gamme.
+
+RÈGLES STRICTES :
+- Réponds UNIQUEMENT en JSON valide, sans balises markdown, juste l'objet JSON pur.
+- NE MODIFIE JAMAIS le nom, le prix ou les étoiles de l'hôtel. Copie-les tels quels.
+- Le programme journalier doit être réaliste et adapté à la destination ET au quartier de l'hôtel.
 - Propose des activités variées : culturelles, gastronomiques, détente, et exclusives.
 - Chaque jour doit avoir un thème.
 
@@ -31,14 +34,17 @@ FORMAT DE RÉPONSE EXACT (JSON) :
     "duration_estimate": "Xh XXmin"
   },
   "hotel_details": {
-    "name": "Nom de l'hôtel",
+    "name": "EXACTEMENT le nom fourni",
     "stars": 4,
-    "neighborhood": "Quartier / Zone",
+    "neighborhood": "Quartier fourni",
     "price_per_night_fcfa": 00000,
     "total_nights": 0,
     "total_price_fcfa": 000000,
-    "highlights": ["Piscine", "Spa", "Rooftop"],
-    "why_chosen": "Explication courte et élégante"
+    "review_score": 0,
+    "photo_url": "URL fournie",
+    "booking_url": "URL fournie",
+    "highlights": ["Les highlights fournis"],
+    "why_chosen": "Explication courte et élégante de pourquoi cet hôtel est parfait"
   },
   "daily_program": [
     {
@@ -63,7 +69,7 @@ FORMAT DE RÉPONSE EXACT (JSON) :
 // ============================================================
 // APPEL À L'API NVIDIA (DeepSeek)
 // ============================================================
-async function callNVIDIA(dealData: Record<string, unknown>): Promise<Record<string, unknown> | null> {
+async function callNVIDIA(dealData: Record<string, unknown>, realHotel: RealHotel | null): Promise<Record<string, unknown> | null> {
   const apiKey = process.env.NVIDIA_API_KEY;
 
   if (!apiKey) {
@@ -71,7 +77,22 @@ async function callNVIDIA(dealData: Record<string, unknown>): Promise<Record<str
     return null;
   }
 
-  const userPrompt = `Voici les données d'un vol à prix cassé détecté par notre algorithme. Génère un itinéraire premium complet :
+  const hotelSection = realHotel
+    ? `HÔTEL RÉEL (BOOKING.COM — NE PAS MODIFIER) :
+- Nom exact : ${realHotel.name}
+- Étoiles : ${realHotel.stars}★
+- Quartier : ${realHotel.neighborhood}
+- Prix par nuit : ${realHotel.price_per_night_fcfa.toLocaleString()} FCFA (${realHotel.price_per_night_eur}€)
+- Nombre de nuits : ${realHotel.total_nights}
+- Prix total hôtel : ${realHotel.total_price_fcfa.toLocaleString()} FCFA
+- Note : ${realHotel.review_score}/10 (${realHotel.review_count} avis)
+- Photo : ${realHotel.photo_url}
+- Lien réservation : ${realHotel.booking_url}
+- Points forts : ${realHotel.highlights.join(', ')}
+- Source : Booking.com (données certifiées)`
+    : `HÔTEL : Aucun hôtel réel trouvé sur Booking.com. NE GÉNÈRE PAS de faux hôtel. Mets "name": "Recherche en cours", "stars": 0, "price_per_night_fcfa": 0.`;
+
+  const userPrompt = `Voici un vol à prix cassé détecté par notre algorithme ET un hôtel réel trouvé sur Booking.com. Génère l'itinéraire premium.
 
 DONNÉES DU VOL :
 - Origine : Abidjan (ABJ)
@@ -79,11 +100,12 @@ DONNÉES DU VOL :
 - Compagnie : ${dealData.airline_name} (${dealData.airline})
 - Date de départ : ${dealData.departure_date}
 - Date de retour : ${dealData.return_date || 'Non spécifiée (propose 5 à 7 jours)'}
-- Prix du vol : ${dealData.price_fcfa?.toLocaleString()} FCFA
-- Réduction : -${dealData.discount_percent}% par rapport au prix moyen (${dealData.average_price_fcfa?.toLocaleString()} FCFA)
-- Hôtel suggéré par notre base : ${dealData.hotel_name || 'Aucun'} (${dealData.hotel_stars || '?'}★, ${dealData.hotel_price_fcfa?.toLocaleString() || '?'} FCFA/nuit)
+- Prix du vol : ${(dealData.price_fcfa as number)?.toLocaleString()} FCFA
+- Réduction : -${dealData.discount_percent}% par rapport au prix moyen (${(dealData.average_price_fcfa as number)?.toLocaleString()} FCFA)
 
-Génère l'itinéraire premium au format JSON spécifié.`;
+${hotelSection}
+
+Génère l'itinéraire premium au format JSON spécifié. RAPPEL : NE MODIFIE PAS les données de l'hôtel.`;
 
   try {
     const url = 'https://integrate.api.nvidia.com/v1/chat/completions';
@@ -197,12 +219,41 @@ export async function GET(request: NextRequest) {
     try {
       console.log(`[AI] → Traitement: ${deal.destination_name} (${deal.destination}) — ${deal.price_fcfa?.toLocaleString()} FCFA — ${deal.airline_name}`);
 
-      // Appeler NVIDIA (DeepSeek)
-      const itinerary = await callNVIDIA(deal);
+      // ★ ÉTAPE 1 : Chercher un VRAI hôtel sur Booking.com
+      const checkIn = deal.departure_date;
+      const checkOut = deal.return_date || new Date(new Date(checkIn).getTime() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      
+      console.log(`[AI] 🏨 Recherche hôtel Booking.com pour ${deal.destination_name}...`);
+      const realHotel = await fetchRealHotel(deal.destination, deal.destination_name, checkIn, checkOut);
+      
+      if (realHotel) {
+        console.log(`[AI] ✓ Hôtel réel trouvé: ${realHotel.name} (${realHotel.stars}★) — ${realHotel.price_per_night_fcfa} FCFA/nuit`);
+      } else {
+        console.warn(`[AI] ⚠ Aucun hôtel Booking.com trouvé pour ${deal.destination_name}. L'IA ne créera pas de faux hôtel.`);
+      }
+
+      // ★ ÉTAPE 2 : Appeler NVIDIA (DeepSeek) avec le vrai hôtel
+      const itinerary = await callNVIDIA(deal, realHotel);
 
       if (!itinerary) {
         results.errors.push(`${deal.destination}: Échec NVIDIA`);
         continue;
+      }
+
+      // ★ ÉTAPE 3 : Forcer les données de l'hôtel réel dans l'itinéraire (sécurité anti-hallucination)
+      if (realHotel && itinerary.hotel_details) {
+        const hd = itinerary.hotel_details as Record<string, unknown>;
+        hd.name = realHotel.name;
+        hd.stars = realHotel.stars;
+        hd.neighborhood = realHotel.neighborhood;
+        hd.price_per_night_fcfa = realHotel.price_per_night_fcfa;
+        hd.total_nights = realHotel.total_nights;
+        hd.total_price_fcfa = realHotel.total_price_fcfa;
+        hd.review_score = realHotel.review_score;
+        hd.photo_url = realHotel.photo_url;
+        hd.booking_url = realHotel.booking_url;
+        hd.highlights = realHotel.highlights;
+        hd.source = 'booking.com';
       }
 
       // 3. Sauvegarder l'itinéraire dans premium_itineraries
