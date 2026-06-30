@@ -37,6 +37,10 @@ const DESTINATIONS = [
   { code: 'ACC', name: 'Accra',        avgPriceFCFA: 150000 },
   { code: 'LFW', name: 'Lomé',         avgPriceFCFA: 220000 },
   { code: 'COO', name: 'Cotonou',      avgPriceFCFA: 220000 },
+  // Nouveaux pays populaires
+  { code: 'JED', name: 'La Mecque (Jeddah)', avgPriceFCFA: 650000 },
+  { code: 'SEZ', name: 'Seychelles',         avgPriceFCFA: 750000 },
+  { code: 'CAN', name: 'Canton (Guangzhou)',  avgPriceFCFA: 850000 },
 ];
 
 // Seuil de détection : un deal est signalé si le prix est inférieur à ce %
@@ -83,6 +87,9 @@ const SAMPLE_HOTELS: Record<string, { name: string; price: number; stars: number
   'ACC': { name: 'Movenpick Ambassador Accra', price: 90000, stars: 5 },
   'LFW': { name: 'Hotel 2 Février Lomé',     price: 80000,  stars: 5 },
   'COO': { name: 'Golden Tulip Cotonou',     price: 70000,  stars: 4 },
+  'JED': { name: 'Movenpick Hotel Tahlia Jeddah', price: 70000, stars: 5 },
+  'SEZ': { name: 'Constance Ephelia Seychelles', price: 120000, stars: 5 },
+  'CAN': { name: 'DoubleTree by Hilton Guangzhou', price: 45000, stars: 4 },
 };
 
 // ============================================================
