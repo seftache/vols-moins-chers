@@ -251,27 +251,15 @@ export default function Home() {
               depuis Abidjan.
             </h1>
 
-            {user ? (
+            <div className="mt-8">
               <motion.a
-                href="/dashboard"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.99 }}
-                className="group flex w-full max-w-sm items-center justify-center gap-4 bg-[#D85A30] px-8 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#c24e27]"
+                href="/offres"
+                whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                className="inline-block border border-white/20 bg-transparent px-8 py-4 text-[10px] sm:text-xs font-light uppercase tracking-[0.3em] text-white transition-colors hover:border-white/40"
               >
-                Accéder à mon espace
-                <ArrowRight size={18} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
+                Découvrir la collection
               </motion.a>
-            ) : (
-              <motion.a
-                href="/auth"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.99 }}
-                className="group flex w-full max-w-sm items-center justify-center gap-4 bg-[#D85A30] px-8 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#c24e27]"
-              >
-                Rejoindre le Club Privé
-                <ArrowRight size={18} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
-              </motion.a>
-            )}
+            </div>
           </div>
 
           <div className="flex w-full flex-col items-center justify-center gap-4">
