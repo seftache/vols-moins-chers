@@ -7,18 +7,36 @@ import { supabaseAdmin } from '../../../../lib/supabase-admin';
 const ORIGIN = 'ABJ';
 
 const DESTINATIONS = [
-  { code: 'DXB', name: 'Dubaï',    avgPriceFCFA: 550000 },
-  { code: 'CDG', name: 'Paris',     avgPriceFCFA: 530000 },
-  { code: 'DSS', name: 'Dakar',     avgPriceFCFA: 250000 },
-  { code: 'YUL', name: 'Montréal',  avgPriceFCFA: 750000 },
-  { code: 'LHR', name: 'Londres',   avgPriceFCFA: 550000 },
-  { code: 'NRT', name: 'Tokyo',     avgPriceFCFA: 900000 },
-  { code: 'IST', name: 'Istanbul',  avgPriceFCFA: 400000 },
-  { code: 'CMN', name: 'Casablanca', avgPriceFCFA: 350000 },
-  { code: 'BKO', name: 'Bamako',    avgPriceFCFA: 150000 },
-  { code: 'DLA', name: 'Douala',    avgPriceFCFA: 300000 },
-  { code: 'NSI', name: 'Yaoundé',   avgPriceFCFA: 350000 },
-  { code: 'CKY', name: 'Conakry',   avgPriceFCFA: 200000 },
+  // Europe
+  { code: 'CDG', name: 'Paris',        avgPriceFCFA: 530000 },
+  { code: 'BRU', name: 'Bruxelles',    avgPriceFCFA: 550000 },
+  { code: 'LHR', name: 'Londres',      avgPriceFCFA: 580000 },
+  { code: 'GVA', name: 'Genève',       avgPriceFCFA: 600000 },
+  { code: 'IST', name: 'Istanbul',     avgPriceFCFA: 450000 },
+  { code: 'MAD', name: 'Madrid',       avgPriceFCFA: 480000 },
+  { code: 'LIS', name: 'Lisbonne',     avgPriceFCFA: 450000 },
+  { code: 'FCO', name: 'Rome',         avgPriceFCFA: 520000 },
+  // Moyen-Orient & Asie
+  { code: 'DXB', name: 'Dubaï',        avgPriceFCFA: 650000 },
+  { code: 'NRT', name: 'Tokyo',        avgPriceFCFA: 950000 },
+  { code: 'BKK', name: 'Bangkok',      avgPriceFCFA: 800000 },
+  // Amérique du Nord
+  { code: 'JFK', name: 'New York',     avgPriceFCFA: 850000 },
+  { code: 'YUL', name: 'Montréal',     avgPriceFCFA: 900000 },
+  { code: 'IAD', name: 'Washington',   avgPriceFCFA: 850000 },
+  // Afrique
+  { code: 'CMN', name: 'Casablanca',   avgPriceFCFA: 380000 },
+  { code: 'DSS', name: 'Dakar',        avgPriceFCFA: 260000 },
+  { code: 'TUN', name: 'Tunis',        avgPriceFCFA: 320000 },
+  { code: 'CAI', name: 'Le Caire',     avgPriceFCFA: 480000 },
+  { code: 'JNB', name: 'Johannesburg', avgPriceFCFA: 520000 },
+  { code: 'BKO', name: 'Bamako',       avgPriceFCFA: 260000 },
+  { code: 'DLA', name: 'Douala',       avgPriceFCFA: 380000 },
+  { code: 'NSI', name: 'Yaoundé',      avgPriceFCFA: 380000 },
+  { code: 'CKY', name: 'Conakry',      avgPriceFCFA: 250000 },
+  { code: 'ACC', name: 'Accra',        avgPriceFCFA: 150000 },
+  { code: 'LFW', name: 'Lomé',         avgPriceFCFA: 220000 },
+  { code: 'COO', name: 'Cotonou',      avgPriceFCFA: 220000 },
 ];
 
 // Seuil de détection : un deal est signalé si le prix est inférieur à ce %
@@ -39,16 +57,32 @@ const AIRLINE_NAMES: Record<string, string> = {
 
 // Hôtels types par destination (simulation réaliste)
 const SAMPLE_HOTELS: Record<string, { name: string; price: number; stars: number }> = {
-  'DXB': { name: 'Rove Downtown Dubai',     price: 55000,  stars: 3 },
   'CDG': { name: 'Novotel Paris Centre',     price: 65000,  stars: 4 },
-  'DSS': { name: 'Radisson Blu Dakar',       price: 45000,  stars: 4 },
-  'YUL': { name: 'HI Montréal Centre',       price: 40000,  stars: 3 },
-  'LHR': { name: 'Premier Inn London City',  price: 50000,  stars: 3 },
+  'BRU': { name: 'Hotel NH Brussels Carrefour', price: 60000, stars: 4 },
+  'LHR': { name: 'Premier Inn London City',  price: 55000,  stars: 3 },
+  'GVA': { name: 'Design Hotel F6 Genève',   price: 80000,  stars: 3 },
+  'IST': { name: 'DoubleTree by Hilton Istanbul', price: 50000, stars: 4 },
+  'MAD': { name: 'Dear Hotel Madrid',        price: 55000,  stars: 4 },
+  'LIS': { name: 'Turim Boulevard Hotel',    price: 60000,  stars: 4 },
+  'FCO': { name: 'Rome Times Hotel',         price: 65000,  stars: 4 },
+  'DXB': { name: 'Rove Downtown Dubai',     price: 55000,  stars: 3 },
   'NRT': { name: 'APA Hotel Shinjuku',       price: 35000,  stars: 3 },
+  'BKK': { name: 'Nouvo City Hotel Bangkok', price: 25000,  stars: 4 },
+  'JFK': { name: 'The Paul Hotel NYC',       price: 90000,  stars: 4 },
+  'YUL': { name: 'HI Montréal Centre',       price: 40000,  stars: 3 },
+  'IAD': { name: 'Club Quarters Washington', price: 80000,  stars: 4 },
+  'CMN': { name: 'Barcelo Anfa Casablanca',  price: 60000,  stars: 5 },
+  'DSS': { name: 'Radisson Blu Dakar',       price: 45000,  stars: 4 },
+  'TUN': { name: 'Majestic Hotel Tunis',     price: 35000,  stars: 4 },
+  'CAI': { name: 'Steigenberger El Tahrir',  price: 50000,  stars: 4 },
+  'JNB': { name: 'Radisson Red Rosebank',    price: 45000,  stars: 4 },
   'BKO': { name: 'Azalai Hotel Bamako',      price: 45000,  stars: 4 },
   'DLA': { name: 'Onomo Hotel Douala',       price: 40000,  stars: 3 },
   'NSI': { name: 'Hilton Yaoundé',           price: 65000,  stars: 5 },
   'CKY': { name: 'Noom Hotel Conakry',       price: 60000,  stars: 4 },
+  'ACC': { name: 'Movenpick Ambassador Accra', price: 90000, stars: 5 },
+  'LFW': { name: 'Hotel 2 Février Lomé',     price: 80000,  stars: 5 },
+  'COO': { name: 'Golden Tulip Cotonou',     price: 70000,  stars: 4 },
 };
 
 // ============================================================
