@@ -43,7 +43,7 @@ export async function GET() {
       else if (dest.includes('conakry')) image = "https://images.unsplash.com/photo-1588725899388-3e479a059d6f?q=80&w=800&auto=format&fit=crop"; // West Africa coast
       else if (dest.includes('mecque') || dest.includes('jeddah') || dest.includes('djeddah')) image = "https://images.unsplash.com/photo-1590076215667-873d6f00918c?q=80&w=800&auto=format&fit=crop"; // Mecca/Jeddah
       else if (dest.includes('seychelles')) image = "https://images.unsplash.com/photo-1589979482837-e74f2e145060?q=80&w=800&auto=format&fit=crop"; // Seychelles beach
-      else if (dest.includes('canton') || dest.includes('guangzhou')) image = "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop"; // Guangzhou cityscape
+      else if (dest.includes('canton') || dest.includes('guangzhou')) image = "https://images.unsplash.com/photo-1601004123512-b13c723f538e?q=80&w=800&auto=format&fit=crop"; // Guangzhou skyline at night
 
       return {
         id: itinerary.id,
