@@ -15,6 +15,10 @@ const DESTINATIONS = [
   { code: 'NRT', name: 'Tokyo',     avgPriceFCFA: 900000 },
   { code: 'IST', name: 'Istanbul',  avgPriceFCFA: 400000 },
   { code: 'CMN', name: 'Casablanca', avgPriceFCFA: 350000 },
+  { code: 'BKO', name: 'Bamako',    avgPriceFCFA: 150000 },
+  { code: 'DLA', name: 'Douala',    avgPriceFCFA: 300000 },
+  { code: 'NSI', name: 'Yaoundé',   avgPriceFCFA: 350000 },
+  { code: 'CKY', name: 'Conakry',   avgPriceFCFA: 200000 },
 ];
 
 // Seuil de détection : un deal est signalé si le prix est inférieur à ce %
@@ -41,6 +45,10 @@ const SAMPLE_HOTELS: Record<string, { name: string; price: number; stars: number
   'YUL': { name: 'HI Montréal Centre',       price: 40000,  stars: 3 },
   'LHR': { name: 'Premier Inn London City',  price: 50000,  stars: 3 },
   'NRT': { name: 'APA Hotel Shinjuku',       price: 35000,  stars: 3 },
+  'BKO': { name: 'Azalai Hotel Bamako',      price: 45000,  stars: 4 },
+  'DLA': { name: 'Onomo Hotel Douala',       price: 40000,  stars: 3 },
+  'NSI': { name: 'Hilton Yaoundé',           price: 65000,  stars: 5 },
+  'CKY': { name: 'Noom Hotel Conakry',       price: 60000,  stars: 4 },
 };
 
 // ============================================================

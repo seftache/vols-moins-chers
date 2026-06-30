@@ -7,15 +7,28 @@ export async function GET() {
       .from('premium_itineraries')
       .select('id, destination_name, generated_at')
       .order('generated_at', { ascending: false })
-      .limit(6);
+      .limit(50);
 
     if (error) {
       console.error('Erreur Supabase lors de la récupération des itinéraires publics :', error);
       return NextResponse.json({ error: 'Erreur lors de la récupération des itinéraires.' }, { status: 500 });
     }
 
+    // Dédupliquer par destination
+    const uniqueDestinations = new Set();
+    const uniqueItineraries = [];
+    
+    for (const itinerary of itineraries || []) {
+      const destName = itinerary.destination_name.toLowerCase();
+      if (!uniqueDestinations.has(destName)) {
+        uniqueDestinations.add(destName);
+        uniqueItineraries.push(itinerary);
+      }
+      if (uniqueItineraries.length === 6) break;
+    }
+
     // Associer une image en fonction de la destination (très basique)
-    const formattedItineraries = itineraries.map(itinerary => {
+    const formattedItineraries = uniqueItineraries.map(itinerary => {
       const dest = itinerary.destination_name.toLowerCase();
       let image = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop"; // Avion par défaut
       
@@ -25,6 +38,9 @@ export async function GET() {
       else if (dest.includes('montréal') || dest.includes('montreal')) image = "/images/destinations/montreal.jpg";
       else if (dest.includes('londres') || dest.includes('london')) image = "/images/destinations/londres.jpg";
       else if (dest.includes('tokyo')) image = "/images/destinations/tokyo.jpg";
+      else if (dest.includes('bamako')) image = "https://images.unsplash.com/photo-1614531341673-0402120aa4ea?q=80&w=800&auto=format&fit=crop"; // Default Bamako-style image
+      else if (dest.includes('douala') || dest.includes('yaoundé') || dest.includes('yaounde')) image = "https://images.unsplash.com/photo-1547471080-7bc2caa7eaa3?q=80&w=800&auto=format&fit=crop"; // Cameroon nature
+      else if (dest.includes('conakry')) image = "https://images.unsplash.com/photo-1588725899388-3e479a059d6f?q=80&w=800&auto=format&fit=crop"; // West Africa coast
 
       return {
         id: itinerary.id,
