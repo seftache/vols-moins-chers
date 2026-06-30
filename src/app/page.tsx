@@ -251,61 +251,26 @@ export default function Home() {
               depuis Abidjan.
             </h1>
 
-            {submitStatus === "success" ? (
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                className="flex items-center gap-3 w-full max-w-md border-b border-white pb-2 text-white"
+            {user ? (
+              <motion.a
+                href="/dashboard"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                className="group flex w-full max-w-sm items-center justify-center gap-4 bg-[#D85A30] px-8 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#c24e27]"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#D85A30]">
-                  <Check size={16} strokeWidth={3} className="text-white" />
-                </div>
-                <span className="font-sans text-sm font-bold tracking-[0.2em] uppercase">Vous êtes sur la liste !</span>
-              </motion.div>
+                Accéder à mon espace
+                <ArrowRight size={18} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
+              </motion.a>
             ) : (
-              <div className="w-full max-w-md space-y-4">
-                <form 
-                  className={`group relative flex w-full flex-col gap-4 border-b pb-2 transition-colors focus-within:border-white hover:border-white ${submitStatus === 'error' ? 'border-[#D85A30]/80' : 'border-white/50'}`} 
-                  onSubmit={handleWaitlistSubmit}
-                >
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Votre adresse email (Requis)..."
-                    disabled={isSubmitting}
-                    required
-                    className="w-full bg-transparent px-2 py-2 font-playfair text-lg italic text-white placeholder:text-white/50 focus:outline-none disabled:opacity-50"
-                  />
-                  <div className="flex w-full items-center">
-                    <input
-                      type="text"
-                      value={whatsappNumber}
-                      onChange={(e) => setWhatsappNumber(e.target.value)}
-                      placeholder="Numéro WhatsApp (Optionnel)..."
-                      disabled={isSubmitting}
-                      className="w-full bg-transparent px-2 py-2 font-playfair text-lg italic text-white placeholder:text-white/50 focus:outline-none disabled:opacity-50"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isSubmitting || (!email.trim() && !whatsappNumber.trim())}
-                      className="p-2 text-white/70 transition-colors hover:text-white disabled:opacity-50"
-                      aria-label="Valider"
-                    >
-                      {isSubmitting ? (
-                        <Loader2 strokeWidth={1.5} size={24} className="animate-spin text-[#D85A30]" />
-                      ) : (
-                        <ArrowRight strokeWidth={1} size={28} />
-                      )}
-                    </button>
-                  </div>
-                </form>
-                {submitStatus === "error" && (
-                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-2 pl-2 text-xs font-light text-[#D85A30]">
-                    {errorMessage}
-                  </motion.p>
-                )}
-              </div>
+              <motion.a
+                href="/auth"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                className="group flex w-full max-w-sm items-center justify-center gap-4 bg-[#D85A30] px-8 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#c24e27]"
+              >
+                Rejoindre le Club Privé
+                <ArrowRight size={18} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
+              </motion.a>
             )}
           </div>
 

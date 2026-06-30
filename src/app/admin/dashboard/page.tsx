@@ -4,6 +4,7 @@ import { createSupabaseServerClient } from "../../../lib/supabase-server";
 import { supabaseAdmin } from "../../../lib/supabase-admin";
 import { Users, Crown, Banknote, Plane } from "lucide-react";
 import OfferRow from "./OfferRow";
+import AdminActions from "./AdminActions";
 
 export const dynamic = "force-dynamic";
 
@@ -94,7 +95,10 @@ export default async function AdminDashboard() {
 
         </div>
 
-        {/* SECTION 2: GESTION DES OFFRES IA */}
+        {/* SECTION 2: ACTIONS RAPIDES */}
+        <AdminActions />
+
+        {/* SECTION 3: GESTION DES OFFRES IA */}
         <h2 className="text-xl font-bold uppercase tracking-wide mb-6">Offres IA (Premium Itineraries)</h2>
         
         <div className="bg-[#0A0A0A] border border-white/10 overflow-hidden">
