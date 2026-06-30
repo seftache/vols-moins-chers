@@ -5,27 +5,44 @@ export async function GET() {
   try {
     const { data: itineraries, error } = await supabaseAdmin
       .from('premium_itineraries')
-      .select('id, destination_name, generated_at')
-      .order('generated_at', { ascending: false })
-      .limit(50);
+      .select(`
+        id, 
+        destination_name, 
+        generated_at,
+        detected_deals (
+          price_fcfa,
+          discount_percent
+        )
+      `)
+      .limit(100);
 
     if (error) {
       console.error('Erreur Supabase lors de la récupération des itinéraires publics :', error);
       return NextResponse.json({ error: 'Erreur lors de la récupération des itinéraires.' }, { status: 500 });
     }
 
-    // Dédupliquer par destination
-    const uniqueDestinations = new Set();
-    const uniqueItineraries = [];
+    // Grouper par destination et ne retenir que l'itinéraire avec le prix le plus bas (meilleur deal)
+    const destinationsMap: Record<string, any> = {};
     
     for (const itinerary of itineraries || []) {
-      const destName = itinerary.destination_name.toLowerCase();
-      if (!uniqueDestinations.has(destName)) {
-        uniqueDestinations.add(destName);
-        uniqueItineraries.push(itinerary);
+      const destName = itinerary.destination_name.toLowerCase().trim();
+      const deal = itinerary.detected_deals as any;
+      const price = deal ? (deal.price_fcfa || Infinity) : Infinity;
+      
+      // Si la destination n'existe pas encore ou si ce vol est moins cher, on le garde
+      if (!destinationsMap[destName] || price < destinationsMap[destName].price) {
+        destinationsMap[destName] = {
+          itinerary,
+          price
+        };
       }
-      if (uniqueItineraries.length === 6) break;
     }
+
+    // Convertir en tableau unique, trier par date de génération descendante et limiter à 6
+    const uniqueItineraries = Object.values(destinationsMap)
+      .map((item: any) => item.itinerary)
+      .sort((a, b) => new Date(b.generated_at).getTime() - new Date(a.generated_at).getTime())
+      .slice(0, 6);
 
     // Associer une image en fonction de la destination (très basique)
     const formattedItineraries = uniqueItineraries.map(itinerary => {
