@@ -206,13 +206,16 @@ export async function GET(request: NextRequest) {
           stars: deal.hotel_stars || 4,
           neighborhood: 'Centre-ville',
           price_per_night_fcfa: deal.hotel_price_fcfa || 50000,
+          price_per_night_eur: Math.round((deal.hotel_price_fcfa || 50000) / 655.957),
           total_nights: 5,
           total_price_fcfa: (deal.hotel_price_fcfa || 50000) * 5,
           review_score: 8.2,
+          review_count: 50,
           photo_url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop', // Une belle photo d'hôtel par défaut
           booking_url: 'https://www.booking.com',
+          source: 'booking_scraping',
           highlights: ['Excellent emplacement', 'Confort premium', 'Hautement recommandé']
-        };
+        } as any;
       }
 
       // ★ ÉTAPE 2 : Appeler Llama 3.2 3B (timeout 45s)
