@@ -7,161 +7,139 @@ export const maxDuration = 60; // Vercel hobby max is 60s
 // ============================================================
 // CONFIGURATION NVIDIA / DEEPSEEK
 // ============================================================
-const NVIDIA_MODEL = 'deepseek-ai/deepseek-v4-flash';
-const MAX_DEALS_PER_RUN = 1; // Traiter 1 deal maximum par appel pour éviter le timeout Vercel (60s)
+const NVIDIA_MODEL = 'deepseek-ai/deepseek-r1';
+const MAX_DEALS_PER_RUN = 1;
 
-const SYSTEM_PROMPT = `Tu es le concierge virtuel premium d'UniqueVoyage. On te fournit un VOL RÉEL et un HÔTEL RÉEL (issu de Booking.com). Tu NE DOIS PAS inventer ni modifier le nom, le prix ou les étoiles de l'hôtel. Utilise exactement les données qu'on te donne.
+const SYSTEM_PROMPT = `Tu es un concierge voyage premium. On te donne un VOL RÉEL et potentiellement un HÔTEL RÉEL. Génère un itinéraire de séjour au format JSON.
 
-Ta mission : rédiger un programme de séjour jour par jour, élégant et premium, autour de cet hôtel réel. Le ton doit être inspirant, soigné et haut de gamme.
+RÈGLES :
+- Réponds UNIQUEMENT en JSON valide, sans markdown, sans backticks.
+- NE MODIFIE PAS les données de l'hôtel si elles sont fournies.
+- Programme journalier de 3 à 5 jours max.
+- Sois concis mais élégant.
 
-RÈGLES STRICTES :
-- Réponds UNIQUEMENT en JSON valide, sans balises markdown, juste l'objet JSON pur.
-- NE MODIFIE JAMAIS le nom, le prix ou les étoiles de l'hôtel. Copie-les tels quels.
-- Le programme journalier doit être réaliste et adapté à la destination ET au quartier de l'hôtel.
-- Propose des activités variées : culturelles, gastronomiques, détente, et exclusives.
-- Chaque jour doit avoir un thème.
-
-FORMAT DE RÉPONSE EXACT (JSON) :
+FORMAT JSON :
 {
   "flight_details": {
-    "origin": "ABJ",
-    "origin_name": "Abidjan",
-    "destination": "CODE_IATA",
-    "destination_name": "Nom de la ville",
-    "airline": "Nom de la compagnie",
-    "departure_date": "YYYY-MM-DD",
-    "return_date": "YYYY-MM-DD",
-    "price_fcfa": 000000,
-    "class": "Économique",
-    "duration_estimate": "Xh XXmin"
+    "origin": "ABJ", "origin_name": "Abidjan",
+    "destination": "CODE", "destination_name": "Ville",
+    "airline": "Compagnie", "departure_date": "YYYY-MM-DD",
+    "return_date": "YYYY-MM-DD", "price_fcfa": 0,
+    "class": "Économique", "duration_estimate": "Xh"
   },
   "hotel_details": {
-    "name": "EXACTEMENT le nom fourni",
-    "stars": 4,
-    "neighborhood": "Quartier fourni",
-    "price_per_night_fcfa": 00000,
-    "total_nights": 0,
-    "total_price_fcfa": 000000,
-    "review_score": 0,
-    "photo_url": "URL fournie",
-    "booking_url": "URL fournie",
-    "highlights": ["Les highlights fournis"],
-    "why_chosen": "Explication courte et élégante de pourquoi cet hôtel est parfait"
+    "name": "Nom", "stars": 4, "neighborhood": "Quartier",
+    "price_per_night_fcfa": 0, "total_nights": 0,
+    "total_price_fcfa": 0, "review_score": 0,
+    "photo_url": "", "booking_url": "",
+    "highlights": [], "why_chosen": "Raison"
   },
   "daily_program": [
-    {
-      "day": 1,
-      "theme": "Thème du jour",
-      "morning": "Description de l'activité du matin",
-      "lunch": "Restaurant ou expérience culinaire suggérée",
-      "afternoon": "Description de l'activité de l'après-midi",
-      "evening": "Description de la soirée",
-      "insider_tip": "Conseil de connaisseur exclusif"
-    }
+    { "day": 1, "theme": "Thème", "morning": "...", "lunch": "...", "afternoon": "...", "evening": "...", "insider_tip": "..." }
   ],
-  "total_budget_fcfa": 000000,
-  "budget_breakdown": {
-    "vol": 000000,
-    "hotel": 000000,
-    "activites_repas": 000000
-  },
-  "tagline": "Une phrase d'accroche inspirante pour ce séjour"
+  "total_budget_fcfa": 0,
+  "budget_breakdown": { "vol": 0, "hotel": 0, "activites_repas": 0 },
+  "tagline": "Phrase d'accroche"
 }`;
+
+// ============================================================
+// Helper : fetch avec timeout
+// ============================================================
+async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs: number): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { ...options, signal: controller.signal });
+    return res;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 // ============================================================
 // APPEL À L'API NVIDIA (DeepSeek)
 // ============================================================
 async function callNVIDIA(dealData: Record<string, unknown>, realHotel: RealHotel | null): Promise<Record<string, unknown> | null> {
   const apiKey = process.env.NVIDIA_API_KEY;
-
   if (!apiKey) {
-    console.error('[AI] ✗ NVIDIA_API_KEY manquante dans .env.local');
+    console.error('[AI] ✗ NVIDIA_API_KEY manquante');
     return null;
   }
 
   const hotelSection = realHotel
-    ? `HÔTEL RÉEL (BOOKING.COM — NE PAS MODIFIER) :
-- Nom exact : ${realHotel.name}
-- Étoiles : ${realHotel.stars}★
-- Quartier : ${realHotel.neighborhood}
-- Prix par nuit : ${realHotel.price_per_night_fcfa.toLocaleString()} FCFA (${realHotel.price_per_night_eur}€)
-- Nombre de nuits : ${realHotel.total_nights}
-- Prix total hôtel : ${realHotel.total_price_fcfa.toLocaleString()} FCFA
-- Note : ${realHotel.review_score}/10 (${realHotel.review_count} avis)
+    ? `HÔTEL RÉEL (NE PAS MODIFIER) :
+- Nom : ${realHotel.name}
+- ${realHotel.stars}★ — ${realHotel.neighborhood}
+- ${realHotel.price_per_night_fcfa.toLocaleString()} FCFA/nuit × ${realHotel.total_nights} nuits = ${realHotel.total_price_fcfa.toLocaleString()} FCFA
+- Note : ${realHotel.review_score}/10
 - Photo : ${realHotel.photo_url}
-- Lien réservation : ${realHotel.booking_url}
-- Points forts : ${realHotel.highlights.join(', ')}
-- Source : Booking.com (données certifiées)`
-    : `HÔTEL : Aucun hôtel réel trouvé sur Booking.com. NE GÉNÈRE PAS de faux hôtel. Mets "name": "Recherche en cours", "stars": 0, "price_per_night_fcfa": 0.`;
+- Lien : ${realHotel.booking_url}
+- Points forts : ${realHotel.highlights.join(', ')}`
+    : `PAS D'HÔTEL TROUVÉ. Mets "name":"Recherche en cours","stars":0,"price_per_night_fcfa":0.`;
 
-  const userPrompt = `Voici un vol à prix cassé détecté par notre algorithme ET un hôtel réel trouvé sur Booking.com. Génère l'itinéraire premium.
-
-DONNÉES DU VOL :
-- Origine : Abidjan (ABJ)
-- Destination : ${dealData.destination_name} (${dealData.destination})
-- Compagnie : ${dealData.airline_name} (${dealData.airline})
-- Date de départ : ${dealData.departure_date}
-- Date de retour : ${dealData.return_date || 'Non spécifiée (propose 5 à 7 jours)'}
-- Prix du vol : ${(dealData.price_fcfa as number)?.toLocaleString()} FCFA
-- Réduction : -${dealData.discount_percent}% par rapport au prix moyen (${(dealData.average_price_fcfa as number)?.toLocaleString()} FCFA)
+  const userPrompt = `VOL : ${dealData.destination_name} (${dealData.destination}), ${dealData.airline_name}, départ ${dealData.departure_date}, retour ${dealData.return_date || '5 jours après'}, ${(dealData.price_fcfa as number)?.toLocaleString()} FCFA (-${dealData.discount_percent}%)
 
 ${hotelSection}
 
-Génère l'itinéraire premium au format JSON spécifié. RAPPEL : NE MODIFIE PAS les données de l'hôtel.`;
+Génère l'itinéraire JSON.`;
 
   try {
-    const url = 'https://integrate.api.nvidia.com/v1/chat/completions';
-
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+    const response = await fetchWithTimeout(
+      'https://integrate.api.nvidia.com/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: NVIDIA_MODEL,
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: userPrompt }
+          ],
+          temperature: 0.7,
+          top_p: 0.9,
+          max_tokens: 4096,
+          stream: false
+        }),
       },
-      body: JSON.stringify({
-        model: NVIDIA_MODEL,
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: userPrompt }
-        ],
-        temperature: 1,
-        top_p: 0.95,
-        max_tokens: 16384,
-        stream: false
-      }),
-    });
+      45000 // 45 secondes max pour NVIDIA
+    );
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error(`[AI] ✗ NVIDIA HTTP ${response.status}:`, errText);
+      console.error(`[AI] ✗ NVIDIA HTTP ${response.status}:`, errText.substring(0, 200));
       return null;
     }
 
     const result = await response.json();
-
-    // Extraire le texte JSON de la réponse
     let rawText = result.choices?.[0]?.message?.content;
 
     if (!rawText) {
-      console.error('[AI] ✗ Réponse NVIDIA vide ou malformée.');
+      console.error('[AI] ✗ Réponse NVIDIA vide.');
       return null;
     }
 
-    // Nettoyer le formatage markdown éventuel (```json ... ```)
+    // Nettoyer : enlever les blocs <think>...</think> de DeepSeek-R1
+    rawText = rawText.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+    
+    // Nettoyer le formatage markdown
     rawText = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '').trim();
-    // Parfois deepseek ajoute des trucs bizarres, s'assurer qu'on commence bien par {
     const firstBrace = rawText.indexOf('{');
     const lastBrace = rawText.lastIndexOf('}');
     if (firstBrace !== -1 && lastBrace !== -1) {
       rawText = rawText.substring(firstBrace, lastBrace + 1);
     }
 
-    // Parser le JSON
-    const parsed = JSON.parse(rawText);
-    return parsed;
+    return JSON.parse(rawText);
 
   } catch (err) {
-    console.error('[AI] ✗ Erreur appel NVIDIA:', err instanceof Error ? err.message : err);
+    if (err instanceof Error && err.name === 'AbortError') {
+      console.error('[AI] ✗ NVIDIA timeout (45s dépassées)');
+    } else {
+      console.error('[AI] ✗ Erreur NVIDIA:', err instanceof Error ? err.message : err);
+    }
     return null;
   }
 }
@@ -170,7 +148,6 @@ Génère l'itinéraire premium au format JSON spécifié. RAPPEL : NE MODIFIE PA
 // ROUTE API — GET /api/ai/generate-itinerary
 // ============================================================
 export async function GET(request: NextRequest) {
-  // Sécurité optionnelle
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
 
@@ -179,7 +156,7 @@ export async function GET(request: NextRequest) {
   }
 
   console.log('[AI] ═══════════════════════════════════════');
-  console.log('[AI] Démarrage de la génération d\'itinéraires IA (DeepSeek NVIDIA)...');
+  console.log('[AI] Démarrage génération itinéraire IA...');
 
   // 1. Récupérer les deals non traités
   const { data: unprocessedDeals, error: fetchError } = await supabaseAdmin
@@ -195,139 +172,100 @@ export async function GET(request: NextRequest) {
   }
 
   if (!unprocessedDeals || unprocessedDeals.length === 0) {
-    console.log('[AI] Aucun deal non traité trouvé.');
-    return NextResponse.json({
-      message: 'Aucun deal non traité à transformer.',
-      processed: 0,
-    });
+    return NextResponse.json({ message: 'Aucun deal non traité.', processed: 0 });
   }
 
-  console.log(`[AI] ${unprocessedDeals.length} deals non traités trouvés.`);
+  const deal = unprocessedDeals[0];
+  console.log(`[AI] → Deal: ${deal.destination_name} (${deal.destination}) — ${deal.price_fcfa?.toLocaleString()} FCFA`);
 
-  const results = {
-    processed: 0,
-    itineraries_created: 0,
-    errors: [] as string[],
-  };
+  try {
+    // ★ ÉTAPE 1 : Chercher un VRAI hôtel sur Booking.com (timeout 10s)
+    let realHotel: RealHotel | null = null;
+    const checkIn = deal.departure_date;
+    const checkOut = deal.return_date || new Date(new Date(checkIn).getTime() + 5 * 86400000).toISOString().split('T')[0];
 
-  // 2. Pour chaque deal, appeler DeepSeek et sauvegarder
-  for (const deal of unprocessedDeals) {
     try {
-      console.log(`[AI] → Traitement: ${deal.destination_name} (${deal.destination}) — ${deal.price_fcfa?.toLocaleString()} FCFA — ${deal.airline_name}`);
-
-      // ★ ÉTAPE 1 : Chercher un VRAI hôtel sur Booking.com
-      const checkIn = deal.departure_date;
-      const checkOut = deal.return_date || new Date(new Date(checkIn).getTime() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-      
-      console.log(`[AI] 🏨 Recherche hôtel Booking.com pour ${deal.destination_name}...`);
-      const realHotel = await fetchRealHotel(deal.destination, deal.destination_name, checkIn, checkOut);
+      console.log(`[AI] 🏨 Recherche hôtel Booking.com (max 10s)...`);
+      const hotelPromise = fetchRealHotel(deal.destination, deal.destination_name, checkIn, checkOut);
+      const timeoutPromise = new Promise<null>((resolve) => setTimeout(() => resolve(null), 10000));
+      realHotel = await Promise.race([hotelPromise, timeoutPromise]);
       
       if (realHotel) {
-        console.log(`[AI] ✓ Hôtel réel trouvé: ${realHotel.name} (${realHotel.stars}★) — ${realHotel.price_per_night_fcfa} FCFA/nuit`);
+        console.log(`[AI] ✓ Hôtel: ${realHotel.name} (${realHotel.stars}★)`);
       } else {
-        console.warn(`[AI] ⚠ Aucun hôtel Booking.com trouvé pour ${deal.destination_name}. L'IA ne créera pas de faux hôtel.`);
+        console.warn(`[AI] ⚠ Pas d'hôtel trouvé ou timeout. On continue sans.`);
       }
-
-      // ★ ÉTAPE 2 : Appeler NVIDIA (DeepSeek) avec le vrai hôtel
-      const itinerary = await callNVIDIA(deal, realHotel);
-
-      if (!itinerary) {
-        results.errors.push(`${deal.destination}: Échec NVIDIA`);
-        continue;
-      }
-
-      // ★ ÉTAPE 3 : Forcer les données de l'hôtel réel dans l'itinéraire (sécurité anti-hallucination)
-      if (realHotel && itinerary.hotel_details) {
-        const hd = itinerary.hotel_details as Record<string, unknown>;
-        hd.name = realHotel.name;
-        hd.stars = realHotel.stars;
-        hd.neighborhood = realHotel.neighborhood;
-        hd.price_per_night_fcfa = realHotel.price_per_night_fcfa;
-        hd.total_nights = realHotel.total_nights;
-        hd.total_price_fcfa = realHotel.total_price_fcfa;
-        hd.review_score = realHotel.review_score;
-        hd.photo_url = realHotel.photo_url;
-        hd.booking_url = realHotel.booking_url;
-        hd.highlights = realHotel.highlights;
-        hd.source = 'booking.com';
-      }
-
-      // 3. Sauvegarder l'itinéraire dans premium_itineraries
-      const { error: insertError } = await supabaseAdmin
-        .from('premium_itineraries')
-        .upsert({
-          deal_id: deal.id,
-          destination: deal.destination,
-          destination_name: deal.destination_name,
-          flight_details: itinerary.flight_details || {},
-          hotel_details: itinerary.hotel_details || {},
-          daily_program: itinerary.daily_program || [],
-          ai_model: NVIDIA_MODEL
-        }, {
-          onConflict: 'deal_id',
-          ignoreDuplicates: false,
-        });
-
-      if (insertError) {
-        console.error(`[AI] ✗ Erreur sauvegarde itinéraire:`, insertError.message);
-        results.errors.push(`${deal.destination}: ${insertError.message}`);
-        continue;
-      }
-
-      // 4. Marquer le deal comme traité
-      const { error: updateError } = await supabaseAdmin
-        .from('detected_deals')
-        .update({ is_processed: true })
-        .eq('id', deal.id);
-
-      if (updateError) {
-        console.error(`[AI] ✗ Erreur update is_processed:`, updateError.message);
-        results.errors.push(`${deal.destination}: update failed`);
-        continue;
-      }
-
-      results.itineraries_created++;
-      console.log(`[AI] ✓ Itinéraire créé pour ${deal.destination_name} !`);
-
-      // Déclenchement de l'envoi des emails
-      try {
-        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-        await fetch(`${appUrl}/api/notify-users`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${process.env.CRON_SECRET}`
-          },
-          body: JSON.stringify({
-            destination: deal.destination_name,
-            price: deal.price_fcfa,
-            url: `${appUrl}/itinerary/${itinerary.id}`
-          })
-        });
-        console.log(`[AI] ✉️ Alertes emails envoyées avec succès pour ${deal.destination_name}`);
-      } catch (notifyErr) {
-        console.error(`[AI] ✗ Échec de l'envoi des emails:`, notifyErr);
-      }
-
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
-      results.errors.push(`${deal.destination}: ${msg}`);
-      console.error(`[AI] ✗ Erreur globale pour ${deal.destination}:`, msg);
+    } catch {
+      console.warn('[AI] ⚠ Erreur recherche hôtel, on continue sans.');
     }
 
-    results.processed++;
+    // ★ ÉTAPE 2 : Appeler NVIDIA DeepSeek (timeout 45s)
+    console.log(`[AI] 🤖 Appel DeepSeek (max 45s)...`);
+    const itinerary = await callNVIDIA(deal, realHotel);
 
-    // Petit délai entre les appels pour respecter le rate limit de NVIDIA
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (!itinerary) {
+      // Marquer le deal comme traité pour ne pas boucler dessus
+      await supabaseAdmin.from('detected_deals').update({ is_processed: true }).eq('id', deal.id);
+      return NextResponse.json({
+        error: `Échec génération IA pour ${deal.destination_name}`,
+        destination: deal.destination_name,
+      }, { status: 500 });
+    }
+
+    // ★ ÉTAPE 3 : Forcer les données hôtel réelles (anti-hallucination)
+    if (realHotel && itinerary.hotel_details) {
+      const hd = itinerary.hotel_details as Record<string, unknown>;
+      hd.name = realHotel.name;
+      hd.stars = realHotel.stars;
+      hd.neighborhood = realHotel.neighborhood;
+      hd.price_per_night_fcfa = realHotel.price_per_night_fcfa;
+      hd.total_nights = realHotel.total_nights;
+      hd.total_price_fcfa = realHotel.total_price_fcfa;
+      hd.review_score = realHotel.review_score;
+      hd.photo_url = realHotel.photo_url;
+      hd.booking_url = realHotel.booking_url;
+      hd.highlights = realHotel.highlights;
+      hd.source = 'booking.com';
+    }
+
+    // ★ ÉTAPE 4 : Sauvegarder dans Supabase
+    const { error: insertError } = await supabaseAdmin
+      .from('premium_itineraries')
+      .upsert({
+        deal_id: deal.id,
+        destination: deal.destination,
+        destination_name: deal.destination_name,
+        flight_details: itinerary.flight_details || {},
+        hotel_details: itinerary.hotel_details || {},
+        daily_program: itinerary.daily_program || [],
+        ai_model: NVIDIA_MODEL
+      }, {
+        onConflict: 'deal_id',
+        ignoreDuplicates: false,
+      });
+
+    if (insertError) {
+      console.error(`[AI] ✗ Erreur sauvegarde:`, insertError.message);
+      return NextResponse.json({ error: insertError.message }, { status: 500 });
+    }
+
+    // ★ ÉTAPE 5 : Marquer le deal comme traité
+    await supabaseAdmin.from('detected_deals').update({ is_processed: true }).eq('id', deal.id);
+
+    console.log(`[AI] ✓ Itinéraire créé pour ${deal.destination_name} !`);
+
+    return NextResponse.json({
+      message: `Itinéraire généré pour ${deal.destination_name} !`,
+      destination: deal.destination_name,
+      timestamp: new Date().toISOString(),
+      processed: 1,
+      itineraries_created: 1,
+      hotel_found: !!realHotel,
+    });
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Erreur inconnue';
+    console.error(`[AI] ✗ Erreur globale:`, msg);
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
-
-  console.log('[AI] ═══════════════════════════════════════');
-  console.log('[AI] Résultats:', JSON.stringify(results, null, 2));
-  console.log('[AI] Terminé ✓');
-
-  return NextResponse.json({
-    message: 'Génération d\'itinéraires (NVIDIA DeepSeek) terminée.',
-    timestamp: new Date().toISOString(),
-    ...results,
-  });
 }
