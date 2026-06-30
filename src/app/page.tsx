@@ -131,7 +131,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchPublicItineraries() {
       try {
-        const res = await fetch('/api/itineraries/public');
+        const res = await fetch(`/api/itineraries/public?t=${Date.now()}`);
         if (res.ok) {
           const data = await res.json();
           if (data && data.length > 0) {

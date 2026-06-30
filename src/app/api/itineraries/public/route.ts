@@ -73,7 +73,12 @@ export async function GET() {
       };
     });
 
-    return NextResponse.json(formattedItineraries, { status: 200 });
+    return NextResponse.json(formattedItineraries, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      }
+    });
   } catch (error) {
     console.error('Erreur API public itineraries:', error);
     return NextResponse.json({ error: 'Erreur interne du serveur.' }, { status: 500 });
