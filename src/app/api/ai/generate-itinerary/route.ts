@@ -7,7 +7,7 @@ export const maxDuration = 60; // Vercel hobby max is 60s
 // ============================================================
 // CONFIGURATION NVIDIA / DEEPSEEK
 // ============================================================
-const NVIDIA_MODEL = 'deepseek-ai/deepseek-r1';
+const NVIDIA_MODEL = 'meta/llama-3.2-3b-instruct';
 const MAX_DEALS_PER_RUN = 1;
 
 const SYSTEM_PROMPT = `Tu es un concierge voyage premium. On te donne un VOL RÉEL et potentiellement un HÔTEL RÉEL. Génère un itinéraire de séjour au format JSON.
@@ -121,9 +121,6 @@ Génère l'itinéraire JSON.`;
       return null;
     }
 
-    // Nettoyer : enlever les blocs <think>...</think> de DeepSeek-R1
-    rawText = rawText.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
-    
     // Nettoyer le formatage markdown
     rawText = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '').trim();
     const firstBrace = rawText.indexOf('{');
