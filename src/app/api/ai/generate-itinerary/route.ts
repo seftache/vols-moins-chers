@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../lib/supabase-admin';
 import { fetchRealHotel, RealHotel } from '../../../../lib/hotel-api';
+import { getCityImageUrl } from '../../../../lib/wikipedia-api';
 
 export const maxDuration = 60; // Vercel hobby max is 60s
 
@@ -245,7 +246,21 @@ export async function GET(request: NextRequest) {
         hd.source = 'booking.com';
       }
 
-      // ★ ÉTAPE 4 : Sauvegarder dans Supabase
+      // ★ ÉTAPE 4 : Récupérer une belle image de la ville via Wikipedia
+      let destinationImage = null;
+      if (deal.destination_name) {
+        destinationImage = await getCityImageUrl(deal.destination_name);
+      }
+      
+      if (!itinerary.flight_details) itinerary.flight_details = {};
+      const flightDetails = itinerary.flight_details as Record<string, unknown>;
+      if (destinationImage) {
+        flightDetails.destination_image = destinationImage;
+      } else {
+        flightDetails.destination_image = '/images/destinations/default.jpg';
+      }
+
+      // ★ ÉTAPE 5 : Sauvegarder dans Supabase
       const { error: insertError } = await supabaseAdmin
         .from('premium_itineraries')
         .upsert({

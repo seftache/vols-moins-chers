@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check, Star, Clock, Zap, ArrowRight } from "lucide-react";
+import CustomRequestForm from "./CustomRequestForm";
 
 type User = {
   id: string;
@@ -126,6 +127,11 @@ export default function DashboardClient({ user, itineraries = [] }: { user: User
             </div>
           )}
         </div>
+
+        <div className="h-px w-full bg-white/[0.07]" />
+
+        {/* ====================== RECHERCHE SUR MESURE VIP ====================== */}
+        <CustomRequestForm isVip={user.is_vip} />
 
         <div className="h-px w-full bg-white/[0.07]" />
 
