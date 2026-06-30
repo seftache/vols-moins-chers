@@ -57,16 +57,17 @@ export async function fetchRealHotel(
   }
 
   // 1. Résoudre le dest_id Booking.com
-  let destInfo = DESTINATION_IDS[destinationCode];
+  let destInfo: { dest_id: string; dest_type: string } | null = DESTINATION_IDS[destinationCode] || null;
 
   // Si le code IATA n'est pas dans notre mapping, on cherche dynamiquement
   if (!destInfo) {
     console.log(`[HOTEL] Destination ${destinationCode} non mappée, recherche dynamique de "${destinationName}"...`);
-    destInfo = await searchDestination(destinationName, apiKey);
-    if (!destInfo) {
+    const searchResult = await searchDestination(destinationName, apiKey);
+    if (!searchResult) {
       console.error(`[HOTEL] ✗ Impossible de résoudre la destination "${destinationName}"`);
       return null;
     }
+    destInfo = searchResult;
   }
 
   // 2. Chercher les hôtels
