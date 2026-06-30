@@ -128,6 +128,15 @@ export async function fetchRealHotel(
     const pricePerNightEUR = Math.round(priceEUR / totalNights);
     const pricePerNightFCFA = Math.round(pricePerNightEUR * EUR_TO_FCFA);
 
+    let finalBookingUrl = `https://www.booking.com/hotel/${prop?.countryCode}/${prop?.id || ''}.html`;
+    if (process.env.TRAVELPAYOUTS_MARKER) {
+      // Utilisation de l'affiliation Travelpayouts (programme Booking.com id=3411)
+      finalBookingUrl = `https://tp.media/r?marker=${process.env.TRAVELPAYOUTS_MARKER}&p=3411&u=${encodeURIComponent(finalBookingUrl)}`;
+    } else if (process.env.BOOKING_AFFILIATE_ID) {
+      // Utilisation directe de Booking.com (CJ Affiliate)
+      finalBookingUrl += `?aid=${process.env.BOOKING_AFFILIATE_ID}`;
+    }
+
     const hotel: RealHotel = {
       name: prop?.name || 'Hôtel Premium',
       stars: prop?.propertyClass || 4,
@@ -139,7 +148,7 @@ export async function fetchRealHotel(
       review_score: prop?.reviewScore || 0,
       review_count: prop?.reviewCount || 0,
       photo_url: prop?.photoUrls?.[0] || '',
-      booking_url: `https://www.booking.com/hotel/${prop?.countryCode}/${prop?.id || ''}.html?aid=${process.env.BOOKING_AFFILIATE_ID || ''}`,
+      booking_url: finalBookingUrl,
       highlights: extractHighlights(prop),
       source: 'booking.com',
     };
