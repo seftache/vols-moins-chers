@@ -36,12 +36,10 @@ export default function AdminActions() {
     setGenerateResult("");
     try {
       const res = await fetch("/api/ai/generate-itinerary", {
-        method: "POST",
+        method: "GET",
         headers: {
-          "Content-Type": "application/json",
           "Authorization": `Bearer ${getCronSecret()}`,
         },
-        body: JSON.stringify({}),
       });
       const data = await res.json();
       if (res.ok) {
