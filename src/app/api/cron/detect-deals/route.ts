@@ -58,8 +58,6 @@ function getNext3Months(): string[] {
 
 /**
  * Interroge l'API Travelpayouts (Aviasales) — endpoint "prices for dates"
- * API 100% gratuite avec un token.
- * Docs: https://support.travelpayouts.com/hc/en-us/articles/203956163
  */
 async function fetchFlightPrices(
   destination: string,
@@ -77,8 +75,8 @@ async function fetchFlightPrices(
   const token = process.env.TRAVELPAYOUTS_TOKEN;
 
   if (!token) {
-    // Mode simulation si pas de token configuré
-    return simulateFlightPrices(destination, month);
+    console.warn(`[Travelpayouts] Token manquant.`);
+    return { success: false, data: {} };
   }
 
   try {
@@ -96,81 +94,15 @@ async function fetchFlightPrices(
 
     if (!response.ok) {
       console.warn(`[Travelpayouts] ${response.status} pour ${ORIGIN}->${destination}`);
-      return simulateFlightPrices(destination, month);
+      return { success: false, data: {} };
     }
 
     const json = await response.json();
     return json;
   } catch (err) {
     console.warn(`[Travelpayouts] Erreur réseau pour ${destination}:`, err);
-    return simulateFlightPrices(destination, month);
+    return { success: false, data: {} };
   }
-}
-
-/**
- * Simulation réaliste de prix de vols — utilisée en mode dev
- * ou quand l'API Travelpayouts n'a pas de données pour ABJ.
- * Génère des prix réalistes avec des fluctuations et quelques "deals".
- */
-function simulateFlightPrices(
-  destination: string,
-  month: string
-): {
-  success: boolean;
-  data: Record<string, {
-    price: number;
-    airline: string;
-    departure_at: string;
-    return_at: string;
-    expires_at: string;
-  }>;
-} {
-  const dest = DESTINATIONS.find(d => d.code === destination);
-  if (!dest) return { success: false, data: {} };
-
-  const airlines = Object.keys(AIRLINE_NAMES);
-  const data: Record<string, {
-    price: number;
-    airline: string;
-    departure_at: string;
-    return_at: string;
-    expires_at: string;
-  }> = {};
-
-  const [year, monthNum] = month.split('-').map(Number);
-  const daysInMonth = new Date(year, monthNum, 0).getDate();
-
-  // Générer entre 8 et 15 offres pour ce mois
-  const numOffers = 8 + Math.floor(Math.random() * 8);
-
-  for (let i = 0; i < numOffers; i++) {
-    const day = 1 + Math.floor(Math.random() * daysInMonth);
-    const dateStr = `${month}-${String(day).padStart(2, '0')}`;
-
-    // Prix avec variation aléatoire (±35% autour du prix moyen)
-    const variation = 0.65 + Math.random() * 0.7; // entre 0.65 et 1.35
-    const basePriceEUR = Math.round((dest.avgPriceFCFA * variation) / EUR_TO_FCFA);
-
-    // 20% de chance de créer un "deal" vraiment bas (pour tester la détection)
-    const isDeal = Math.random() < 0.20;
-    const finalPriceEUR = isDeal
-      ? Math.round(basePriceEUR * (0.55 + Math.random() * 0.15)) // 55-70% du prix
-      : basePriceEUR;
-
-    const airline = airlines[Math.floor(Math.random() * airlines.length)];
-    const returnDay = day + 5 + Math.floor(Math.random() * 10); // 5 à 14 jours
-
-    const key = `${dateStr}_${airline}`;
-    data[key] = {
-      price: finalPriceEUR,
-      airline,
-      departure_at: `${dateStr}T00:00:00Z`,
-      return_at: `${month}-${String(Math.min(returnDay, daysInMonth)).padStart(2, '0')}T00:00:00Z`,
-      expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-    };
-  }
-
-  return { success: true, data };
 }
 
 // ============================================================
