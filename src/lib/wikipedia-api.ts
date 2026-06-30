@@ -27,7 +27,12 @@ export async function getCityImageUrl(cityName: string): Promise<string | null> 
 
     for (const q of queries) {
       const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=File:${encodeURIComponent(q)}&gsrnamespace=6&prop=imageinfo&iiprop=url&gsrlimit=5&format=json`;
-      const response = await fetch(url, { next: { revalidate: 86400 } }); // Cache de 24h
+      const response = await fetch(url, { 
+        headers: {
+          'User-Agent': 'UniqueVoyage/1.0 (https://uniquevoyage.site; contact@uniquevoyage.site)'
+        },
+        next: { revalidate: 86400 } // Cache de 24h
+      }); 
       
       if (response.ok) {
         const data = await response.json();
@@ -64,7 +69,12 @@ export async function getCityImageUrl(cityName: string): Promise<string | null> 
 
     // Deuxième fallback: Essayer la pageimage standard de Wikipedia FR
     const frUrl = `https://fr.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${encodeURIComponent(cleanName)}`;
-    const frRes = await fetch(frUrl, { next: { revalidate: 86400 } });
+    const frRes = await fetch(frUrl, { 
+      headers: {
+        'User-Agent': 'UniqueVoyage/1.0 (https://uniquevoyage.site; contact@uniquevoyage.site)'
+      },
+      next: { revalidate: 86400 } 
+    });
     if (frRes.ok) {
       const frData = await frRes.json();
       const pages = frData?.query?.pages;
@@ -83,6 +93,6 @@ export async function getCityImageUrl(cityName: string): Promise<string | null> 
     console.error(`Erreur Wikipedia API pour la ville ${cityName}:`, error);
   }
   
-  // Fallback ultime : une magnifique photo générique de voyage stable
+  // Fallback ultime : une magnifique photo générique de voyage stable (avion)
   return "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop";
 }
