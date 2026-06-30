@@ -22,6 +22,7 @@ export default function AdminActions() {
         const count = data.deals_found || data.dealsFound || 0;
         setDetectResult(`✅ Scan terminé ! ${count} offre(s) détectée(s).`);
       } else {
+        if (res.status === 401) localStorage.removeItem("admin_cron_secret");
         setDetectResult(`❌ Erreur : ${data.error || "Échec du scan."}`);
       }
     } catch {
@@ -46,6 +47,7 @@ export default function AdminActions() {
       if (res.ok) {
         setGenerateResult(`✅ Itinéraire généré pour ${data.destination || "une destination"} !`);
       } else {
+        if (res.status === 401) localStorage.removeItem("admin_cron_secret");
         setGenerateResult(`❌ Erreur : ${data.error || "Échec de la génération."}`);
       }
     } catch {
