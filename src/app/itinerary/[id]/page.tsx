@@ -3,6 +3,24 @@ import { createSupabaseServerClient } from "../../../lib/supabase-server";
 import { supabaseAdmin } from "../../../lib/supabase-admin";
 import { Lock, Star, Plane, MapPin, Calendar, Clock, CreditCard, Check, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { unstable_cache } from "next/cache";
+
+const getCachedItinerary = unstable_cache(
+  async (id: string) => {
+    const { data: itinerary, error } = await supabaseAdmin
+      .from('premium_itineraries')
+      .select('*, detected_deals(*)')
+      .eq('id', id)
+      .single();
+      
+    if (error) {
+      throw error;
+    }
+    return itinerary;
+  },
+  ['itinerary-detail'],
+  { revalidate: 300, tags: ['itinerary'] }
+);
 
 // Forcer le rendu dynamique pour toujours vérifier le statut VIP en temps réel
 export const dynamic = 'force-dynamic';
@@ -28,14 +46,11 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
     }
   }
 
-  // 2. Récupération de l'itinéraire avec supabaseAdmin (contourne le RLS qui bloque l'anonyme)
-  const { data: itinerary, error } = await supabaseAdmin
-    .from('premium_itineraries')
-    .select('*, detected_deals(*)')
-    .eq('id', id)
-    .single();
-
-  if (error || !itinerary) {
+  // 2. Récupération de l'itinéraire avec getCachedItinerary (mise en cache pour la fluidité)
+  let itinerary: any;
+  try {
+    itinerary = await getCachedItinerary(id);
+  } catch (error) {
     notFound();
   }
 
@@ -51,6 +66,30 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
   const flight = itinerary.flight_details;
   const hotel = itinerary.hotel_details;
   const program = itinerary.daily_program;
+
+  // Construction des liens d'affiliation réels et fonctionnels
+  const formatDateForFlight = (dateStr: string) => {
+    if (!dateStr) return "";
+    const parts = dateStr.split("-");
+    if (parts.length < 3) return "";
+    return `${parts[2]}${parts[1]}`; // DDMM format
+  };
+
+  const origin = flight.origin || "ABJ";
+  const destination = flight.destination || "";
+  const depStr = formatDateForFlight(flight.departure_date);
+  const retStr = formatDateForFlight(flight.return_date);
+  const marker = process.env.TRAVELPAYOUTS_MARKER || "545413";
+  
+  const flightSearchUrl = depStr && destination
+    ? `https://www.aviasales.com/search/${origin}${depStr}${destination}${retStr}1?marker=${marker}`
+    : `https://www.aviasales.com/search?origin=${origin}&destination=${destination}&marker=${marker}`;
+
+  const cleanBookingUrl = hotel.booking_url && !hotel.booking_url.includes('/hotel/') && !hotel.booking_url.includes('tp.media');
+  
+  const hotelBookingUrl = cleanBookingUrl
+    ? hotel.booking_url
+    : `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(hotel.name + ', ' + (hotel.neighborhood || itinerary.destination_name))}&checkin=${flight.departure_date}&checkout=${flight.return_date}${process.env.BOOKING_AFFILIATE_ID ? `&aid=${process.env.BOOKING_AFFILIATE_ID}` : ""}`;
 
   const displayAirline = isLocked ? "Compagnie Partenaire" : flight.airline;
   const displayHotelName = isLocked ? "Hôtel 5★ Mystère" : hotel.name;
@@ -336,14 +375,14 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
               <div className="space-y-3">
                 {/* Liens d'affiliation */}
                 <a 
-                  href={`https://search.travelpayouts.com/flights?origin=ABJ&destination=${flight.destination}`} 
+                  href={flightSearchUrl} 
                   target="_blank" rel="noreferrer"
                   className="w-full bg-[#D85A30] hover:bg-[#b84a25] text-white py-4 text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 font-bold"
                 >
                   Réserver le vol <ChevronRight size={16} />
                 </a>
                 <a 
-                  href={`https://www.booking.com/searchresults.html?city=${flight.destination}&aid=YOUR_AFFILIATE_ID`} 
+                  href={hotelBookingUrl} 
                   target="_blank" rel="noreferrer"
                   className="w-full bg-white text-black hover:bg-gray-200 py-4 text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 font-bold"
                 >

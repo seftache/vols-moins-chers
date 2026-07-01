@@ -1,19 +1,28 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../lib/supabase-admin';
+import { unstable_cache } from 'next/cache';
 
-export const dynamic = 'force-dynamic';
-
-export async function GET() {
-  try {
+const getCachedItineraries = unstable_cache(
+  async () => {
     const { data: itineraries, error } = await supabaseAdmin
       .from('premium_itineraries')
       .select('id, destination_name, generated_at, flight_details')
       .limit(100);
 
     if (error) {
-      console.error('Erreur Supabase lors de la récupération des itinéraires publics :', error);
-      return NextResponse.json({ error: 'Erreur lors de la récupération des itinéraires.' }, { status: 500 });
+      throw error;
     }
+    return itineraries || [];
+  },
+  ['public-itineraries-list'],
+  { revalidate: 600, tags: ['itineraries'] }
+);
+
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
+  try {
+    const itineraries = await getCachedItineraries();
 
     // Grouper par destination et ne retenir que l'itinéraire avec le prix le plus bas (meilleur deal)
     const destinationsMap: Record<string, any> = {};

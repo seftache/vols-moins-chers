@@ -61,6 +61,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function () {
+                if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+                  console.log('[Travelpayouts] Script skipped on localhost to avoid console errors');
+                  return;
+                }
                 var script = document.createElement("script");
                 script.async = 1;
                 script.src = 'https://emrld.ltd/NTQ0NjE4.js?t=544618';

@@ -202,6 +202,11 @@ export async function GET(request: NextRequest) {
       // Si la recherche live sur Booking.com a échoué ou a expiré, on utilise l'hôtel de secours
       if (!realHotel && deal.hotel_name) {
         console.log(`[AI] 🏨 Utilisation de l'hôtel de secours de la BDD : ${deal.hotel_name}`);
+        const fallbackUrl = `https://www.booking.com/searchresults.fr.html?ss=${encodeURIComponent(deal.destination_name || deal.destination)}`;
+        const bookingUrl = process.env.BOOKING_AFFILIATE_ID 
+          ? `${fallbackUrl}&aid=${process.env.BOOKING_AFFILIATE_ID}` 
+          : fallbackUrl;
+
         realHotel = {
           name: deal.hotel_name,
           stars: deal.hotel_stars || 4,
@@ -213,7 +218,7 @@ export async function GET(request: NextRequest) {
           review_score: 8.2,
           review_count: 50,
           photo_url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop', // Une belle photo d'hôtel par défaut
-          booking_url: 'https://www.booking.com',
+          booking_url: bookingUrl,
           source: 'booking_scraping',
           highlights: ['Excellent emplacement', 'Confort premium', 'Hautement recommandé']
         } as any;

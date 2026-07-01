@@ -2,17 +2,36 @@ import { createSupabaseServerClient } from "../../lib/supabase-server";
 import { supabaseAdmin } from "../../lib/supabase-admin";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { unstable_cache } from "next/cache";
+
+const getCachedAllItineraries = unstable_cache(
+  async () => {
+    const { data: itineraries, error } = await supabaseAdmin
+      .from("premium_itineraries")
+      .select("id, destination_name, generated_at")
+      .order("generated_at", { ascending: false })
+      .limit(100);
+      
+    if (error) {
+      throw error;
+    }
+    return itineraries || [];
+  },
+  ['all-itineraries-list'],
+  { revalidate: 600, tags: ['itineraries'] }
+);
 
 // Forcer la page à être dynamique pour toujours avoir les dernières offres
 export const dynamic = "force-dynamic";
 
 export default async function OffresPage() {
-  // Récupérer toutes les offres (on limite à 100 pour la performance)
-  const { data: itineraries, error } = await supabaseAdmin
-    .from("premium_itineraries")
-    .select("id, destination_name, generated_at")
-    .order("generated_at", { ascending: false })
-    .limit(100);
+  // Récupérer toutes les offres (mis en cache pour la fluidité)
+  let itineraries: any[] = [];
+  try {
+    itineraries = await getCachedAllItineraries();
+  } catch (err) {
+    console.error("Error fetching itineraries:", err);
+  }
 
   // Fonction utilitaire pour attribuer une image en fonction de la destination
   const getImageForDestination = (destName: string) => {

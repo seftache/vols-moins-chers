@@ -182,6 +182,11 @@ export async function POST(request: NextRequest) {
 
     // Fallback hotel
     if (!realHotel) {
+      const fallbackUrl = `https://www.booking.com/searchresults.fr.html?ss=${encodeURIComponent(destinationName)}`;
+      const bookingUrl = process.env.BOOKING_AFFILIATE_ID 
+        ? `${fallbackUrl}&aid=${process.env.BOOKING_AFFILIATE_ID}` 
+        : fallbackUrl;
+
       realHotel = {
         name: `Sélection VIP à ${destinationName}`,
         stars: 4,
@@ -193,7 +198,7 @@ export async function POST(request: NextRequest) {
         review_score: 8.5,
         review_count: 100,
         photo_url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop',
-        booking_url: `https://www.booking.com/searchresults.fr.html?ss=${encodeURIComponent(destinationName)}`,
+        booking_url: bookingUrl,
         source: 'fallback',
         highlights: ['Exclusivité VIP', 'Confort optimal']
       } as any;

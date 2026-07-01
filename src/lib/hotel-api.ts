@@ -128,13 +128,10 @@ export async function fetchRealHotel(
     const pricePerNightEUR = Math.round(priceEUR / totalNights);
     const pricePerNightFCFA = Math.round(pricePerNightEUR * EUR_TO_FCFA);
 
-    let finalBookingUrl = `https://www.booking.com/hotel/${prop?.countryCode}/${prop?.id || ''}.html`;
-    if (process.env.TRAVELPAYOUTS_MARKER) {
-      // Utilisation de l'affiliation Travelpayouts (programme Booking.com id=3411)
-      finalBookingUrl = `https://tp.media/r?marker=${process.env.TRAVELPAYOUTS_MARKER}&p=3411&u=${encodeURIComponent(finalBookingUrl)}`;
-    } else if (process.env.BOOKING_AFFILIATE_ID) {
+    let finalBookingUrl = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(prop?.name + ', ' + (prop?.wishlistName || destinationName))}&checkin=${checkIn}&checkout=${checkOut}`;
+    if (process.env.BOOKING_AFFILIATE_ID) {
       // Utilisation directe de Booking.com (CJ Affiliate)
-      finalBookingUrl += `?aid=${process.env.BOOKING_AFFILIATE_ID}`;
+      finalBookingUrl += `&aid=${process.env.BOOKING_AFFILIATE_ID}`;
     }
 
     const hotel: RealHotel = {
