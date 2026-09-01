@@ -2,67 +2,75 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Sparkles, Plane, ShieldCheck, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowUpRight, Sparkles, PhoneCall } from "lucide-react";
 
 interface AdBanner {
   id: string;
-  badge: string;
+  badge?: string;
   title: string;
   subtitle: string;
-  highlightText: string;
   image: string;
   ctaText: string;
   ctaLink: string;
+  isExternal: boolean;
   accentColor: string;
+  isSpecialContact?: boolean;
 }
 
 const PROMOTIONAL_BANNERS: AdBanner[] = [
+  // 1. BANNIÈRE "VOTRE PUBLICITÉ ICI" (Lien WhatsApp Direct)
   {
-    id: "dubai-promo",
-    badge: "OFFRE SPÉCIALE • DÉPART MONDIAL",
-    title: "Dubaï & Émirats Arabes Unis",
-    subtitle: "Séjour de rêve tout confort avec vol régulier négocié et hôtel économique sélectionné.",
-    highlightText: "Dès 490 000 FCFA (ou 745 € / $815)",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=85",
-    ctaText: "Découvrir l'offre Dubaï",
-    ctaLink: "/offres",
-    accentColor: "#D85A30"
+    id: "votre-pub-ici",
+    badge: "ESPACE ANNONCEUR DISPONIBLE",
+    title: "VOTRE PUBLICITÉ ICI",
+    subtitle: "Mettez en avant votre marque auprès de notre audience premium.",
+    image: "/images/ads/votre-pub-ici.png",
+    ctaText: "CONTACTEZ-NOUS",
+    ctaLink: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un encart publicitaire sur Unique Voyage."),
+    isExternal: true,
+    accentColor: "#D85A30",
+    isSpecialContact: true,
   },
+
+  // 2. EMPLOIS DUBAÏ (https://emploisdubai.com)
   {
-    id: "paris-promo",
-    badge: "ESCALE EUROPÉENNE • TARIF IMBATTABLE",
-    title: "Paris, Ville Lumière",
-    subtitle: "L'élégance parisienne au tarif direct compagnie. Bagages et assistance inclus.",
-    highlightText: "Dès 236 000 FCFA (540 $ CAD / 360 €)",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=85",
-    ctaText: "Explorer les vols Paris",
-    ctaLink: "/offres",
-    accentColor: "#d4a853"
+    id: "emplois-dubai",
+    badge: "CONCIERGERIE RECRUTEMENT • DUBAÏ",
+    title: "Emplois Dubaï",
+    subtitle: "Trouvez votre emploi de prestige à Dubaï. Accompagnement complet, visa de travail garanti & logement.",
+    image: "/images/ads/emplois-dubai.jpg",
+    ctaText: "VISITER EMPLOIS DUBAÏ",
+    ctaLink: "https://emploisdubai.com",
+    isExternal: true,
+    accentColor: "#d4a853",
   },
+
+  // 3. ETHICAL HACKER PREP (https://ethicalhackerprep.com)
   {
-    id: "conciergerie-promo",
-    badge: "CONCIERGERIE PRIVÉE • PAIEMENT LOCAL SÉCURISÉ",
-    title: "Réservation Directe & Wave",
-    subtitle: "Réglez en toute sérénité par Wave, Mobile Money ou Virement. Émission officielle garantie sous 1h.",
-    highlightText: "0% frais cachés • Service client 7j/7",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=85",
-    ctaText: "Consulter nos offres",
-    ctaLink: "/offres",
-    accentColor: "#10b981"
+    id: "ethical-hacker-prep",
+    badge: "CYBERSÉCURITÉ • CERTIFICATIONS D'ÉLITE",
+    title: "Ethical Hacker Prep",
+    subtitle: "La plateforme N°1 de préparation aux certifications internationales CEH, OSCP, CompTIA & Pentest.",
+    image: "/images/ads/ethical-hacker-prep.jpg",
+    ctaText: "ACCÉDER À LA PLATEFORME",
+    ctaLink: "https://ethicalhackerprep.com",
+    isExternal: true,
+    accentColor: "#ef4444",
   },
+
+  // 4. DOCUEXPRESS
   {
-    id: "monde-promo",
-    badge: "DESTINATIONS LONG-COURRIER • AFRIQUE, ASIE, AMÉRIQUES",
-    title: "Montréal, Tokyo, Canton & Jeddah",
-    subtitle: "Notre algorithme détecte les chutes de prix et erreurs tarifaires mondiales en temps réel.",
-    highlightText: "Jusqu'à -45% sur le tarif régulier",
-    image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1600&q=85",
-    ctaText: "Voir toutes les destinations",
-    ctaLink: "/offres",
-    accentColor: "#38bdf8"
-  }
+    id: "docuexpress",
+    badge: "SERVICES ADMINISTRATIFS & DOCUMENTS",
+    title: "DocuExpress",
+    subtitle: "Rédaction professionnelle, attestations, contrats et formalités administratives express et sécurisées.",
+    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1600&q=85",
+    ctaText: "CONTACTER LE SERVICE",
+    ctaLink: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite obtenir des informations sur les services DocuExpress."),
+    isExternal: true,
+    accentColor: "#3b82f6",
+  },
 ];
 
 export default function AdBannerSection() {
@@ -81,19 +89,19 @@ export default function AdBannerSection() {
 
   return (
     <section 
-      className="relative w-full bg-[#080808] py-8 sm:py-12 px-4 sm:px-8 md:px-16 lg:px-24 border-y border-white/[0.08] overflow-hidden"
+      className="relative w-full bg-[#080808] py-6 sm:py-10 px-4 sm:px-8 md:px-16 lg:px-24 border-y border-white/[0.08] overflow-hidden select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Halo de lumière ambiante */}
+      {/* Halo de lumière ambiante colorée */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full pointer-events-none opacity-20 blur-[100px] transition-colors duration-1000"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] rounded-full pointer-events-none opacity-20 blur-[100px] transition-colors duration-1000"
         style={{ backgroundColor: ad.accentColor }}
       />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Conteneur Carrousel Publicitaire */}
-        <div className="relative h-[420px] sm:h-[460px] md:h-[480px] w-full rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/15 shadow-[0_0_50px_rgba(0,0,0,0.8)] group">
+        <div className="relative h-[340px] sm:h-[380px] md:h-[400px] w-full rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/15 shadow-[0_0_50px_rgba(0,0,0,0.85)] group">
           
           {/* Images avec transition animée */}
           <AnimatePresence mode="wait">
@@ -102,7 +110,7 @@ export default function AdBannerSection() {
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.7, ease: "easeInOut" }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
               className="absolute inset-0 w-full h-full"
             >
               <Image
@@ -110,95 +118,90 @@ export default function AdBannerSection() {
                 alt={ad.title}
                 fill
                 priority
-                className="object-cover object-center brightness-75 group-hover:scale-105 transition-transform duration-1000"
+                className="object-cover object-center brightness-[0.55] group-hover:scale-105 transition-transform duration-1000"
                 sizes="(max-width: 1280px) 100vw, 1280px"
               />
-              {/* Masque dégradé cinéma haute lisibilité */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/30" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+              {/* Masque sombre pour une lisibilité parfaite du texte */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/40" />
             </motion.div>
           </AnimatePresence>
 
-          {/* Contenu textuel de la bannière */}
-          <div className="relative z-10 h-full flex flex-col justify-between p-6 sm:p-10 md:p-14 max-w-2xl">
+          {/* Contenu textuel centré haute visibilité */}
+          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 sm:px-12 md:px-20 py-8">
             {/* Badge promotionnel */}
-            <div>
+            {ad.badge && (
               <AnimatePresence mode="wait">
                 <motion.div
                   key={ad.id + "-badge"}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.4 }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] mb-4 bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg"
+                  transition={{ duration: 0.3 }}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] mb-3 bg-black/60 backdrop-blur-md border border-white/20 text-white shadow-md"
                 >
                   <Sparkles size={13} style={{ color: ad.accentColor }} />
                   <span>{ad.badge}</span>
                 </motion.div>
               </AnimatePresence>
+            )}
 
-              {/* Titre Principal */}
-              <AnimatePresence mode="wait">
-                <motion.h2
-                  key={ad.id + "-title"}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight"
-                >
-                  {ad.title}
-                </motion.h2>
-              </AnimatePresence>
+            {/* Titre Principal */}
+            <AnimatePresence mode="wait">
+              <motion.h2
+                key={ad.id + "-title"}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.35, delay: 0.05 }}
+                className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wide uppercase leading-tight drop-shadow-lg"
+              >
+                {ad.title}
+              </motion.h2>
+            </AnimatePresence>
 
-              {/* Sous-titre & Description */}
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={ad.id + "-sub"}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.4, delay: 0.15 }}
-                  className="text-xs sm:text-sm md:text-base text-white/80 font-light mt-3 leading-relaxed max-w-xl"
-                >
-                  {ad.subtitle}
-                </motion.p>
-              </AnimatePresence>
-            </div>
+            {/* Sous-titre & Description */}
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={ad.id + "-sub"}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.35, delay: 0.1 }}
+                className="text-xs sm:text-sm md:text-base text-white/80 font-light mt-3 sm:mt-4 leading-relaxed max-w-2xl drop-shadow-md"
+              >
+                {ad.subtitle}
+              </motion.p>
+            </AnimatePresence>
 
-            {/* Pied de la bannière : Prix d'appel & Bouton d'action */}
-            <div className="space-y-4 pt-4">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={ad.id + "-price"}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  transition={{ duration: 0.35, delay: 0.2 }}
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold tracking-wide text-white bg-black/60 backdrop-blur-md px-4 py-2 rounded-xl border border-white/15"
-                >
-                  <Plane size={15} style={{ color: ad.accentColor }} />
-                  <span>{ad.highlightText}</span>
-                </motion.div>
-              </AnimatePresence>
-
-              <div>
-                <Link
+            {/* Bouton d'action principal */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={ad.id + "-cta"}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3, delay: 0.15 }}
+                className="mt-6 sm:mt-8"
+              >
+                <a
                   href={ad.ctaLink}
-                  className="inline-flex items-center gap-3 bg-[#D85A30] hover:bg-[#c24e27] text-white font-bold py-3.5 sm:py-4 px-6 sm:px-8 rounded-xl uppercase tracking-[0.2em] text-xs sm:text-sm transition-all shadow-xl hover:shadow-[#D85A30]/30 active:scale-95"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-[#D85A30] hover:bg-[#c24e27] text-white font-bold py-3 sm:py-3.5 px-7 sm:px-9 rounded-xl uppercase tracking-[0.2em] text-xs sm:text-sm transition-all shadow-xl hover:shadow-[#D85A30]/40 active:scale-95"
                 >
+                  {ad.isSpecialContact ? <PhoneCall size={16} /> : null}
                   <span>{ad.ctaText}</span>
-                  <ArrowRight size={16} />
-                </Link>
-              </div>
-            </div>
+                  <ArrowUpRight size={16} />
+                </a>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Boutons de navigation Précédent / Suivant */}
           <button
             type="button"
             onClick={() => setCurrentAd((prev) => (prev === 0 ? PROMOTIONAL_BANNERS.length - 1 : prev - 1))}
-            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D85A30] text-white/80 hover:text-white p-2.5 sm:p-3 rounded-full border border-white/20 transition-all backdrop-blur-md z-20 active:scale-90"
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D85A30] text-white/80 hover:text-white p-2.5 sm:p-3.5 rounded-full border border-white/20 transition-all backdrop-blur-md z-20 active:scale-90 shadow-lg"
             aria-label="Annonce précédente"
           >
             <ChevronLeft size={20} />
@@ -206,14 +209,14 @@ export default function AdBannerSection() {
           <button
             type="button"
             onClick={() => setCurrentAd((prev) => (prev === PROMOTIONAL_BANNERS.length - 1 ? 0 : prev + 1))}
-            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D85A30] text-white/80 hover:text-white p-2.5 sm:p-3 rounded-full border border-white/20 transition-all backdrop-blur-md z-20 active:scale-90"
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D85A30] text-white/80 hover:text-white p-2.5 sm:p-3.5 rounded-full border border-white/20 transition-all backdrop-blur-md z-20 active:scale-90 shadow-lg"
             aria-label="Annonce suivante"
           >
             <ChevronRight size={20} />
           </button>
 
           {/* Indicateurs de progression (Points / Dots) */}
-          <div className="absolute bottom-5 right-5 sm:right-10 flex items-center gap-2 z-20 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15">
             {PROMOTIONAL_BANNERS.map((item, index) => (
               <button
                 key={item.id}
