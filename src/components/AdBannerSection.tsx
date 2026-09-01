@@ -3,70 +3,84 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface AdBanner {
   id: string;
-  badge?: string;
   title: string;
-  subtitle: string;
   image: string;
-  ctaText: string;
-  ctaLink: string;
-  isExternal: boolean;
-  accentColor: string;
-  isSpecialContact?: boolean;
+  link: string;
 }
 
 const PROMOTIONAL_BANNERS: AdBanner[] = [
-  // 1. ETHICAL HACKER PREP → ethicalhackerprep.com
-  {
-    id: "ethical-hacker-prep",
-    title: "Ethical Hacker Prep",
-    subtitle: "Think like a hacker. Defend like a pro. Practice, Master, Get Certified.",
-    image: "/images/ads/ethical-hacker-prep.png",
-    ctaText: "START YOUR JOURNEY TODAY",
-    ctaLink: "https://ethicalhackerprep.com",
-    isExternal: true,
-    accentColor: "#ef4444",
-  },
-
-  // 2. DOCU EXPRESS → docuexpress (contact WhatsApp)
+  // 1. DOCU EXPRESS (https://docuexpress.site)
   {
     id: "docu-express",
-    title: "Docu Express",
-    subtitle: "Créez un CV qui vous ressemble. Des modèles futuristes adaptés à tous les secteurs.",
+    title: "Docu Express — Créez un CV qui vous ressemble",
     image: "/images/ads/docu-express.png",
-    ctaText: "CRÉER MON CV MAINTENANT",
-    ctaLink: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite créer mon CV avec DocuExpress."),
-    isExternal: true,
-    accentColor: "#7c3aed",
+    link: "https://docuexpress.site",
   },
-
-  // 3. GADJICO WEB AGENCY → gadjico.netlify.app
+  // 2. ETHICAL HACKER PREP (https://ethicalhackerprep.com)
+  {
+    id: "ethical-hacker-prep",
+    title: "Ethical Hacker Prep — Think like a hacker, Defend like a pro",
+    image: "/images/ads/ethical-hacker-prep.png",
+    link: "https://ethicalhackerprep.com",
+  },
+  // 3. GADJICO WEB AGENCY (https://gadjico.netlify.app)
   {
     id: "gadjico-web",
-    title: "Gadjico Web Agency",
-    subtitle: "Créez un site web exceptionnel en une semaine ! Contactez-nous pour un devis gratuit.",
+    title: "Gadjico Web Agency — Créez un site web exceptionnel",
     image: "/images/ads/gadjico-web.png",
-    ctaText: "DEMANDER UN DEVIS",
-    ctaLink: "https://gadjico.netlify.app",
-    isExternal: true,
-    accentColor: "#f59e0b",
+    link: "https://gadjico.netlify.app",
   },
-
-  // 4. BANNIÈRE "VOTRE PUBLICITÉ ICI" (Lien WhatsApp Direct)
+  // 4. EMPLOIS DUBAÏ (https://emploisdubai.com)
   {
-    id: "votre-pub-ici",
-    badge: "ESPACE ANNONCEUR DISPONIBLE",
-    title: "VOTRE PUBLICITÉ ICI",
-    subtitle: "Mettez en avant votre marque auprès de notre audience premium.",
-    image: "/images/ads/votre-pub-ici.png",
-    ctaText: "CONTACTEZ-NOUS",
-    ctaLink: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un encart publicitaire sur Unique Voyage."),
-    isExternal: true,
-    accentColor: "#D85A30",
-    isSpecialContact: true,
+    id: "emplois-dubai",
+    title: "Emplois Dubaï — Recrutement & Placement Premium",
+    image: "/images/ads/emplois-dubai.jpg",
+    link: "https://emploisdubai.com",
+  },
+  // 5. PUB 1 (Ethical Hacker)
+  {
+    id: "pub-1",
+    title: "Ethical Hacker Prep — Certification CEH & Pentest",
+    image: "/images/ads/pub1.jpg",
+    link: "https://ethicalhackerprep.com",
+  },
+  // 6. PUB 2 (Ethical Hacker)
+  {
+    id: "pub-2",
+    title: "Ethical Hacker Prep — Simulations d'attaques en temps réel",
+    image: "/images/ads/pub2.jpg",
+    link: "https://ethicalhackerprep.com",
+  },
+  // 7. PUB 3 (Ethical Hacker)
+  {
+    id: "pub-3",
+    title: "Ethical Hacker Prep — Laboratoire & Modules Pratiques",
+    image: "/images/ads/pub3.jpg",
+    link: "https://ethicalhackerprep.com",
+  },
+  // 8. PUB 4 (Ethical Hacker)
+  {
+    id: "pub-4",
+    title: "Ethical Hacker Prep — Communauté & Quiz",
+    image: "/images/ads/pub4.jpg",
+    link: "https://ethicalhackerprep.com",
+  },
+  // 9. PUB 5 (DocuExpress)
+  {
+    id: "pub-5",
+    title: "Docu Express — Modèles Professionnels & ATS",
+    image: "/images/ads/pub5.jpg",
+    link: "https://docuexpress.site",
+  },
+  // 10. PUB 6 (Emplois Dubaï)
+  {
+    id: "pub-6",
+    title: "Emplois Dubaï — Visa & Logement Inclus",
+    image: "/images/ads/pub6.jpg",
+    link: "https://emploisdubai.com",
   },
 ];
 
@@ -74,98 +88,89 @@ export default function AdBannerSection() {
   const [currentAd, setCurrentAd] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Rotation automatique toutes les 5 secondes
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       setCurrentAd((prev) => (prev + 1) % PROMOTIONAL_BANNERS.length);
-    }, 5500);
+    }, 5000);
     return () => clearInterval(interval);
   }, [isPaused]);
 
   const ad = PROMOTIONAL_BANNERS[currentAd];
 
   return (
-    <section 
-      className="relative w-full bg-[#080808] py-6 sm:py-10 px-4 sm:px-8 md:px-16 lg:px-24 border-y border-white/[0.08] overflow-hidden select-none"
+    <div 
+      className="w-full h-[45vh] sm:h-[55vh] md:h-[62vh] bg-black text-white flex items-center justify-center relative overflow-hidden select-none my-4 sm:my-8"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Halo de lumière ambiante colorée */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] rounded-full pointer-events-none opacity-20 blur-[100px] transition-colors duration-1000"
-        style={{ backgroundColor: ad.accentColor }}
-      />
-
-      <div className="relative max-w-7xl mx-auto">
-        {/* Conteneur Carrousel Publicitaire */}
-        <div className="relative h-[340px] sm:h-[380px] md:h-[400px] w-full rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/15 shadow-[0_0_50px_rgba(0,0,0,0.85)] group">
-          
-          {/* Images avec transition animée — Affichage plein écran (les affiches contiennent déjà le texte) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={ad.id}
-              initial={{ opacity: 0, scale: 1.02 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full"
+      {/* Conteneur Carrousel sans bordure, identique au style original */}
+      <div className="w-11/12 max-w-[1400px] h-[95%] overflow-hidden rounded-2xl shadow-2xl relative group flex items-center justify-center">
+        
+        {/* Image de l'affiche avec transition fluide */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={ad.id}
+            initial={{ opacity: 0, scale: 1.02 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="relative w-full h-full"
+          >
+            <a
+              href={ad.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full h-full cursor-pointer"
+              aria-label={ad.title}
             >
-              <a
-                href={ad.ctaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full h-full cursor-pointer"
-                aria-label={ad.title}
-              >
-                <Image
-                  src={ad.image}
-                  alt={ad.title}
-                  fill
-                  priority
-                  className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
-                  sizes="(max-width: 1280px) 100vw, 1280px"
-                />
-              </a>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Boutons de navigation Précédent / Suivant */}
-          <button
-            type="button"
-            onClick={() => setCurrentAd((prev) => (prev === 0 ? PROMOTIONAL_BANNERS.length - 1 : prev - 1))}
-            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D85A30] text-white/80 hover:text-white p-2.5 sm:p-3.5 rounded-full border border-white/20 transition-all backdrop-blur-md z-20 active:scale-90 shadow-lg"
-            aria-label="Annonce précédente"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button
-            type="button"
-            onClick={() => setCurrentAd((prev) => (prev === PROMOTIONAL_BANNERS.length - 1 ? 0 : prev + 1))}
-            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D85A30] text-white/80 hover:text-white p-2.5 sm:p-3.5 rounded-full border border-white/20 transition-all backdrop-blur-md z-20 active:scale-90 shadow-lg"
-            aria-label="Annonce suivante"
-          >
-            <ChevronRight size={20} />
-          </button>
-
-          {/* Indicateurs de progression (Points / Dots) */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15">
-            {PROMOTIONAL_BANNERS.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => setCurrentAd(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentAd 
-                    ? "w-7 bg-[#D85A30]" 
-                    : "w-2 bg-white/30 hover:bg-white/60"
-                }`}
-                aria-label={`Aller à la diapositive ${index + 1}`}
+              <Image
+                src={ad.image}
+                alt={ad.title}
+                fill
+                priority={currentAd === 0}
+                className="object-cover rounded-2xl transition-all duration-700 ease-in-out group-hover:scale-[1.03]"
+                sizes="(max-width: 1400px) 100vw, 1400px"
               />
-            ))}
-          </div>
+            </a>
+          </motion.div>
+        </AnimatePresence>
 
+        {/* Boutons de navigation */}
+        <button
+          type="button"
+          onClick={() => setCurrentAd((prev) => (prev === 0 ? PROMOTIONAL_BANNERS.length - 1 : prev - 1))}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-3 sm:p-4 rounded-full hover:bg-black/90 transition-all duration-300 z-10 text-lg sm:text-xl active:scale-95 shadow-lg"
+          aria-label="Annonce précédente"
+        >
+          &larr;
+        </button>
+        <button
+          type="button"
+          onClick={() => setCurrentAd((prev) => (prev === PROMOTIONAL_BANNERS.length - 1 ? 0 : prev + 1))}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-3 sm:p-4 rounded-full hover:bg-black/90 transition-all duration-300 z-10 text-lg sm:text-xl active:scale-95 shadow-lg"
+          aria-label="Annonce suivante"
+        >
+          &rarr;
+        </button>
+
+        {/* Indicateurs de progression (Points / Dots) */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full">
+          {PROMOTIONAL_BANNERS.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setCurrentAd(index)}
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full cursor-pointer transition-all duration-300 ${
+                index === currentAd ? "bg-white scale-125" : "bg-gray-500 hover:bg-gray-300"
+              }`}
+              aria-label={`Aller à la pub ${index + 1}`}
+            />
+          ))}
         </div>
+
       </div>
-    </section>
+    </div>
   );
 }
