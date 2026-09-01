@@ -2,34 +2,48 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Seules les routes commençant par /dashboard nécessitent une authentification
+  const isProtectedRoute = pathname.startsWith('/dashboard');
+
+  if (!isProtectedRoute) {
+    return NextResponse.next();
+  }
+
   let supabaseResponse = NextResponse.next({ request });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder",
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
+  try {
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co",
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder",
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            supabaseResponse = NextResponse.next({ request });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            );
+          },
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
-      },
+      }
+    );
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/auth';
+      return NextResponse.redirect(url);
     }
-  );
-
-  // Récupère la session de l'utilisateur (obligatoire pour refresh le token)
-  const { data: { user } } = await supabase.auth.getUser();
-
-  // Si l'utilisateur n'est pas connecté et essaie d'accéder au dashboard
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+  } catch (error) {
+    console.error('Erreur vérification session middleware:', error);
     const url = request.nextUrl.clone();
     url.pathname = '/auth';
     return NextResponse.redirect(url);
@@ -41,10 +55,8 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Applique le middleware sur toutes les routes sauf :
-     * - les fichiers statiques Next.js (_next/static, _next/image)
-     * - les fichiers publics (favicon, images...)
+     * Applique le middleware uniquement sur les routes protégées
      */
-    '/((?!_next/static|_next/image|favicon.ico|images/|icon.png|auth).*)',
+    '/dashboard/:path*',
   ],
 };
