@@ -40,47 +40,47 @@ const PROMOTIONAL_BANNERS: AdBanner[] = [
     image: "/images/ads/emplois-dubai.jpg",
     link: "https://emploisdubai.com",
   },
-  // 5. PUB 1 (Ethical Hacker)
+  // 5. EMPLACEMENT PUB 1 (WhatsApp)
   {
     id: "pub-1",
-    title: "Ethical Hacker Prep — Certification CEH & Pentest",
+    title: "Espace Publicitaire 1 — Réservez votre annonce",
     image: "/images/ads/pub1.jpg",
-    link: "https://ethicalhackerprep.com",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un espace publicitaire sur Unique Voyage."),
   },
-  // 6. PUB 2 (Ethical Hacker)
+  // 6. EMPLACEMENT PUB 2 (WhatsApp)
   {
     id: "pub-2",
-    title: "Ethical Hacker Prep — Simulations d'attaques en temps réel",
+    title: "Espace Publicitaire 2 — Réservez votre annonce",
     image: "/images/ads/pub2.jpg",
-    link: "https://ethicalhackerprep.com",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un espace publicitaire sur Unique Voyage."),
   },
-  // 7. PUB 3 (Ethical Hacker)
+  // 7. EMPLACEMENT PUB 3 (WhatsApp)
   {
     id: "pub-3",
-    title: "Ethical Hacker Prep — Laboratoire & Modules Pratiques",
+    title: "Espace Publicitaire 3 — Réservez votre annonce",
     image: "/images/ads/pub3.jpg",
-    link: "https://ethicalhackerprep.com",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un espace publicitaire sur Unique Voyage."),
   },
-  // 8. PUB 4 (Ethical Hacker)
+  // 8. EMPLACEMENT PUB 4 (WhatsApp)
   {
     id: "pub-4",
-    title: "Ethical Hacker Prep — Communauté & Quiz",
+    title: "Espace Publicitaire 4 — Réservez votre annonce",
     image: "/images/ads/pub4.jpg",
-    link: "https://ethicalhackerprep.com",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un espace publicitaire sur Unique Voyage."),
   },
-  // 9. PUB 5 (DocuExpress)
+  // 9. EMPLACEMENT PUB 5 (WhatsApp)
   {
     id: "pub-5",
-    title: "Docu Express — Modèles Professionnels & ATS",
+    title: "Espace Publicitaire 5 — Réservez votre annonce",
     image: "/images/ads/pub5.jpg",
-    link: "https://docuexpress.site",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un espace publicitaire sur Unique Voyage."),
   },
-  // 10. PUB 6 (Emplois Dubaï)
+  // 10. EMPLACEMENT PUB 6 (WhatsApp)
   {
     id: "pub-6",
-    title: "Emplois Dubaï — Visa & Logement Inclus",
+    title: "Espace Publicitaire 6 — Réservez votre annonce",
     image: "/images/ads/pub6.jpg",
-    link: "https://emploisdubai.com",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un espace publicitaire sur Unique Voyage."),
   },
 ];
 
