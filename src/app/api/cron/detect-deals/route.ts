@@ -216,12 +216,14 @@ export async function GET(request: NextRequest) {
           const entries = Object.values(response.data);
           console.log(`[CRON]   ${entries.length} vols trouvés`);
 
+          for (const flight of entries) {
             // Prix de gros initial de la compagnie aérienne
             const wholesalePriceFCFA = Math.round(flight.price * EUR_TO_FCFA);
             
             // Marge bénéficiaire de l'agence (8% ajoutés automatiquement au prix public)
             const AGENCY_MARGIN_RATE = 0.08;
             const priceFCFA = Math.round(wholesalePriceFCFA * (1 + AGENCY_MARGIN_RATE));
+
 
             const discountPercent = ((dest.avgPriceFCFA - priceFCFA) / dest.avgPriceFCFA) * 100;
 
