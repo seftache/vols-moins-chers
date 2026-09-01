@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { forcePublishOffer, deleteOffer } from "../actions";
-import { Loader2, RefreshCw, Trash2, ExternalLink, Plane, Building2, MessageCircle } from "lucide-react";
+import { Loader2, RefreshCw, Trash2, ExternalLink, Plane, Building2 } from "lucide-react";
 import Link from "next/link";
 
 interface OfferRowProps {
@@ -73,8 +73,13 @@ export default function OfferRow({ offer }: OfferRowProps) {
         <div className="flex flex-col">
           <span className="font-bold text-white text-base flex items-center gap-2">
             {offer.destination_name}
-            <Link href={`/itinerary/${offer.id}`} target="_blank" className="text-white/40 hover:text-[#D85A30]" title="Voir fiche client">
-              <ExternalLink size={13} />
+            <Link 
+              href={`/itinerary/${offer.id}?admin=true`} 
+              target="_blank" 
+              className="text-white/40 hover:text-[#D85A30]" 
+              title="Voir fiche complète avec réservation directe"
+            >
+              <ExternalLink size={14} />
             </Link>
           </span>
           <span className="text-xs text-white/50 flex items-center gap-1.5 mt-0.5">
@@ -115,7 +120,7 @@ export default function OfferRow({ offer }: OfferRowProps) {
           </span>
         ) : (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-            Actif
+            Disponible
           </span>
         )}
       </td>
@@ -123,15 +128,15 @@ export default function OfferRow({ offer }: OfferRowProps) {
       {/* Actions Billetterie Directe */}
       <td className="px-6 py-4 text-right">
         <div className="flex items-center justify-end gap-2">
-          {/* Bouton Émettre le vol */}
+          {/* Bouton Réserver le vol */}
           <a
             href={flightSearchUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 bg-[#D85A30] hover:bg-[#b84a25] text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm"
-            title="Émettre le billet pour le client avec commission affiliée"
+            className="inline-flex items-center gap-1.5 bg-[#D85A30] hover:bg-[#b84a25] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-md hover:scale-[1.02]"
+            title="Réserver directement le vol pour le client (Commissions Travelpayouts #545413)"
           >
-            <Plane size={12} /> Émettre Vol
+            <Plane size={13} /> Réserver Vol
           </a>
 
           {/* Bouton Réserver l'hôtel */}
@@ -140,10 +145,10 @@ export default function OfferRow({ offer }: OfferRowProps) {
               href={hotelBookingUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border border-white/10"
-              title="Réserver l'hôtel sur Booking.com"
+              className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition-all border border-white/10"
+              title="Réserver l'hôtel pour le client sur Booking.com"
             >
-              <Building2 size={12} /> Hôtel
+              <Building2 size={13} /> Hôtel
             </a>
           )}
 
@@ -151,7 +156,7 @@ export default function OfferRow({ offer }: OfferRowProps) {
           <button
             onClick={handleForcePublish}
             disabled={isPending}
-            className="p-1.5 text-white/50 hover:text-white transition-colors"
+            className="p-2 text-white/40 hover:text-white transition-colors"
             title="Actualiser pour 72h"
           >
             {isPending ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
@@ -159,7 +164,7 @@ export default function OfferRow({ offer }: OfferRowProps) {
           <button
             onClick={handleDelete}
             disabled={isPending}
-            className="p-1.5 text-red-400/60 hover:text-red-400 transition-colors"
+            className="p-2 text-red-400/50 hover:text-red-400 transition-colors"
             title="Supprimer l'offre"
           >
             <Trash2 size={14} />
