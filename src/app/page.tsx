@@ -6,6 +6,7 @@ import { ArrowRight, X, ChevronLeft, ChevronRight, Check, Loader2 } from "lucide
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../lib/supabase";
 import Link from "next/link";
+import AdBannerSection from "../components/AdBannerSection";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -237,6 +238,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* =====================================================================
+          1.5 BANNIÈRE PUBLICITAIRE & OFFRES EN VEDETTE
+          ===================================================================== */}
+      <AdBannerSection />
 
       {/* =====================================================================
           2. LE CONCEPT (Asymétrique avec animation au scroll)
