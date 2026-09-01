@@ -2,9 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../lib/supabase-admin';
 
 // ============================================================
-// CONFIGURATION DES DESTINATIONS DEPUIS ABIDJAN (ABJ)
+// CONFIGURATION DES ORIGINES ET DESTINATIONS
 // ============================================================
-const ORIGIN = 'ABJ';
+const ORIGINS = [
+  { code: 'ABJ', name: 'Abidjan' },
+  { code: 'CDG', name: 'Paris' },
+  { code: 'BRU', name: 'Bruxelles' },
+  { code: 'CMN', name: 'Casablanca' },
+  { code: 'DSS', name: 'Dakar' },
+  { code: 'ACC', name: 'Accra' },
+];
 
 const DESTINATIONS = [
   // Europe
@@ -111,6 +118,7 @@ function getNext3Months(): string[] {
  * Interroge l'API Travelpayouts (Aviasales) — endpoint "prices for dates"
  */
 async function fetchFlightPrices(
+  origin: string,
   destination: string,
   month: string
 ): Promise<{
@@ -132,7 +140,7 @@ async function fetchFlightPrices(
 
   try {
     const url = new URL('https://api.travelpayouts.com/v1/prices/calendar');
-    url.searchParams.set('origin', ORIGIN);
+    url.searchParams.set('origin', origin);
     url.searchParams.set('destination', destination);
     url.searchParams.set('depart_date', month);
     url.searchParams.set('currency', 'eur');
@@ -144,7 +152,7 @@ async function fetchFlightPrices(
     });
 
     if (!response.ok) {
-      console.warn(`[Travelpayouts] ${response.status} pour ${ORIGIN}->${destination}`);
+      console.warn(`[Travelpayouts] ${response.status} pour ${origin}->${destination}`);
       return { success: false, data: {} };
     }
 
@@ -174,7 +182,7 @@ export async function GET(request: NextRequest) {
 
   console.log('[CRON] ═══════════════════════════════════════');
   console.log('[CRON] Démarrage de la détection de deals...');
-  console.log('[CRON] Origine:', ORIGIN);
+  console.log('[CRON] Origines:', ORIGINS.map(o => o.code).join(', '));
   console.log('[CRON] Destinations:', DESTINATIONS.map(d => d.code).join(', '));
 
   const months = getNext3Months();
@@ -188,41 +196,44 @@ export async function GET(request: NextRequest) {
     errors: [] as string[],
   };
 
-  // Scanner chaque destination x chaque mois
-  for (const dest of DESTINATIONS) {
-    for (const month of months) {
-      try {
-        console.log(`[CRON] Scan ${ORIGIN} → ${dest.code} (${dest.name}) — ${month}`);
+  // Scanner chaque origine x destination x mois
+  for (const originObj of ORIGINS) {
+    const validDestinations = DESTINATIONS.filter(d => d.code !== originObj.code);
+    
+    for (const dest of validDestinations) {
+      for (const month of months) {
+        try {
+          console.log(`[CRON] Scan ${originObj.code} → ${dest.code} (${dest.name}) — ${month}`);
 
-        const response = await fetchFlightPrices(dest.code, month);
-        results.scanned++;
+          const response = await fetchFlightPrices(originObj.code, dest.code, month);
+          results.scanned++;
 
-        if (!response.success || !response.data) {
-          console.log(`[CRON]   ⚠ Pas de données pour ${dest.code} en ${month}`);
-          continue;
-        }
+          if (!response.success || !response.data) {
+            console.log(`[CRON]   ⚠ Pas de données pour ${dest.code} en ${month}`);
+            continue;
+          }
 
-        const entries = Object.values(response.data);
-        console.log(`[CRON]   ${entries.length} vols trouvés`);
+          const entries = Object.values(response.data);
+          console.log(`[CRON]   ${entries.length} vols trouvés`);
 
-        for (const flight of entries) {
-          const priceFCFA = Math.round(flight.price * EUR_TO_FCFA);
-          const discountPercent = ((dest.avgPriceFCFA - priceFCFA) / dest.avgPriceFCFA) * 100;
+          for (const flight of entries) {
+            const priceFCFA = Math.round(flight.price * EUR_TO_FCFA);
+            const discountPercent = ((dest.avgPriceFCFA - priceFCFA) / dest.avgPriceFCFA) * 100;
 
-          // Ne garder QUE les deals qui dépassent le seuil de réduction
-          if (discountPercent < DEAL_THRESHOLD_PERCENT) continue;
+            // Ne garder QUE les deals qui dépassent le seuil de réduction
+            if (discountPercent < DEAL_THRESHOLD_PERCENT) continue;
 
-          results.deals_found++;
+            results.deals_found++;
 
-          const hotel = SAMPLE_HOTELS[dest.code];
+            const hotel = SAMPLE_HOTELS[dest.code];
 
-          // Trouver le prix minimum pour cette route pour marquer le plus bas
-          const allPricesForRoute = entries.map(e => Math.round(e.price * EUR_TO_FCFA));
-          const isLowest = priceFCFA <= Math.min(...allPricesForRoute);
+            // Trouver le prix minimum pour cette route pour marquer le plus bas
+            const allPricesForRoute = entries.map(e => Math.round(e.price * EUR_TO_FCFA));
+            const isLowest = priceFCFA <= Math.min(...allPricesForRoute);
 
-          const deal = {
-            origin: ORIGIN,
-            destination: dest.code,
+            const deal = {
+              origin: originObj.code,
+              destination: dest.code,
             destination_name: dest.name,
             airline: flight.airline,
             airline_name: AIRLINE_NAMES[flight.airline] || flight.airline,
@@ -270,10 +281,11 @@ export async function GET(request: NextRequest) {
         // Petit délai entre les appels pour respecter le rate limit de l'API
         await new Promise(resolve => setTimeout(resolve, 200));
 
-      } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Erreur inconnue';
-        results.errors.push(`${dest.code}/${month}: ${msg}`);
-        console.error(`[CRON] ✗ Erreur globale ${dest.code}:`, msg);
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : 'Erreur inconnue';
+          results.errors.push(`${dest.code}/${month}: ${msg}`);
+          console.error(`[CRON] ✗ Erreur globale ${dest.code}:`, msg);
+        }
       }
     }
   }

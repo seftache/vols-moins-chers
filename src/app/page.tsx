@@ -53,13 +53,7 @@ export default function Home() {
     setIsSubmitting(false);
   };
 
-  const handleVIPClick = () => {
-    if (user) {
-      window.location.href = "/checkout";
-    } else {
-      window.location.href = "/auth?redirect=/checkout";
-    }
-  };
+
 
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -159,27 +153,22 @@ export default function Home() {
     {
       number: "01",
       title: "La découverte",
-      text: "Vous arrivez sur une interface sobre et haut de gamme, qui présente des destinations exclusives au départ d'Abidjan — Dubaï, Paris, Dakar.",
+      text: "Vous arrivez sur notre plateforme et découvrez les offres exclusives dénichées par notre intelligence artificielle — vols à prix cassés vers Dubaï, Paris, Dakar et bien plus.",
     },
     {
       number: "02",
-      title: "L'abonnement au Club",
-      text: "Vous vous abonnez pour 2 500 FCFA ce mois-ci via Wave ou Mobile Money, et devenez membre du Club VIP.",
+      title: "L'alerte",
+      text: "Notre algorithme détecte une baisse de prix exceptionnelle. Vous la voyez instantanément sur le site avec tous les détails : compagnie, dates, hôtel recommandé.",
     },
     {
       number: "03",
-      title: "L'alerte Email",
-      text: "Notre algorithme détecte une baisse de prix sur un vol associé à un hôtel de charme. Vous recevez l'alerte directement dans votre boîte mail, pour une durée limitée.",
+      title: "L'itinéraire IA",
+      text: "L'intelligence artificielle construit un programme complet jour par jour : vol, hôtel de charme, activités incontournables et conseils d'initié.",
     },
     {
       number: "04",
-      title: "La proposition de l'IA",
-      text: "Vous accédez à une page privée où l'IA détaille le vol, l'hôtel suggéré, et construit un programme jour par jour.",
-    },
-    {
-      number: "05",
       title: "La réservation",
-      text: "Convaincu, vous cliquez sur « Réserver » et finalisez le paiement directement chez notre partenaire — vol ou hôtel.",
+      text: "Convaincu ? Cliquez sur « Réserver le vol » ou « Réserver l'hôtel » et finalisez directement chez nos partenaires de confiance. C'est simple et gratuit.",
     },
   ];
 
@@ -229,12 +218,12 @@ export default function Home() {
                   >
                     S'identifier
                   </a>
-                  <a
-                    href="/auth"
+                  <Link
+                    href="/offres"
                     className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
                   >
-                    Accès Privé
-                  </a>
+                    Voir les offres
+                  </Link>
                 </>
               )}
             </div>
@@ -248,7 +237,7 @@ export default function Home() {
             <h1 className="mb-12 font-playfair text-5xl leading-[1.1] text-white sm:text-6xl md:text-7xl lg:text-8xl">
               Ne payez plus jamais<br />
               le plein tarif<br />
-              depuis Abidjan.
+              pour voyager.
             </h1>
 
             <div className="mt-8">
@@ -755,92 +744,43 @@ export default function Home() {
       </section>
 
       {/* =====================================================================
-          5. L'OFFRE VIP (avec contraste Gratuit / VIP)
+          5. ALERTES & NEWSLETTER
           ===================================================================== */}
-      <section 
-        className="relative w-full px-6 py-16 md:py-20 md:px-16 lg:px-24 bg-cover bg-[center_top_20%] bg-no-repeat"
-        style={{ backgroundImage: "url('/images/club-prive-bg.png')" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/20" />
-        
-        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-start text-left">
-          <div className="max-w-2xl">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="mb-6 font-playfair text-5xl text-white md:text-6xl lg:text-7xl"
-            >
-              Le Club Privé
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-              className="mb-10 font-sans text-sm font-light leading-relaxed text-[#D1D1D1] md:text-base lg:text-lg"
-            >
-              Le temps est le vrai luxe. Accédez à nos itinéraires secrets et aux alertes instantanées avant tout le monde.
-            </motion.p>
-          </div>
-
-          {/* Contraste Gratuit / VIP */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+      <section className="relative w-full overflow-hidden bg-[#0A0A0A] px-6 py-32 md:px-16 lg:px-24 border-t border-white/[0.06]">
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-            className="grid w-full max-w-4xl grid-cols-1 sm:grid-cols-2 mb-10 border border-white/20 bg-black/40 backdrop-blur-md"
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-[#888888] font-sans text-xs uppercase tracking-[0.3em] mb-6"
           >
-            <div className="p-8 md:p-10 border-b sm:border-b-0 sm:border-r border-white/20 text-left">
-              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white/50">Membre Gratuit</span>
-              <p className="mt-4 text-sm md:text-base font-light leading-relaxed text-[#D1D1D1]">
-                Alertes reçues 12 à 24 heures après les membres VIP — souvent trop tard pour réserver.
-              </p>
-            </div>
-            <div className="p-8 md:p-10 text-left bg-white/5">
-              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white font-bold">Membre VIP</span>
-              <p className="mt-4 text-sm md:text-base font-light leading-relaxed text-white">
-                Alertes en temps réel, dès la détection de l'offre par notre algorithme.
-              </p>
-            </div>
-          </motion.div>
-
-          <div className="flex w-full max-w-4xl flex-col items-start text-left">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              className="mb-10 text-xs font-light italic text-white/60"
-            >
-              Invitez 3 amis pour débloquer une alerte en temps réel, gratuitement.
-            </motion.p>
-
-            <motion.button
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.25 }}
-              onClick={handleVIPClick}
-              className="border border-white/30 bg-black/40 backdrop-blur-md px-10 py-5 transition-all duration-300 hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
-            >
-              <span className="font-sans text-xs font-bold uppercase tracking-widest text-white">
-                Accès VIP - 2 500 FCFA / mois
-              </span>
-            </motion.button>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-              className="mt-6 text-[10px] font-light uppercase tracking-[0.2em] text-white/35"
-            >
-              Paiement via Wave, Mobile Money ou carte bancaire
-            </motion.p>
-          </div>
+            Ne ratez aucune offre
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-playfair text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-8"
+          >
+            Recevez les bons plans<br />directement.
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base font-light text-[#A3A3A3] mb-12 max-w-2xl mx-auto"
+          >
+            Inscrivez-vous gratuitement pour recevoir nos meilleures offres de vols et d'hôtels dès qu'elles sont détectées par notre IA.
+          </motion.p>
+          <Link
+            href="/offres"
+            className="inline-block bg-[#D85A30] px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#b84a25]"
+          >
+            Voir toutes les offres
+          </Link>
         </div>
       </section>
 
@@ -865,12 +805,12 @@ export default function Home() {
             <text x="200" y="122" fontFamily="Georgia, serif" fontSize="34" fill="white" fontWeight="700">Unique</text>
             <text x="200" y="156" fontFamily="Georgia, serif" fontSize="34" fill="white" fontWeight="700">Voyage</text>
           </svg>
-          <button
-            onClick={handleVIPClick}
+          <Link
+            href="/offres"
             className="bg-black px-10 py-4 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-transform duration-300 hover:scale-105"
           >
-            Rejoindre le Club VIP
-          </button>
+            Voir les offres
+          </Link>
         </div>
       </section>
 
@@ -896,10 +836,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* =====================================================================
-          MODALE VIP (Overlay Inscription)
-          ===================================================================== */}
-      {/* L'ancienne modale VIP a été retirée pour rediriger directement vers /auth */}
+
     </main>
   );
 }

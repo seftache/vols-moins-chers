@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import { createSupabaseServerClient } from "../../../lib/supabase-server";
 import { supabaseAdmin } from "../../../lib/supabase-admin";
-import { Lock, Star, Plane, MapPin, Calendar, Clock, CreditCard, Check, ChevronRight } from "lucide-react";
+import { Star, Plane, MapPin, Calendar, Clock, CreditCard, Check, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
 
@@ -22,31 +21,13 @@ const getCachedItinerary = unstable_cache(
   { revalidate: 300, tags: ['itinerary'] }
 );
 
-// Forcer le rendu dynamique pour toujours vérifier le statut VIP en temps réel
+// Forcer le rendu dynamique pour toujours vérifier les données en temps réel
 export const dynamic = 'force-dynamic';
 
 export default async function ItineraryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const supabase = await createSupabaseServerClient();
-  
-  // 1. Récupération de l'utilisateur et de son statut VIP
-  const { data: authData } = await supabase.auth.getUser();
-  let isVip = false;
-  
-  if (authData?.user) {
-    // Utiliser admin pour lire le profil utilisateur en toute sécurité si RLS strict
-    const { data: userData } = await supabaseAdmin
-      .from('users')
-      .select('is_vip')
-      .eq('id', authData.user.id)
-      .single();
-      
-    if (userData?.is_vip) {
-      isVip = true;
-    }
-  }
 
-  // 2. Récupération de l'itinéraire avec getCachedItinerary (mise en cache pour la fluidité)
+  // 1. Récupération de l'itinéraire avec getCachedItinerary (mise en cache pour la fluidité)
   let itinerary: any;
   try {
     itinerary = await getCachedItinerary(id);
@@ -54,15 +35,14 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
     notFound();
   }
 
-  // 3. Logique des 24h
+  // 2. Logique des 24h
   const generatedAt = new Date(itinerary.generated_at).getTime();
   const now = new Date().getTime();
   const hoursSinceGeneration = (now - generatedAt) / (1000 * 60 * 60);
   
-  const isLocked = !isVip && hoursSinceGeneration < 24;
   const isExpired = hoursSinceGeneration >= 72;
 
-  // 4. Redaction des données si bloqué
+  // 3. Redaction des données
   const flight = itinerary.flight_details;
   const hotel = itinerary.hotel_details;
   const program = itinerary.daily_program;
@@ -91,37 +71,21 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
     ? hotel.booking_url
     : `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(hotel.name + ', ' + (hotel.neighborhood || itinerary.destination_name))}&checkin=${flight.departure_date}&checkout=${flight.return_date}${process.env.BOOKING_AFFILIATE_ID ? `&aid=${process.env.BOOKING_AFFILIATE_ID}` : ""}`;
 
-  const displayAirline = isLocked ? "Compagnie Partenaire" : flight.airline;
-  const displayHotelName = isLocked ? "Hôtel 5★ Mystère" : hotel.name;
-  
-  // Fonction utilitaire pour le rendu du texte flouté sécurisé
-  const renderLockedText = (realText: string, fallbackText: string) => {
-    if (!isLocked) return realText;
-    return (
-      <span className="relative">
-        <span className="blur-sm select-none opacity-50">{fallbackText}</span>
-        <span className="absolute inset-0 flex items-center justify-center">
-          <Lock size={14} className="text-[#D85A30]" />
-        </span>
-      </span>
-    );
-  };
+  const heroImage = (flight?.destination_image && flight.destination_image !== '/images/destinations/default.jpg')
+    ? flight.destination_image
+    : 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop';
 
-        const heroImage = (flight?.destination_image && flight.destination_image !== '/images/destinations/default.jpg')
-          ? flight.destination_image
-          : 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop';
+  return (
+    <main className="min-h-screen bg-[#0A0A0A] text-white selection:bg-white/30 font-sans">
       
-        return (
-          <main className="min-h-screen bg-[#0A0A0A] text-white selection:bg-white/30 font-sans">
-            
-            {/* HEADER HERO */}
-            <section className="relative h-[60vh] w-full overflow-hidden">
-              <div
-                className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url('${heroImage}')` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0A0A0A]" />
-              </div>
+      {/* HEADER HERO */}
+      <section className="relative h-[60vh] w-full overflow-hidden">
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('${heroImage}')` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0A0A0A]" />
+        </div>
 
         <div className="relative z-10 flex h-full flex-col justify-between px-6 pt-8 pb-12 md:px-16 lg:px-24">
           <header className="flex w-full items-center justify-between">
@@ -139,15 +103,9 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                 <text x="200" y="156" fontFamily="Georgia, serif" fontSize="34" fill="#D85A30" fontWeight="700">Voyage</text>
               </svg>
             </Link>
-            {!authData?.user ? (
-              <Link href="/auth" className="text-xs uppercase tracking-widest hover:text-[#D85A30] transition-colors">
-                Connexion
-              </Link>
-            ) : isVip ? (
-              <span className="border border-[#D85A30] bg-[#D85A30]/10 px-4 py-2 text-xs uppercase tracking-widest text-[#D85A30]">
-                Membre VIP
-              </span>
-            ) : null}
+            <Link href="/auth" className="text-xs uppercase tracking-widest hover:text-[#D85A30] transition-colors">
+              Connexion
+            </Link>
           </header>
 
           <div className="flex flex-col items-start max-w-3xl">
@@ -164,22 +122,6 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
         </div>
       </section>
 
-      {/* BANDEAU LOCK */}
-      {isLocked && !isExpired && (
-        <div className="w-full bg-[#D85A30] py-4 px-6 text-center shadow-[0_0_30px_rgba(216,90,48,0.3)]">
-          <p className="text-sm md:text-base font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-            <Lock size={18} />
-            Détails réservés aux membres VIP pendant {Math.ceil(24 - hoursSinceGeneration)}h
-          </p>
-          <p className="text-xs mt-1 text-white/80">
-            Abonnez-vous pour voir l'hôtel exact, la compagnie et réserver ce tarif avant qu'il n'expire.
-          </p>
-          <Link href="/auth" className="inline-block mt-3 bg-black px-6 py-2 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
-            Devenir VIP (2500 FCFA/mois)
-          </Link>
-        </div>
-      )}
-
       {/* BANDEAU EXPIRÉ */}
       {isExpired && (
         <div className="w-full bg-[#7a1818] py-5 px-6 text-center shadow-[0_0_30px_rgba(122,24,24,0.3)]">
@@ -187,10 +129,10 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
             ⚠️ OFFRE EXPIRÉE
           </p>
           <p className="text-xs mt-1 text-white/80 max-w-2xl mx-auto">
-            Ce tarif exceptionnel n'est plus garanti et les places ont été vendues. Abonnez-vous au Club VIP pour être alerté instantanément de nos prochaines erreurs de prix avant tout le monde.
+            Ce tarif exceptionnel n'est plus garanti et les places ont été vendues. Inscrivez-vous pour être alerté des prochaines offres instantanément avant tout le monde.
           </p>
           <Link href="/auth" className="inline-block mt-3 border border-white/20 bg-black/30 px-6 py-2 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
-            Rejoindre le Club VIP
+            S'inscrire aux alertes
           </Link>
         </div>
       )}
@@ -213,7 +155,7 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                     <Plane className="text-[#D85A30]" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-playfair">{displayAirline}</h3>
+                    <h3 className="text-xl font-playfair">{flight.airline}</h3>
                     <p className="text-sm text-white/50">{flight.class}</p>
                   </div>
                 </div>
@@ -255,11 +197,11 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                     ))}
                   </div>
                   <h3 className="text-3xl font-playfair mb-2">
-                    {isLocked ? renderLockedText(hotel.name, "Hôtel Plaza Palace") : hotel.name}
+                    {hotel.name}
                   </h3>
                   <p className="flex items-center gap-2 text-sm text-white/70 mb-6">
                     <MapPin size={14} /> 
-                    {isLocked ? renderLockedText(hotel.neighborhood, "Quartier chic") : hotel.neighborhood}
+                    {hotel.neighborhood}
                   </p>
                   
                   <p className="text-sm text-white/80 leading-relaxed font-light mb-6">
@@ -302,23 +244,23 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-light text-white/80">
                     <div className="bg-white/5 p-4">
                       <p className="text-xs uppercase text-white/40 mb-1">Matin</p>
-                      <p>{isLocked ? renderLockedText(day.morning, "Activité culturelle exclusive et découverte des joyaux de la ville.") : day.morning}</p>
+                      <p>{day.morning}</p>
                     </div>
                     <div className="bg-white/5 p-4">
                       <p className="text-xs uppercase text-white/40 mb-1">Déjeuner</p>
-                      <p>{isLocked ? renderLockedText(day.lunch, "Déjeuner gastronomique dans une adresse secrète.") : day.lunch}</p>
+                      <p>{day.lunch}</p>
                     </div>
                     <div className="bg-white/5 p-4">
                       <p className="text-xs uppercase text-white/40 mb-1">Après-midi</p>
-                      <p>{isLocked ? renderLockedText(day.afternoon, "Détente ou shopping dans les quartiers prestigieux.") : day.afternoon}</p>
+                      <p>{day.afternoon}</p>
                     </div>
                     <div className="bg-white/5 p-4">
                       <p className="text-xs uppercase text-white/40 mb-1">Soir</p>
-                      <p>{isLocked ? renderLockedText(day.evening, "Dîner élégant et soirée inoubliable.") : day.evening}</p>
+                      <p>{day.evening}</p>
                     </div>
                   </div>
                   
-                  {!isLocked && day.insider_tip && (
+                  {day.insider_tip && (
                     <div className="mt-4 text-xs italic text-white/60 bg-[#D85A30]/10 p-3 border-l-2 border-[#D85A30]">
                       💡 <strong>Conseil Concierge :</strong> {day.insider_tip}
                     </div>
@@ -354,7 +296,7 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                   <span>{Math.round((((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0)) * 1.6) + Math.round(((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0)) * 0.3)).toLocaleString()} FCFA</span>
                 </div>
                 <div className="flex justify-between text-2xl">
-                  <span>Tarif VIP Secret</span>
+                  <span>Budget Estimé</span>
                   <span className="text-[#D85A30] font-bold">
                     {((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0) + Math.round(((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0)) * 0.3)).toLocaleString()} FCFA
                   </span>
@@ -363,11 +305,7 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
               <p className="text-[10px] text-white/40 text-center italic mt-2">Par personne. Les prix peuvent varier selon les disponibilités.</p>
             </div>
 
-            {isLocked && !isExpired ? (
-              <button disabled className="w-full bg-white/10 text-white/50 py-4 text-xs uppercase tracking-widest cursor-not-allowed border border-white/10 flex items-center justify-center gap-2">
-                <Lock size={14} /> Débloquer pour réserver
-              </button>
-            ) : isExpired ? (
+            {isExpired ? (
               <button disabled className="w-full bg-[#7a1818]/20 text-[#7a1818] border border-[#7a1818]/30 py-4 text-xs font-bold uppercase tracking-widest cursor-not-allowed flex items-center justify-center gap-2">
                 OFFRE EXPIRÉE
               </button>

@@ -18,7 +18,7 @@ export default async function DashboardPage() {
   // 2. Récupérer les données depuis la table 'users' via admin (évite les blocages RLS)
   const { data: profile, error } = await supabaseAdmin
     .from("users")
-    .select("id, whatsapp_number, is_vip, referrals_count")
+    .select("id, whatsapp_number")
     .eq("id", user.id)
     .single();
 
@@ -36,8 +36,6 @@ export default async function DashboardPage() {
       .insert({
         id: user.id,
         whatsapp_number: user.phone || user.email || "Inconnu",
-        is_vip: false,
-        referrals_count: 0,
       })
       .select()
       .single();
