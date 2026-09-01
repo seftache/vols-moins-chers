@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plane, Building2, ChevronRight, ShieldCheck, CreditCard, Check, ExternalLink, Sparkles } from 'lucide-react';
 import BookingModal from './BookingModal';
+import { formatPriceDisplay } from '../lib/currency';
 
 interface BookingSectionProps {
   flight: {
@@ -47,6 +48,9 @@ export default function BookingSection({
     }
   }, []);
 
+  const flightPrice = formatPriceDisplay(flight.price_fcfa || 0, flight.origin);
+  const hotelPrice = hotel ? formatPriceDisplay(hotel.total_price_fcfa || 0, flight.origin) : null;
+
   return (
     <>
       <BookingModal
@@ -81,23 +85,30 @@ export default function BookingSection({
             <span className="text-white/60 flex items-center gap-2">
               <Plane size={14} className="text-[#D85A30]" /> Vol A/R ({flight.airline})
             </span>
-            <span className="font-bold text-white">{(flight.price_fcfa || 0).toLocaleString()} FCFA</span>
+            <span className="font-bold text-white">{flightPrice.primary}</span>
           </div>
 
-          {hotel && (
+          {hotel && hotelPrice && (
             <div className="flex justify-between items-center py-2 border-b border-white/5">
               <span className="text-white/60 flex items-center gap-2">
                 <Building2 size={14} className="text-white/40" /> Option Hôtel ({hotel.total_nights}n)
               </span>
-              <span className="text-white/70">{(hotel.total_price_fcfa || 0).toLocaleString()} FCFA</span>
+              <span className="text-white/70">{hotelPrice.primary}</span>
             </div>
           )}
 
           <div className="pt-2 flex flex-col gap-1">
             <span className="text-[10px] uppercase text-white/40">Tarif Vol Garanti :</span>
-            <span className="text-3xl font-serif text-[#D85A30] font-bold">
-              {(flight.price_fcfa || 0).toLocaleString()} <span className="text-sm font-sans text-white">FCFA</span>
-            </span>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-serif text-[#D85A30] font-bold">
+                {flightPrice.primary}
+              </span>
+              {flightPrice.secondary && (
+                <span className="text-xs font-sans text-white/50">
+                  ({flightPrice.secondary})
+                </span>
+              )}
+            </div>
             <p className="text-[10px] text-white/40">Prix tout compris par passager · Disponibilité immédiate</p>
           </div>
         </div>
@@ -149,7 +160,7 @@ export default function BookingSection({
             <ShieldCheck size={14} className="text-emerald-400" /> Billet officiel émis sous 1 heure
           </p>
           <p className="flex items-center gap-2 text-white">
-            <CreditCard size={14} className="text-emerald-400" /> Règlement Wave, Mobile Money, Virement
+            <CreditCard size={14} className="text-emerald-400" /> Règlement Wave, Mobile Money, Carte, Virement
           </p>
           <p className="flex items-center gap-2 text-white">
             <Check size={14} className="text-emerald-400" /> Assistance billetterie personnalisée
@@ -169,3 +180,4 @@ export default function BookingSection({
     </>
   );
 }
+

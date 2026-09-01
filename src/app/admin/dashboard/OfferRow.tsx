@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { forcePublishOffer, deleteOffer } from "../actions";
 import { Loader2, RefreshCw, Trash2, ExternalLink, Plane, Building2 } from "lucide-react";
 import Link from "next/link";
+import { formatPriceDisplay } from "../../../lib/currency";
 
 interface OfferRowProps {
   offer: any;
@@ -53,6 +54,9 @@ export default function OfferRow({ offer }: OfferRowProps) {
   const retStr = formatDateForFlight(flight.return_date);
   const marker = "545413";
 
+  const flightPrice = formatPriceDisplay(flight.price_fcfa || 0, origin);
+  const hotelPrice = hotel.total_price_fcfa ? formatPriceDisplay(hotel.total_price_fcfa, origin) : null;
+
   const flightSearchUrl = depStr && destination
     ? `https://www.aviasales.com/search/${origin}${depStr}${destination}${retStr}1?marker=${marker}`
     : `https://www.aviasales.com/search?origin=${origin}&destination=${destination}&marker=${marker}`;
@@ -93,24 +97,32 @@ export default function OfferRow({ offer }: OfferRowProps) {
       <td className="px-6 py-4">
         <div className="flex flex-col">
           <span className="text-xs font-semibold text-white">{flight.airline || 'Compagnie régulière'}</span>
-          <span className="text-sm font-bold text-[#D85A30]">
-            {(flight.price_fcfa || 0).toLocaleString()} FCFA
-          </span>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-sm font-bold text-[#D85A30]">
+              {flightPrice.primary}
+            </span>
+            {flightPrice.secondary && (
+              <span className="text-[10px] text-white/40">
+                ({flightPrice.secondary})
+              </span>
+            )}
+          </div>
           <span className="text-[10px] text-white/40">{flight.departure_date} au {flight.return_date}</span>
         </div>
       </td>
 
       {/* Hôtel Recommandé */}
       <td className="px-6 py-4">
-        {hotel.name ? (
+        {hotel.name && hotelPrice ? (
           <div className="flex flex-col">
             <span className="text-xs font-medium text-white/80">{hotel.name} ({hotel.stars || 3}★)</span>
-            <span className="text-xs text-white/50">{(hotel.total_price_fcfa || 0).toLocaleString()} FCFA ({hotel.total_nights || 7}n)</span>
+            <span className="text-xs text-white/50">{hotelPrice.primary} ({hotel.total_nights || 7}n)</span>
           </div>
         ) : (
           <span className="text-xs text-white/30 italic">Vol seul</span>
         )}
       </td>
+
 
       {/* Statut */}
       <td className="px-6 py-4">

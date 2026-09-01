@@ -27,6 +27,8 @@ interface BookingModalProps {
   };
 }
 
+import { formatPriceDisplay } from '../lib/currency';
+
 export default function BookingModal({ isOpen, onClose, flight, hotel }: BookingModalProps) {
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -35,15 +37,18 @@ export default function BookingModal({ isOpen, onClose, flight, hotel }: Booking
   const [passportNumber, setPassportNumber] = useState('');
   const [passengersCount, setPassengersCount] = useState(1);
   const [includeHotel, setIncludeHotel] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('Wave');
+  const [paymentMethod, setPaymentMethod] = useState('Wave / Mobile Money');
   const [customerPhone, setCustomerPhone] = useState('');
   const [error, setError] = useState('');
 
   if (!isOpen) return null;
 
-  const flightTotal = (flight.price_fcfa || 0) * passengersCount;
-  const hotelTotal = includeHotel && hotel ? (hotel.total_price_fcfa || 0) : 0;
-  const grandTotal = flightTotal + hotelTotal;
+  const flightTotalFcfa = (flight.price_fcfa || 0) * passengersCount;
+  const hotelTotalFcfa = includeHotel && hotel ? (hotel.total_price_fcfa || 0) : 0;
+  const grandTotalFcfa = flightTotalFcfa + hotelTotalFcfa;
+
+  const flightPriceDisplay = formatPriceDisplay(flight.price_fcfa || 0, flight.origin);
+  const grandTotalDisplay = formatPriceDisplay(grandTotalFcfa, flight.origin);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,8 +72,9 @@ export default function BookingModal({ isOpen, onClose, flight, hotel }: Booking
     const destDisplay = flight.destination_name ? flight.destination_name + ' (' + flight.destination + ')' : flight.destination;
     const datesDisplay = flight.departure_date + (flight.return_date ? ' au ' + flight.return_date : '');
 
-    const hotelText = includeHotel && hotel
-      ? 'Option Hôtel Économique sélectionnée (' + hotel.name + ' — ' + hotel.total_price_fcfa.toLocaleString() + ' FCFA pour ' + hotel.total_nights + ' nuits)'
+    const hotelPriceObj = hotel ? formatPriceDisplay(hotel.total_price_fcfa, flight.origin) : null;
+    const hotelText = includeHotel && hotel && hotelPriceObj
+      ? 'Option Hôtel Économique sélectionnée (' + hotel.name + ' — ' + hotelPriceObj.primary + ' pour ' + hotel.total_nights + ' nuits)'
       : 'Non inclus (Billet d\'avion seul)';
 
     const lines = [
@@ -87,7 +93,7 @@ export default function BookingModal({ isOpen, onClose, flight, hotel }: Booking
       '• Date de naissance : ' + (birthDate || 'Non spécifiée'),
       '• Passeport : ' + passportText,
       '',
-      '💰 TOTAL ESTIMÉ : ' + grandTotal.toLocaleString() + ' FCFA',
+      '💰 TOTAL ESTIMÉ : ' + grandTotalDisplay.primary + ' (' + grandTotalFcfa.toLocaleString() + ' FCFA)',
       '💳 Règlement souhaité : ' + paymentMethod,
       '📞 Numéro de contact : ' + customerPhone.trim(),
       '',
@@ -101,6 +107,7 @@ export default function BookingModal({ isOpen, onClose, flight, hotel }: Booking
     window.open(targetUrl, '_blank');
     onClose();
   };
+
 
   return (
     <AnimatePresence>
@@ -283,15 +290,23 @@ export default function BookingModal({ isOpen, onClose, flight, hotel }: Booking
             <div className="pt-3 border-t border-white/10 flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase tracking-widest text-white/40">Montant Total Estimé</p>
-                <p className="text-2xl font-serif font-bold text-white">
-                  {grandTotal.toLocaleString()} <span className="text-sm font-sans text-[#D85A30]">FCFA</span>
-                </p>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-2xl font-serif font-bold text-white">
+                    {grandTotalDisplay.primary}
+                  </p>
+                  {grandTotalDisplay.secondary && (
+                    <span className="text-xs text-white/40">
+                      ({grandTotalDisplay.secondary})
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="text-right text-[11px] text-white/40">
                 <p className="flex items-center gap-1 justify-end text-emerald-400"><ShieldCheck size={14}/> Garantie Prix Négocié</p>
                 <p>Émission officielle sous 1 heure</p>
               </div>
             </div>
+
 
             {/* Bouton de confirmation */}
             <button

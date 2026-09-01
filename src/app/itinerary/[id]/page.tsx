@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import { supabaseAdmin } from "../../../lib/supabase-admin";
 import { Star, Plane, MapPin, Calendar, Clock, CreditCard, Check, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
 import BookingSection from "../../../components/BookingSection";
+import { formatPriceDisplay } from "../../../lib/currency";
 
 const getCachedItinerary = unstable_cache(
   async (id: string) => {
@@ -25,6 +27,46 @@ const getCachedItinerary = unstable_cache(
 // Forcer le rendu dynamique pour toujours vérifier les données en temps réel
 export const dynamic = 'force-dynamic';
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  try {
+    const itinerary = await getCachedItinerary(id);
+    const flight = itinerary.flight_details || {};
+    const priceInfo = formatPriceDisplay(flight.price_fcfa || 0, flight.origin);
+    const title = `Vol ${flight.origin_name || flight.origin} ➔ ${itinerary.destination_name} dès ${priceInfo.primary} | Unique Voyage`;
+    const description = `Réservez votre vol Aller-Retour pour ${itinerary.destination_name} avec ${flight.airline || 'compagnie régulière'} au meilleur prix garanti dès ${priceInfo.primary}. Émission de billet rapide et sécurisée.`;
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        images: [
+          {
+            url: flight.destination_image || 'https://uniquevoyage.site/logos/Logo_UniqueVoyage.png',
+            width: 1200,
+            height: 630,
+            alt: `Voyage ${itinerary.destination_name}`,
+          },
+        ],
+        type: 'article',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [flight.destination_image || 'https://uniquevoyage.site/logos/Logo_UniqueVoyage.png'],
+      },
+    };
+  } catch {
+    return {
+      title: "Détails de l'itinéraire | Unique Voyage",
+      description: "Découvrez notre offre exclusive de vol et hébergement négocié au meilleur prix.",
+    };
+  }
+}
+
 export default async function ItineraryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
@@ -36,17 +78,22 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
     notFound();
   }
 
-  // 2. Logique des 24h
+  // 2. Logique des 24h / 72h
   const generatedAt = new Date(itinerary.generated_at).getTime();
   const now = new Date().getTime();
   const hoursSinceGeneration = (now - generatedAt) / (1000 * 60 * 60);
   
   const isExpired = hoursSinceGeneration >= 72;
 
-  // 3. Redaction des données
-  const flight = itinerary.flight_details;
-  const hotel = itinerary.hotel_details;
-  const program = itinerary.daily_program;
+  // 3. Récupération des données
+  const flight = itinerary.flight_details || {};
+  const hotel = itinerary.hotel_details || {};
+  const program = itinerary.daily_program || [];
+
+  // Tarifs formatés en fonction de l'origine naturelle
+  const flightPrice = formatPriceDisplay(flight.price_fcfa || 0, flight.origin);
+  const hotelPrice = hotel.total_price_fcfa ? formatPriceDisplay(hotel.total_price_fcfa, flight.origin) : null;
+  const hotelNightPrice = hotel.price_per_night_fcfa ? formatPriceDisplay(hotel.price_per_night_fcfa, flight.origin) : null;
 
   // Construction des liens d'affiliation réels et fonctionnels
   const formatDateForFlight = (dateStr: string) => {
@@ -72,12 +119,39 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
     ? hotel.booking_url
     : `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(hotel.name + ', ' + (hotel.neighborhood || itinerary.destination_name))}&checkin=${flight.departure_date}&checkout=${flight.return_date}${process.env.BOOKING_AFFILIATE_ID ? `&aid=${process.env.BOOKING_AFFILIATE_ID}` : ""}`;
 
-  const heroImage = (flight?.destination_image && flight.destination_image !== '/images/destinations/default.jpg')
+  const heroImage = (flight?.destination_image && flight.destination_image.startsWith('http'))
     ? flight.destination_image
     : 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop';
 
+  // JSON-LD Structured Data Schema pour Google Rich Snippets
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": `Vol Aller-Retour ${flight.origin_name || flight.origin} ➔ ${itinerary.destination_name}`,
+    "description": itinerary.tagline || `Offre spéciale vol ${flight.airline} pour ${itinerary.destination_name}`,
+    "image": heroImage,
+    "offers": {
+      "@type": "Offer",
+      "price": flightPrice.amount,
+      "priceCurrency": flightPrice.currency,
+      "availability": isExpired ? "https://schema.org/Discontinued" : "https://schema.org/InStock",
+      "url": `https://uniquevoyage.site/itinerary/${itinerary.id}`,
+      "seller": {
+        "@type": "TravelAgency",
+        "name": "Unique Voyage",
+        "url": "https://uniquevoyage.site",
+        "telephone": "+2250545745749"
+      }
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-white selection:bg-white/30 font-sans">
+      {/* Balise JSON-LD pour les moteurs de recherche */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       {/* HEADER HERO */}
       <section className="relative h-[60vh] w-full overflow-hidden">
@@ -161,8 +235,11 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-playfair text-[#D85A30]">{flight.price_fcfa.toLocaleString()} FCFA</p>
-                  <p className="text-xs text-white/50 uppercase tracking-wider">Aller-Retour</p>
+                  <p className="text-3xl font-playfair text-[#D85A30] font-bold">{flightPrice.primary}</p>
+                  {flightPrice.secondary && (
+                    <p className="text-xs text-white/40">{flightPrice.secondary}</p>
+                  )}
+                  <p className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">Aller-Retour Garanti</p>
                 </div>
               </div>
               
@@ -187,13 +264,13 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
           {/* HÔTEL */}
           <section>
             <h2 className="text-sm font-light uppercase tracking-[0.3em] text-white/50 mb-8 border-b border-white/10 pb-4">
-              02. L'Hébergement
+              02. L'Hébergement Conseillé
             </h2>
             <div className="bg-white/5 border border-white/10 p-8 hover:border-white/30 transition-colors">
               <div className="flex flex-col md:flex-row gap-8 justify-between">
                 <div>
                   <div className="flex gap-1 mb-2">
-                    {Array.from({ length: hotel.stars }).map((_, i) => (
+                    {Array.from({ length: hotel.stars || 3 }).map((_, i) => (
                       <Star key={i} size={14} className="fill-[#D85A30] text-[#D85A30]" />
                     ))}
                   </div>
@@ -210,7 +287,7 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                   </p>
 
                   <div className="flex flex-wrap gap-3">
-                    {hotel.highlights.map((highlight: string, idx: number) => (
+                    {(hotel.highlights || []).map((highlight: string, idx: number) => (
                       <span key={idx} className="text-xs border border-white/20 px-3 py-1 text-white/70 flex items-center gap-2">
                         <Check size={12} className="text-[#D85A30]"/> {highlight}
                       </span>
@@ -218,16 +295,22 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                   </div>
                 </div>
                 
-                <div className="md:text-right shrink-0">
-                  <p className="text-3xl font-playfair text-[#D85A30]">
-                    {hotel.total_price_fcfa.toLocaleString()} FCFA
-                  </p>
-                  <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Total pour {hotel.total_nights} nuits</p>
-                  <p className="text-xs text-white/40">Soit {hotel.price_per_night_fcfa.toLocaleString()} FCFA / nuit</p>
-                </div>
+                {hotelPrice && hotelNightPrice && (
+                  <div className="md:text-right shrink-0">
+                    <p className="text-3xl font-playfair text-[#D85A30] font-bold">
+                      {hotelPrice.primary}
+                    </p>
+                    {hotelPrice.secondary && (
+                      <p className="text-xs text-white/40">{hotelPrice.secondary}</p>
+                    )}
+                    <p className="text-xs text-white/50 uppercase tracking-wider mb-1 mt-1">Total pour {hotel.total_nights} nuits</p>
+                    <p className="text-xs text-white/40">Soit {hotelNightPrice.primary} / nuit</p>
+                  </div>
+                )}
               </div>
             </div>
           </section>
+
 
           {/* PROGRAMME */}
           <section>

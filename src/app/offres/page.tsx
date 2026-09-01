@@ -1,7 +1,19 @@
+import { Metadata } from "next";
 import { supabaseAdmin } from "../../lib/supabase-admin";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
 import OffresClient from "./OffresClient";
+
+export const metadata: Metadata = {
+  title: "Toutes les Offres de Vols & Séjours | Départs Mondiaux",
+  description: "Découvrez les meilleures offres de vols négociés au départ d'Abidjan, Paris, Montréal, New York, Dakar et Canton. Tarifs garantis et réservation rapide.",
+  openGraph: {
+    title: "Offres de Vols & Séjours | Unique Voyage",
+    description: "Vols à prix cassés au départ de Paris, Abidjan, Montréal, New York, Canton et Dakar.",
+    url: "https://uniquevoyage.site/offres",
+    type: "website",
+  },
+};
 
 const getCachedAllItineraries = unstable_cache(
   async () => {
@@ -21,6 +33,7 @@ const getCachedAllItineraries = unstable_cache(
 );
 
 export const dynamic = "force-dynamic";
+
 
 export default async function OffresPage() {
   let itineraries: any[] = [];

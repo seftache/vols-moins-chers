@@ -1,7 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-
-const currencySelectorCode = `"use client";
+"use client";
 
 import React from 'react';
 import { Globe } from 'lucide-react';
@@ -38,18 +35,3 @@ export default function CurrencySelector({ currentCurrency, onChange }: Currency
     </div>
   );
 }
-`;
-
-fs.writeFileSync(path.join(process.cwd(), 'src', 'components', 'CurrencySelector.tsx'), currencySelectorCode);
-console.log('src/components/CurrencySelector.tsx created!');
-
-
-
-
-
-
-
-
-
-
-
