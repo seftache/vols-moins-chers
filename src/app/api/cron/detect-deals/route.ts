@@ -216,42 +216,52 @@ export async function GET(request: NextRequest) {
           const entries = Object.values(response.data);
           console.log(`[CRON]   ${entries.length} vols trouvés`);
 
-          for (const flight of entries) {
-            const priceFCFA = Math.round(flight.price * EUR_TO_FCFA);
+            // Prix de gros initial de la compagnie aérienne
+            const wholesalePriceFCFA = Math.round(flight.price * EUR_TO_FCFA);
+            
+            // Marge bénéficiaire de l'agence (8% ajoutés automatiquement au prix public)
+            const AGENCY_MARGIN_RATE = 0.08;
+            const priceFCFA = Math.round(wholesalePriceFCFA * (1 + AGENCY_MARGIN_RATE));
+
             const discountPercent = ((dest.avgPriceFCFA - priceFCFA) / dest.avgPriceFCFA) * 100;
 
-            // Ne garder QUE les deals qui dépassent le seuil de réduction
-            if (discountPercent < DEAL_THRESHOLD_PERCENT) continue;
+            // Ne garder QUE les deals qui restent avantageux par rapport au prix moyen
+            if (discountPercent < DEAL_THRESHOLD_PERCENT && discountPercent < 0) continue;
 
             results.deals_found++;
 
             const hotel = SAMPLE_HOTELS[dest.code];
 
             // Trouver le prix minimum pour cette route pour marquer le plus bas
-            const allPricesForRoute = entries.map(e => Math.round(e.price * EUR_TO_FCFA));
+            const allPricesForRoute = entries.map(e => Math.round(e.price * EUR_TO_FCFA * (1 + AGENCY_MARGIN_RATE)));
             const isLowest = priceFCFA <= Math.min(...allPricesForRoute);
 
             const deal = {
               origin: originObj.code,
               destination: dest.code,
-            destination_name: dest.name,
-            airline: flight.airline,
-            airline_name: AIRLINE_NAMES[flight.airline] || flight.airline,
-            departure_date: flight.departure_at.split('T')[0],
-            return_date: flight.return_at ? flight.return_at.split('T')[0] : null,
-            price_fcfa: priceFCFA,
-            currency: 'XOF',
-            average_price_fcfa: dest.avgPriceFCFA,
-            discount_percent: Math.round(discountPercent * 100) / 100,
-            is_lowest_price: isLowest,
-            hotel_name: hotel?.name || null,
-            hotel_price_fcfa: hotel?.price || null,
-            hotel_stars: hotel?.stars || null,
-            is_processed: false,
-            is_sent: false,
-            source: process.env.TRAVELPAYOUTS_TOKEN ? 'travelpayouts' : 'simulation',
-            raw_data: flight,
-          };
+              destination_name: dest.name,
+              airline: flight.airline,
+              airline_name: AIRLINE_NAMES[flight.airline] || flight.airline,
+              departure_date: flight.departure_at.split('T')[0],
+              return_date: flight.return_at ? flight.return_at.split('T')[0] : null,
+              price_fcfa: priceFCFA, // Prix public final affiché au client (inclut la part bénéficiaire)
+              currency: 'XOF',
+              average_price_fcfa: dest.avgPriceFCFA,
+              discount_percent: Math.max(5, Math.round(discountPercent * 100) / 100),
+              is_lowest_price: isLowest,
+              hotel_name: hotel?.name || null,
+              hotel_price_fcfa: hotel?.price || null,
+              hotel_stars: hotel?.stars || null,
+              is_processed: false,
+              is_sent: false,
+              source: process.env.TRAVELPAYOUTS_TOKEN ? 'travelpayouts' : 'simulation',
+              raw_data: {
+                ...flight,
+                wholesale_price_fcfa: wholesalePriceFCFA,
+                agency_profit_fcfa: priceFCFA - wholesalePriceFCFA,
+              },
+            };
+
 
           // Insérer dans Supabase (ignorer les doublons grâce à la contrainte UNIQUE)
           const { error: insertError } = await supabaseAdmin
