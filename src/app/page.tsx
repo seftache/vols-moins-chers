@@ -12,7 +12,6 @@ export default function Home() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isHoveringCarousel, setIsHoveringCarousel] = useState(false);
-  const [user, setUser] = useState<any>(null);
 
   // Supabase Waitlist states
   const [email, setEmail] = useState("");
@@ -74,10 +73,6 @@ export default function Home() {
     if (refCode) {
       localStorage.setItem("uv_referral_code", refCode);
     }
-
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user);
-    });
 
     return () => window.removeEventListener("resize", updateScrollState);
   }, []);
@@ -203,29 +198,12 @@ export default function Home() {
               </svg>
             </a>
             <div className="flex items-center gap-8">
-              {user ? (
-                <Link
-                  href="/dashboard"
-                  className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
-                >
-                  Mon Espace
-                </Link>
-              ) : (
-                <>
-                  <a
-                    href="/auth"
-                    className="hidden text-xs font-light uppercase tracking-widest text-white transition-opacity hover:opacity-70 md:block"
-                  >
-                    S'identifier
-                  </a>
-                  <Link
-                    href="/offres"
-                    className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
-                  >
-                    Voir les offres
-                  </Link>
-                </>
-              )}
+              <Link
+                href="/offres"
+                className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
+              >
+                Explorer les offres
+              </Link>
             </div>
           </header>
 
@@ -683,7 +661,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             >
-              <a href="/auth" className="inline-block border border-white/20 px-8 py-4 uppercase font-sans tracking-[0.2em] text-[10px] text-white hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white transition-colors duration-500">
+              <a href="/offres" className="inline-block border border-white/20 px-8 py-4 uppercase font-sans tracking-[0.2em] text-[10px] text-white hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white transition-colors duration-500">
                 Découvrir la collection
               </a>
             </motion.div>

@@ -103,8 +103,8 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
                 <text x="200" y="156" fontFamily="Georgia, serif" fontSize="34" fill="#D85A30" fontWeight="700">Voyage</text>
               </svg>
             </Link>
-            <Link href="/auth" className="text-xs uppercase tracking-widest hover:text-[#D85A30] transition-colors">
-              Connexion
+            <Link href="/offres" className="text-xs uppercase tracking-widest hover:text-[#D85A30] transition-colors">
+              Toutes les offres
             </Link>
           </header>
 
@@ -129,10 +129,10 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
             ⚠️ OFFRE EXPIRÉE
           </p>
           <p className="text-xs mt-1 text-white/80 max-w-2xl mx-auto">
-            Ce tarif exceptionnel n'est plus garanti et les places ont été vendues. Inscrivez-vous pour être alerté des prochaines offres instantanément avant tout le monde.
+            Ce tarif exceptionnel n'est plus garanti et les places ont été vendues. Découvrez nos autres opportunités de voyage disponibles dès maintenant.
           </p>
-          <Link href="/auth" className="inline-block mt-3 border border-white/20 bg-black/30 px-6 py-2 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
-            S'inscrire aux alertes
+          <Link href="/offres" className="inline-block mt-3 border border-white/20 bg-black/30 px-6 py-2 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+            Voir d'autres offres
           </Link>
         </div>
       )}
