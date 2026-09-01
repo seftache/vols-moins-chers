@@ -3,6 +3,7 @@ import { supabaseAdmin } from "../../../lib/supabase-admin";
 import { Star, Plane, MapPin, Calendar, Clock, CreditCard, Check, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
+import BookingSection from "../../../components/BookingSection";
 
 const getCachedItinerary = unstable_cache(
   async (id: string) => {
@@ -274,64 +275,14 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
 
         {/* COLONNE DROITE (Booking & Résumé) */}
         <div className="lg:col-span-1">
-          <div className="sticky top-8 bg-white/5 border border-white/10 p-8">
-            <h3 className="font-playfair text-2xl mb-6 border-b border-white/10 pb-4">Résumé du budget</h3>
-            
-            <div className="space-y-4 text-sm font-light mb-8">
-              <div className="flex justify-between">
-                <span className="text-white/60 flex items-center gap-2"><Plane size={14}/> Vol</span>
-                <span>{(flight.price_fcfa || 0).toLocaleString()} FCFA</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-white/60 flex items-center gap-2"><Star size={14}/> Hôtel</span>
-                <span>{(hotel.total_price_fcfa || 0).toLocaleString()} FCFA</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-white/60 flex items-center gap-2"><CreditCard size={14}/> Activités (Est.)</span>
-                <span>{Math.round(((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0)) * 0.3).toLocaleString()} FCFA</span>
-              </div>
-              <div className="pt-4 border-t border-white/10 flex flex-col gap-2 font-playfair">
-                <div className="flex justify-between text-sm text-white/40 line-through">
-                  <span>Prix Public Habituel</span>
-                  <span>{Math.round((((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0)) * 1.6) + Math.round(((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0)) * 0.3)).toLocaleString()} FCFA</span>
-                </div>
-                <div className="flex justify-between text-2xl">
-                  <span>Budget Estimé</span>
-                  <span className="text-[#D85A30] font-bold">
-                    {((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0) + Math.round(((flight.price_fcfa || 0) + (hotel.total_price_fcfa || 0)) * 0.3)).toLocaleString()} FCFA
-                  </span>
-                </div>
-              </div>
-              <p className="text-[10px] text-white/40 text-center italic mt-2">Par personne. Les prix peuvent varier selon les disponibilités.</p>
-            </div>
-
-            {isExpired ? (
-              <button disabled className="w-full bg-[#7a1818]/20 text-[#7a1818] border border-[#7a1818]/30 py-4 text-xs font-bold uppercase tracking-widest cursor-not-allowed flex items-center justify-center gap-2">
-                OFFRE EXPIRÉE
-              </button>
-            ) : (
-              <div className="space-y-3">
-                {/* Liens d'affiliation */}
-                <a 
-                  href={flightSearchUrl} 
-                  target="_blank" rel="noreferrer"
-                  className="w-full bg-[#D85A30] hover:bg-[#b84a25] text-white py-4 text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 font-bold"
-                >
-                  Réserver le vol <ChevronRight size={16} />
-                </a>
-                <a 
-                  href={hotelBookingUrl} 
-                  target="_blank" rel="noreferrer"
-                  className="w-full bg-white text-black hover:bg-gray-200 py-4 text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 font-bold"
-                >
-                  Réserver l'hôtel <ChevronRight size={16} />
-                </a>
-              </div>
-            )}
-            
-          </div>
+          <BookingSection
+            flight={flight}
+            hotel={hotel}
+            flightSearchUrl={flightSearchUrl}
+            hotelBookingUrl={hotelBookingUrl}
+            isExpired={isExpired}
+          />
         </div>
-        
       </div>
 
       {/* FOOTER LÉGAL */}

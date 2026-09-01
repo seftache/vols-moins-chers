@@ -3,21 +3,42 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { supabaseAdmin } from "../../lib/supabase-admin";
-import { createSupabaseServerClient } from "../../lib/supabase-server";
+
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "AdminUniqueVoyage2026!";
 
 // Middleware interne de sécurité
-async function ensureAdmin() {
+export async function ensureAdmin() {
   const cookieStore = await cookies();
-  const fallbackAuth = cookieStore.get("admin_fallback_auth")?.value === "true";
+  const isAdmin = cookieStore.get("admin_auth")?.value === "true" || cookieStore.get("admin_fallback_auth")?.value === "true";
 
-  if (fallbackAuth) return; // Autorisé via la solution de secours
-
-  const supabase = await createSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || user.email !== "seftachealphao19@gmail.com") {
+  if (!isAdmin) {
     throw new Error("Action non autorisée.");
   }
+}
+
+export async function loginAdmin(formData: FormData) {
+  const password = formData.get("password") as string;
+
+  if (password === ADMIN_PASSWORD || password === "AdminUniqueVoyage2026!") {
+    const cookieStore = await cookies();
+    cookieStore.set("admin_auth", "true", {
+      maxAge: 60 * 60 * 24 * 30, // 30 jours
+      path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax"
+    });
+    return { success: true };
+  }
+
+  throw new Error("Mot de passe administrateur incorrect.");
+}
+
+export async function logoutAdmin() {
+  const cookieStore = await cookies();
+  cookieStore.delete("admin_auth");
+  cookieStore.delete("admin_fallback_auth");
+  return { success: true };
 }
 
 export async function forcePublishOffer(id: string) {
@@ -32,7 +53,6 @@ export async function forcePublishOffer(id: string) {
     throw new Error(error.message);
   }
 
-  // Rafraîchir les pages pour afficher les changements
   revalidatePath("/");
   revalidatePath("/offres");
   revalidatePath("/admin/dashboard");
@@ -53,43 +73,4 @@ export async function deleteOffer(id: string) {
   revalidatePath("/");
   revalidatePath("/offres");
   revalidatePath("/admin/dashboard");
-}
-
-export async function loginAdmin(formData: FormData) {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  if (email !== "seftachealphao19@gmail.com") {
-    throw new Error("Accès refusé.");
-  }
-
-  // SOLUTION DE SECOURS (Bypass des erreurs réseaux Windows/Next.js "fetch failed")
-  if (password === "AdminUniqueVoyage2026!") {
-    const cookieStore = await cookies();
-    cookieStore.set("admin_fallback_auth", "true", { maxAge: 60 * 60 * 24, path: "/" });
-    return;
-  }
-
-  console.log("LOGIN ATTEMPT", email);
-  console.log("URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
-
-  const { data, error } = await supabaseAdmin.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  console.log("LOGIN RESULT", error?.message || "Success");
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  // Si ça marche avec supabaseAdmin, on doit définir le cookie manuellement pour la session
-  if (data.session) {
-    const supabase = await createSupabaseServerClient();
-    await supabase.auth.setSession({
-      access_token: data.session.access_token,
-      refresh_token: data.session.refresh_token,
-    });
-  }
 }
