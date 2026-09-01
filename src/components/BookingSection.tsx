@@ -98,7 +98,7 @@ export default function BookingSection({
           )}
 
           <div className="pt-2 flex flex-col gap-1">
-            <span className="text-[10px] uppercase text-white/40">Tarif Vol Garanti :</span>
+            <span className="text-[10px] uppercase text-white/40">Tarif négocié dès :</span>
             <div className="flex items-baseline gap-2">
               <span className="text-3xl font-serif text-[#D85A30] font-bold">
                 {flightPrice.primary}
@@ -109,8 +109,9 @@ export default function BookingSection({
                 </span>
               )}
             </div>
-            <p className="text-[10px] text-white/40">Prix tout compris par passager · Disponibilité immédiate</p>
+            <p className="text-[10px] text-white/40">Tarif par passager · Confirmation en direct avant émission</p>
           </div>
+
         </div>
 
         {/* Boutons d'action : En mode Admin = Liens de réservation directs, En mode client = Formulaire privé */}
