@@ -1,7 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-
-const notFoundCode = `import Link from 'next/link';
+import Link from 'next/link';
 import { Plane, Compass, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
@@ -65,20 +62,3 @@ export default function NotFound() {
     </main>
   );
 }
-`;
-
-fs.writeFileSync(path.join(process.cwd(), 'src', 'app', 'not-found.tsx'), notFoundCode);
-console.log('src/app/not-found.tsx created!');
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -7,22 +7,42 @@ import { unstable_cache } from "next/cache";
 import BookingSection from "../../../components/BookingSection";
 import { formatPriceDisplay } from "../../../lib/currency";
 
-const getCachedItinerary = unstable_cache(
-  async (id: string) => {
-    const { data: itinerary, error } = await supabaseAdmin
+async function fetchItineraryDirect(id: string) {
+  if (!id) return null;
+  try {
+    // 1. Recherche par UUID exact
+    const { data, error } = await supabaseAdmin
       .from('premium_itineraries')
       .select('*, detected_deals(*)')
       .eq('id', id)
-      .single();
-      
-    if (error) {
-      throw error;
-    }
-    return itinerary;
-  },
-  ['itinerary-detail'],
-  { revalidate: 300, tags: ['itinerary'] }
-);
+      .maybeSingle();
+
+    if (data && !error) return data;
+
+    // 2. Recherche par code ou nom de destination (ex: DXB, dubai, etc.)
+    const { data: fallbackByDest } = await supabaseAdmin
+      .from('premium_itineraries')
+      .select('*, detected_deals(*)')
+      .or(`destination.ilike.%${id}%,destination_name.ilike.%${id}%`)
+      .limit(1)
+      .maybeSingle();
+
+    if (fallbackByDest) return fallbackByDest;
+
+    // 3. Secours : offre la plus récente
+    const { data: latestItinerary } = await supabaseAdmin
+      .from('premium_itineraries')
+      .select('*, detected_deals(*)')
+      .order('generated_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    return latestItinerary || null;
+  } catch (e) {
+    console.error('Error fetching itinerary:', e);
+    return null;
+  }
+}
 
 // Forcer le rendu dynamique pour toujours vérifier les données en temps réel
 export const dynamic = 'force-dynamic';
@@ -30,7 +50,13 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   try {
-    const itinerary = await getCachedItinerary(id);
+    const itinerary = await fetchItineraryDirect(id);
+    if (!itinerary) {
+      return {
+        title: "Offre Exclusive de Voyage | Unique Voyage",
+        description: "Découvrez nos offres de vols négociés au meilleur prix garanti.",
+      };
+    }
     const flight = itinerary.flight_details || {};
     const priceInfo = formatPriceDisplay(flight.price_fcfa || 0, flight.origin);
     const title = `Vol ${flight.origin_name || flight.origin} ➔ ${itinerary.destination_name} dès ${priceInfo.primary} | Unique Voyage`;
@@ -70,11 +96,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function ItineraryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  // 1. Récupération de l'itinéraire avec getCachedItinerary (mise en cache pour la fluidité)
-  let itinerary: any;
-  try {
-    itinerary = await getCachedItinerary(id);
-  } catch (error) {
+  // 1. Récupération de l'itinéraire en direct
+  const itinerary = await fetchItineraryDirect(id);
+  
+  if (!itinerary) {
     notFound();
   }
 
@@ -82,6 +107,7 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
   const generatedAt = new Date(itinerary.generated_at).getTime();
   const now = new Date().getTime();
   const hoursSinceGeneration = (now - generatedAt) / (1000 * 60 * 60);
+
   
   const isExpired = hoursSinceGeneration >= 72;
 

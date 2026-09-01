@@ -43,8 +43,9 @@ export default function OffresClient({ itineraries }: { itineraries: ItineraryIt
   });
 
   const getImageForDestination = (destName: string, flightImg?: string) => {
-    if (flightImg && flightImg.startsWith('http')) return flightImg;
+    if (flightImg && flightImg.startsWith('http') && !flightImg.includes('photo-1519178173456')) return flightImg;
     const dest = (destName || '')
+
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
@@ -52,11 +53,12 @@ export default function OffresClient({ itineraries }: { itineraries: ItineraryIt
     if (dest.includes('dubai')) return 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('paris')) return 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('dakar')) return 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80';
-    if (dest.includes('montreal')) return 'https://images.unsplash.com/photo-1519178173456-e910609349eb?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('montreal')) return 'https://images.unsplash.com/photo-1588714477688-cf28a50e94f7?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('canton') || dest.includes('guangzhou') || dest.includes('chine')) return 'https://images.unsplash.com/photo-1583248369069-9d91f1640fe6?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('tokyo')) return 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('new york')) return 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('jeddah') || dest.includes('mecque')) return 'https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?auto=format&fit=crop&w=1200&q=80';
+
     return 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80';
   };
 
