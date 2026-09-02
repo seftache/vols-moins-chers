@@ -805,9 +805,22 @@ export default function Home() {
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-8">
 
           <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row sm:gap-0">
-            <span className="text-[10px] font-light uppercase tracking-widest text-[#737373]">
-              © 2026 UniqueVoyage. Tous droits réservés.
-            </span>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
+              <span className="text-[10px] font-light uppercase tracking-widest text-[#737373]">
+                © 2026 UniqueVoyage. Tous droits réservés.
+              </span>
+              <span className="text-[10px] font-light uppercase tracking-widest text-[#888888]">
+                Design by{" "}
+                <a
+                  href="https://gadjico.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#D85A30] font-semibold transition-colors underline decoration-[#D85A30]/60 underline-offset-4"
+                >
+                  Gadjico
+                </a>
+              </span>
+            </div>
             <div className="flex gap-8">
               <a href="#" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
                 Mentions légales

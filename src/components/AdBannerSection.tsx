@@ -3,7 +3,19 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, PhoneCall, ArrowUpRight } from "lucide-react";
+import { Sparkles, PhoneCall, ArrowUpRight, Megaphone, Target, TrendingUp, Crown, Zap, Globe2, ShieldCheck } from "lucide-react";
+
+interface CodedSlideData {
+  badgeIcon: any;
+  badgeText: string;
+  headlineMain: string;
+  headlineAccent: string;
+  description: string;
+  buttonText: string;
+  accentColor: string;
+  gradientBg: string;
+  glowColor: string;
+}
 
 interface AdBanner {
   id: string;
@@ -11,6 +23,7 @@ interface AdBanner {
   image?: string;
   link: string;
   isCodedSlide?: boolean;
+  codedData?: CodedSlideData;
 }
 
 const PROMOTIONAL_BANNERS: AdBanner[] = [
@@ -35,19 +48,131 @@ const PROMOTIONAL_BANNERS: AdBanner[] = [
     image: "/images/ads/gadjico-web.png",
     link: "https://gadjico.netlify.app",
   },
-  // 4. EMPLOIS DUBAÏ (https://emploisdubai.com)
+  // 4. PUB 1 - NÉON TERRACOTTA
   {
-    id: "emplois-dubai",
-    title: "Emplois Dubaï — Recrutement & Placement Premium",
-    image: "/images/ads/emplois-dubai.jpg",
-    link: "https://emploisdubai.com",
-  },
-  // 5. ESPACE ANNONCEUR / VOTRE PUBLICITÉ ICI (Slide codé sobre & élégant pour les annonceurs)
-  {
-    id: "espace-annonceur",
-    title: "Votre Publicité Ici — Espace Annonceur Disponible",
-    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un espace publicitaire sur Unique Voyage."),
+    id: "ad-terracotta",
+    title: "Votre Publicité Ici — Espace Annonceur",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver l'encart publicitaire Terracotta sur Unique Voyage."),
     isCodedSlide: true,
+    codedData: {
+      badgeIcon: Sparkles,
+      badgeText: "ESPACE ANNONCEUR DISPONIBLE",
+      headlineMain: "VOTRE PUBLICITÉ",
+      headlineAccent: "ICI",
+      description: "Mettez en avant votre marque auprès de milliers de voyageurs et clients internationaux ciblés.",
+      buttonText: "RÉSERVER CET EMPLACEMENT",
+      accentColor: "#D85A30",
+      gradientBg: "from-[#1a0c08] via-[#0f0f0f] to-[#1a0c08]",
+      glowColor: "rgba(216,90,48,0.22)",
+    },
+  },
+  // 5. PUB 2 - OR & PRESTIGE
+  {
+    id: "ad-gold",
+    title: "Sponsoring & Visibilité Élite",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver l'espace Sponsoring Prestige sur Unique Voyage."),
+    isCodedSlide: true,
+    codedData: {
+      badgeIcon: Crown,
+      badgeText: "PARTENARIAT & SPONSORING ÉLITE",
+      headlineMain: "ASSOCIEZ VOTRE MARQUE À",
+      headlineAccent: "L'EXCELLENCE",
+      description: "Bénéficiez d'une visibilité de premier plan auprès d'une audience VIP à fort pouvoir d'achat.",
+      buttonText: "DEVENIR SPONSOR OFFICIEL",
+      accentColor: "#d4a853",
+      gradientBg: "from-[#181308] via-[#0d0d0d] to-[#181308]",
+      glowColor: "rgba(212,168,83,0.20)",
+    },
+  },
+  // 6. PUB 3 - CYAN & TECH
+  {
+    id: "ad-cyan",
+    title: "Boostez votre Visibilité Digitale",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite booster ma visibilité avec une campagne publicitaire sur Unique Voyage."),
+    isCodedSlide: true,
+    codedData: {
+      badgeIcon: Zap,
+      badgeText: "CAMPAGNE DIGITALE HAUTE PERFORMANCE",
+      headlineMain: "BOOSTEZ VOTRE VISIBILITÉ",
+      headlineAccent: "DIGITALE",
+      description: "Attirez de nouveaux prospects qualifiés et augmentez instantanément votre notoriété de marque.",
+      buttonText: "LANCER MA CAMPAGNE",
+      accentColor: "#06b6d4",
+      gradientBg: "from-[#08151a] via-[#0d0d0d] to-[#08151a]",
+      glowColor: "rgba(6,182,212,0.20)",
+    },
+  },
+  // 7. PUB 4 - ÉMERAUDE BUSINESS
+  {
+    id: "ad-emerald",
+    title: "Développez votre Clientèle B2B & B2C",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite devenir partenaire annonceur sur Unique Voyage."),
+    isCodedSlide: true,
+    codedData: {
+      badgeIcon: TrendingUp,
+      badgeText: "CROISSANCE & ACQUISITION CLIENTS",
+      headlineMain: "DEVENEZ NOTRE PARTENAIRE",
+      headlineAccent: "PRIVILÈGE",
+      description: "Générez des ventes directes et développez votre chiffre d'affaires avec un encart dédié.",
+      buttonText: "CONTACTER NOTRE RÉGIE",
+      accentColor: "#10b981",
+      gradientBg: "from-[#081812] via-[#0d0d0d] to-[#081812]",
+      glowColor: "rgba(16,185,129,0.20)",
+    },
+  },
+  // 8. PUB 5 - AMÉTHYSTE CRÉATIF
+  {
+    id: "ad-purple",
+    title: "Affichage Publicitaire Grand Format",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite afficher mes produits en grand format sur Unique Voyage."),
+    isCodedSlide: true,
+    codedData: {
+      badgeIcon: Megaphone,
+      badgeText: "AFFICHAGE PUBLICITAIRE 3.0",
+      headlineMain: "FAITES RAYONNER VOS",
+      headlineAccent: "PRODUITS",
+      description: "Présentez vos services, offres spéciales ou événements au cœur de notre plateforme internationale.",
+      buttonText: "DISCUTER SUR WHATSAPP",
+      accentColor: "#a855f7",
+      gradientBg: "from-[#150a1e] via-[#0d0d0d] to-[#150a1e]",
+      glowColor: "rgba(168,85,247,0.20)",
+    },
+  },
+  // 9. PUB 6 - SAPHIR CORPORATE
+  {
+    id: "ad-blue",
+    title: "Réseau Annonceurs & Partenariats Mondiaux",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite réserver un encart dans votre réseau d'annonceurs."),
+    isCodedSlide: true,
+    codedData: {
+      badgeIcon: Globe2,
+      badgeText: "RÉSEAU ANNONCEURS MONDIAL",
+      headlineMain: "RÉGIE PUBLICITAIRE",
+      headlineAccent: "OFFICIELLE",
+      description: "Une couverture publicitaire stratégique pour toucher des décideurs et acheteurs actifs.",
+      buttonText: "RÉSERVER UN ENCART",
+      accentColor: "#3b82f6",
+      gradientBg: "from-[#0a111e] via-[#0d0d0d] to-[#0a111e]",
+      glowColor: "rgba(59,130,246,0.20)",
+    },
+  },
+  // 10. PUB 7 - RUBIS IMPACT FLASH
+  {
+    id: "ad-ruby",
+    title: "Offre Sponsor En Vedette",
+    link: "https://wa.me/2250545745749?text=" + encodeURIComponent("Bonjour, je souhaite profiter de l'offre Sponsor En Vedette sur Unique Voyage."),
+    isCodedSlide: true,
+    codedData: {
+      badgeIcon: Target,
+      badgeText: "EMPLACEMENT EN TÊTE D'AFFICHE",
+      headlineMain: "OFFRE SPONSOR",
+      headlineAccent: "EXECUTIVE",
+      description: "Positionnez votre entreprise en tête d'affiche sur Unique Voyage et dominez votre secteur.",
+      buttonText: "RÉSERVER EN 1 CLIC",
+      accentColor: "#f43f5e",
+      gradientBg: "from-[#1e0a10] via-[#0d0d0d] to-[#1e0a10]",
+      glowColor: "rgba(244,63,94,0.20)",
+    },
   },
 ];
 
@@ -85,41 +210,48 @@ export default function AdBannerSection() {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="relative w-full h-full"
           >
-            {ad.isCodedSlide ? (
-              // Slide Native "Votre Publicité Ici" en pur design sobre & moderne
+            {ad.isCodedSlide && ad.codedData ? (
+              // Slide Native Annonceur stylisée selon son thème
               <a
                 href={ad.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center text-center w-full h-full px-6 sm:px-12 bg-gradient-to-r from-zinc-950 via-[#141414] to-zinc-950 relative overflow-hidden cursor-pointer"
+                className={`flex flex-col items-center justify-center text-center w-full h-full px-6 sm:px-12 bg-gradient-to-r ${ad.codedData.gradientBg} relative overflow-hidden cursor-pointer`}
                 aria-label={ad.title}
               >
                 {/* Lueur subtile en arrière-plan */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(216,90,48,0.18)_0%,transparent_70%)] pointer-events-none" />
+                <div 
+                  className="absolute inset-0 pointer-events-none transition-all duration-700"
+                  style={{ background: `radial-gradient(ellipse at center, ${ad.codedData.glowColor} 0%, transparent 70%)` }}
+                />
 
                 <div className="relative z-10 max-w-2xl flex flex-col items-center">
-                  <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-xs font-bold uppercase tracking-[0.25em] mb-2 sm:mb-4 bg-white/5 border border-white/10 text-white/90">
-                    <Sparkles size={12} className="text-[#D85A30]" />
-                    <span>ESPACE ANNONCEUR DISPONIBLE</span>
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-xs font-bold uppercase tracking-[0.25em] mb-2 sm:mb-4 bg-white/5 border border-white/10 text-white/90">
+                    <ad.codedData.badgeIcon size={12} style={{ color: ad.codedData.accentColor }} />
+                    <span>{ad.codedData.badgeText}</span>
                   </div>
 
                   <h2 className="font-playfair text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight uppercase leading-tight">
-                    VOTRE PUBLICITÉ <span className="text-[#D85A30]">ICI</span>
+                    {ad.codedData.headlineMain}{" "}
+                    <span style={{ color: ad.codedData.accentColor }}>{ad.codedData.headlineAccent}</span>
                   </h2>
 
                   <p className="text-[10px] sm:text-sm md:text-base text-zinc-400 font-light mt-1.5 sm:mt-3 max-w-xl leading-relaxed">
-                    Mettez en avant votre marque auprès de milliers de voyageurs et clients ciblés.
+                    {ad.codedData.description}
                   </p>
 
-                  <div className="mt-3 sm:mt-6 inline-flex items-center gap-2 bg-[#D85A30] hover:bg-[#c24e27] text-white font-bold py-2 sm:py-3 px-5 sm:px-8 rounded-xl uppercase tracking-[0.15em] text-[10px] sm:text-xs shadow-lg transition-all active:scale-95">
+                  <div 
+                    className="mt-3 sm:mt-6 inline-flex items-center gap-2 text-white font-bold py-2 sm:py-3 px-5 sm:px-8 rounded-xl uppercase tracking-[0.15em] text-[10px] sm:text-xs shadow-lg transition-all active:scale-95 hover:brightness-110"
+                    style={{ backgroundColor: ad.codedData.accentColor }}
+                  >
                     <PhoneCall size={14} />
-                    <span>RÉSERVER CET EMPLACEMENT</span>
+                    <span>{ad.codedData.buttonText}</span>
                     <ArrowUpRight size={14} />
                   </div>
                 </div>
               </a>
             ) : (
-              // Slide Affiche Réelle (DocuExpress, Ethical Hacker, Gadjico, Emplois Dubaï)
+              // Slide Affiche Réelle (DocuExpress, Ethical Hacker, Gadjico)
               <a
                 href={ad.link}
                 target="_blank"
@@ -160,7 +292,7 @@ export default function AdBannerSection() {
           &rarr;
         </button>
 
-        {/* Indicateurs de progression (Points / Dots) */}
+        {/* Indicateurs de progression (Points / Dots pour 10 slots) */}
         <div className="absolute bottom-2.5 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-1.5 sm:space-x-2 z-10 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
           {PROMOTIONAL_BANNERS.map((_, index) => (
             <button
