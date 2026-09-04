@@ -833,17 +833,46 @@ export default function Home() {
             </details>
           </div>
 
-          {/* Tags de maillage interne SEO */}
+          {/* Liens de maillage interne SEO ultra-performants */}
           <div className="mt-14 pt-8 border-t border-white/10 text-center">
-            <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4">Recherches fréquentes de billets d'avion</p>
-            <div className="flex flex-wrap justify-center gap-2 text-xs text-zinc-400">
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Billet d'avion Abidjan Paris pas cher</span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Vol Abidjan Dubaï moins cher</span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Billet d'avion Dakar Paris</span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Vol pas cher Accra</span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Promo vol Montréal</span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Billet d'avion moins cher La Mecque (Jeddah)</span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Comparateur de vol Afrique Wave</span>
+            <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4 font-semibold">Liaisons aériennes les plus recherchées</p>
+            <div className="flex flex-wrap justify-center gap-2 text-xs">
+              <Link href="/vols/abidjan-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Billet d'avion Abidjan — Paris
+              </Link>
+              <Link href="/vols/abidjan-dubai" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Dubaï pas cher
+              </Link>
+              <Link href="/vols/abidjan-dakar" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Billet d'avion Abidjan — Dakar
+              </Link>
+              <Link href="/vols/dakar-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Dakar — Paris moins cher
+              </Link>
+              <Link href="/vols/abidjan-casablanca" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Casablanca
+              </Link>
+              <Link href="/vols/abidjan-montreal" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Billet d'avion Abidjan — Montréal
+              </Link>
+              <Link href="/vols/abidjan-new-york" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — New York
+              </Link>
+              <Link href="/vols/abidjan-bruxelles" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol direct Abidjan — Bruxelles
+              </Link>
+              <Link href="/vols/abidjan-accra" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Accra
+              </Link>
+              <Link href="/vols/abidjan-istanbul" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Istanbul
+              </Link>
+              <Link href="/vols/abidjan-jeddah" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Billet Abidjan — Jeddah (La Mecque)
+              </Link>
+              <Link href="/vols/accra-londres" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol direct Accra — Londres
+              </Link>
             </div>
           </div>
         </div>

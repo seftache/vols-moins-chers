@@ -5,11 +5,19 @@ import { unstable_cache } from "next/cache";
 import OffresClient from "./OffresClient";
 
 export const metadata: Metadata = {
-  title: "Toutes les Offres de Vols & Séjours | Départs Mondiaux",
-  description: "Découvrez les meilleures offres de vols négociés au départ d'Abidjan, Paris, Montréal, New York, Dakar et Canton. Tarifs garantis et réservation rapide.",
+  title: "Bons Plans Billets d'Avion Moins Chers & Vols en Direct | Unique Voyage",
+  description: "Découvrez toutes les offres de billets d'avion moins chers détectées en temps réel par notre algorithme. Vols au départ d'Abidjan, Dakar, Paris, Casablanca, Bruxelles et Accra au prix le plus bas garanti. Réservation sécurisée Wave et Mobile Money.",
+  keywords: [
+    "billet avion moins cher",
+    "bons plans vol",
+    "billets avion pas cher abidjan",
+    "promo vol dakar",
+    "vol pas cher paris abidjan",
+    "unique voyage offres"
+  ],
   openGraph: {
-    title: "Offres de Vols & Séjours | Unique Voyage",
-    description: "Vols à prix cassés au départ de Paris, Abidjan, Montréal, New York, Canton et Dakar.",
+    title: "Bons Plans Billets d'Avion Moins Chers & Vols en Direct | Unique Voyage",
+    description: "Vols à prix cassés au départ de Paris, Abidjan, Montréal, New York, Dakar et Dubaï.",
     url: "https://uniquevoyage.site/offres",
     type: "website",
   },
@@ -82,6 +90,58 @@ export default async function OffresPage() {
 
       {/* COMPOSANT CLIENT AVEC FILTRES DE DÉPART */}
       <OffresClient itineraries={itineraries} />
+
+      {/* MAILLAGE INTERNE DES LIAISONS POPULAIRES (SEO) */}
+      <section className="px-6 py-16 md:px-16 lg:px-24 border-t border-white/10 bg-[#060606]">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-[#D85A30] font-bold block mb-1">
+              GUIDE DES LIAISONS & PRIX LES PLUS BAS
+            </span>
+            <h2 className="font-playfair text-2xl md:text-3xl text-white font-medium">
+              Trouvez votre billet d'avion moins cher par destination
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+            <Link href="/vols/abidjan-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Billet Abidjan — Paris dès 230 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-dubai" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Abidjan — Dubaï dès 380 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-dakar" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Billet Abidjan — Dakar dès 195 000 FCFA
+            </Link>
+            <Link href="/vols/dakar-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Dakar — Paris dès 235 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-casablanca" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Abidjan — Casablanca dès 260 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-montreal" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Billet Abidjan — Montréal dès 650 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-new-york" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Abidjan — New York dès 590 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-bruxelles" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Abidjan — Bruxelles dès 320 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-accra" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Abidjan — Accra dès 145 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-istanbul" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Abidjan — Istanbul dès 310 000 FCFA
+            </Link>
+            <Link href="/vols/abidjan-jeddah" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Abidjan — Jeddah (Omra) dès 540 000 FCFA
+            </Link>
+            <Link href="/vols/accra-londres" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Accra — Londres dès 390 000 FCFA
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* FOOTER LÉGAL */}
       <footer className="relative w-full bg-[#111111] border-t border-white/10 px-6 py-8 md:px-16 lg:px-24">

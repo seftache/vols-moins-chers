@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next';
 import { supabaseAdmin } from '../lib/supabase-admin';
+import { getAllRouteSlugs } from '../lib/routes-seo';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://uniquevoyage.site';
 
-  // 1. Pages statiques
+  // 1. Pages statiques principales
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
@@ -16,11 +17,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/offres`,
       lastModified: new Date(),
       changeFrequency: 'hourly',
-      priority: 0.9,
+      priority: 0.95,
     },
   ];
 
-  // 2. Pages dynamiques de chaque itinéraire
+  // 2. Pages dédiées par liaison de vol (Programmatic SEO ultra-ciblé)
+  const routeSlugs = getAllRouteSlugs();
+  const routePages: MetadataRoute.Sitemap = routeSlugs.map((slug) => ({
+    url: `${baseUrl}/vols/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.9,
+  }));
+
+  // 3. Pages dynamiques de chaque itinéraire
   try {
     const { data: itineraries } = await supabaseAdmin
       .from('premium_itineraries')
@@ -33,8 +43,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    return [...staticRoutes, ...dynamicRoutes];
+    return [...staticRoutes, ...routePages, ...dynamicRoutes];
   } catch (e) {
-    return staticRoutes;
+    return [...staticRoutes, ...routePages];
   }
 }
