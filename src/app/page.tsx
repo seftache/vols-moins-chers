@@ -182,7 +182,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         </div>
 
-        <div className="relative z-10 flex min-h-screen flex-col justify-between px-6 py-8 md:px-16 md:py-10 lg:px-24">
+        <div className="relative z-10 flex h-full flex-col justify-between px-6 py-8 md:px-16 md:py-10 lg:px-24">
           <header className="flex w-full items-center justify-between">
             <a href="#" className="flex items-center">
               <svg viewBox="55 65 280 130" className="h-12 md:h-16 w-auto" xmlns="http://www.w3.org/2000/svg">
@@ -198,44 +198,65 @@ export default function Home() {
                 <text x="200" y="156" fontFamily="Georgia, serif" fontSize="34" fill="#D85A30" fontWeight="700">Voyage</text>
               </svg>
             </a>
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-6">
+              <Link
+                href="/vols-pas-chers"
+                className="hidden sm:inline-block text-xs uppercase tracking-widest text-white/80 hover:text-[#D85A30] transition-colors"
+              >
+                Destinations
+              </Link>
               <Link
                 href="/offres"
-                className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
+                className="border border-white/60 bg-white/5 backdrop-blur-sm px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
               >
                 Explorer les offres
               </Link>
             </div>
           </header>
 
-          <div className="flex w-full max-w-5xl flex-col items-start justify-center my-auto py-8">
-            <p className="mb-4 text-[10px] font-light uppercase tracking-[0.3em] text-white/80 sm:text-xs">
+          <div className="flex w-full max-w-4xl flex-col items-start justify-center my-auto py-6">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-4 text-[10px] font-light uppercase tracking-[0.3em] text-white/80 sm:text-xs"
+            >
               La conciergerie de voyage 3.0, propulsée par l'IA.
-            </p>
+            </motion.p>
 
-            <h1 className="mb-6 font-playfair text-4xl leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              className="mb-8 font-playfair text-4xl leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl"
+            >
               Ne payez plus jamais<br />
               le plein tarif<br />
               pour voyager.
-            </h1>
+            </motion.h1>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
+            >
               <Link
                 href="/offres"
-                className="inline-block bg-[#D85A30] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#b84a25] shadow-lg"
+                className="inline-block bg-[#D85A30] px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#b84a25] shadow-2xl"
               >
-                Explorer toutes les offres
+                Explorer les offres
               </Link>
               <Link
                 href="/vols-pas-chers"
-                className="inline-block border border-white/30 bg-black/40 backdrop-blur-sm px-8 py-4 text-xs font-light uppercase tracking-[0.2em] text-white transition-colors hover:border-[#D85A30] hover:text-[#D85A30]"
+                className="inline-block border border-white/20 bg-black/30 backdrop-blur-sm px-8 py-5 text-xs font-light uppercase tracking-[0.2em] text-white transition-colors hover:border-[#D85A30] hover:text-[#D85A30]"
               >
-                Rechercher par destination
+                Voir par destination
               </Link>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-4 py-4">
+          <div className="flex w-full flex-col items-center justify-center gap-4 py-3">
             <span className="text-[10px] uppercase tracking-[0.3em] text-white/70">
               Découvrir les opportunités
             </span>
@@ -243,11 +264,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* =====================================================================
-          1.5 BANNIÈRE PUBLICITAIRE & OFFRES EN VEDETTE
-          ===================================================================== */}
-      <AdBannerSection />
 
       {/* =====================================================================
           2. LE CONCEPT (Asymétrique avec animation au scroll)
@@ -774,6 +790,11 @@ export default function Home() {
       </section>
 
       {/* =====================================================================
+          5.3 PARTENAIRES & ESPACE ANNONCEURS
+          ===================================================================== */}
+      <AdBannerSection />
+
+      {/* =====================================================================
           5.5 GUIDE & FOIRE AUX QUESTIONS (SEO & CONFIANCE)
           ===================================================================== */}
       <section className="relative w-full bg-[#0d0d0d] px-6 py-24 md:px-16 lg:px-24 border-t border-white/[0.06]">
@@ -807,7 +828,7 @@ export default function Home() {
                 <span className="ml-4 text-[#D85A30] transition-transform duration-300 group-open:rotate-180">▼</span>
               </summary>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                Absolument ! Unique Voyage a spécialement conçu son service pour l'Afrique et la diaspora. Vous pouvez régler vos billets d'avion en toute sécurité par <strong>Wave</strong>, <strong>Orange Money</strong>, <strong>MTN Mobile Money</strong>, <strong>Moov Money</strong> ou par carte bancaire internationale (Visa, Mastercard). Dès confirmation, votre billet électronique officiel vous est délivré sans délai.
+                Absolument ! Unique Voyage a spécialement conçu son service pour l'Afrique et la diaspora. Vous pouvez régler vos billets d'avion en toute sécurité par <strong>Mobile Money</strong>, <strong>Wave</strong>, <strong>PayPal</strong> ou par <strong>carte bancaire</strong> internationale (Visa, Mastercard). Dès confirmation, votre billet électronique officiel vous est délivré sans délai.
               </p>
             </details>
 

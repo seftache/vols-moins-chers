@@ -7,7 +7,7 @@ import FlightSearchBar from "../../components/FlightSearchBar";
 
 export const metadata: Metadata = {
   title: "Bons Plans Billets d'Avion Moins Chers & Vols en Direct | Unique Voyage",
-  description: "Découvrez toutes les offres de billets d'avion moins chers détectées en temps réel par notre algorithme. Vols au départ d'Abidjan, Dakar, Paris, Casablanca, Bruxelles et Accra au prix le plus bas garanti. Réservation sécurisée Wave et Mobile Money.",
+  description: "Découvrez toutes les offres de billets d'avion moins chers détectées en temps réel par notre algorithme. Vols au départ d'Abidjan, Dakar, Paris, Casablanca, Bruxelles et Accra au prix le plus bas garanti. Réservation sécurisée par Mobile Money, Wave, PayPal et cartes bancaires.",
   keywords: [
     "billet avion moins cher",
     "bons plans vol",
@@ -89,23 +89,26 @@ export default async function OffresPage() {
         </p>
       </section>
 
-      {/* MOTEUR DE RECHERCHE LIBRE OPTIONNEL */}
-      <section className="px-6 pb-12 md:px-16 lg:px-24">
+      {/* COMPOSANT CLIENT AVEC FILTRES DE DÉPART (AFFICHÉ EN PREMIER) */}
+      <OffresClient itineraries={itineraries} />
+
+      {/* MOTEUR DE RECHERCHE LIBRE OPTIONNEL (PLACÉ TOUT EN BAS SI LE CLIENT NE TROUVE PAS SON VOL) */}
+      <section className="px-6 py-16 md:px-16 lg:px-24 border-t border-white/10 bg-white/[0.01]">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-3">
+          <div className="text-center mb-6">
             <span className="text-[10px] uppercase tracking-widest text-[#D85A30] font-semibold">
-              Recherche personnalisée
+              Optionnel · Recherche sur mesure
             </span>
             <h2 className="font-playfair text-xl md:text-2xl text-white font-medium mt-1">
               Vous ne trouvez pas votre trajet ? Recherchez n'importe quel vol dans le monde
             </h2>
+            <p className="text-xs text-zinc-400 mt-2">
+              Indiquez votre ville de départ et d'arrivée pour explorer tous les itinéraires disponibles.
+            </p>
           </div>
           <FlightSearchBar />
         </div>
       </section>
-
-      {/* COMPOSANT CLIENT AVEC FILTRES DE DÉPART */}
-      <OffresClient itineraries={itineraries} />
 
       {/* MAILLAGE INTERNE DES LIAISONS POPULAIRES (SEO) */}
       <section className="px-6 py-16 md:px-16 lg:px-24 border-t border-white/10 bg-[#060606]">

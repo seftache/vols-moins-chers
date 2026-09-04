@@ -55,7 +55,7 @@ export default function VolsPasChersHubIndexPage() {
           addressLocality: 'Abidjan',
         },
         currenciesAccepted: 'XOF, EUR, USD, CAD',
-        paymentAccepted: 'Wave, Orange Money, MTN Mobile Money, Moov Money, Carte Bancaire',
+        paymentAccepted: 'Mobile Money, Wave, PayPal, Carte Bancaire',
       },
       {
         '@type': 'BreadcrumbList',
@@ -98,7 +98,7 @@ export default function VolsPasChersHubIndexPage() {
             name: 'Quels sont les moyens de paiement acceptés ?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Nous acceptons Wave, Orange Money, MTN MoMo, Moov Money en FCFA ainsi que les cartes bancaires Visa et Mastercard internationales.',
+              text: 'Nous acceptons Mobile Money, Wave, PayPal ainsi que les cartes bancaires internationales (Visa, Mastercard).',
             },
           },
         ],
@@ -307,9 +307,9 @@ export default function VolsPasChersHubIndexPage() {
               <div className="w-12 h-12 rounded-xl bg-[#D85A30]/15 flex items-center justify-center text-[#D85A30]">
                 <ShieldCheck size={24} />
               </div>
-              <h3 className="font-playfair text-xl text-white font-medium">Règlement en Mobile Money & Wave</h3>
+              <h3 className="font-playfair text-xl text-white font-medium">Règlement Sécurisé & Simplifié</h3>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                Réglez en toute sécurité en FCFA par Wave, Orange Money, MTN MoMo ou carte bancaire avec émission immédiate de votre billet électronique.
+                Réglez en toute sécurité par Mobile Money, Wave, PayPal ou carte bancaire avec émission immédiate de votre billet électronique officiel.
               </p>
             </div>
           </div>

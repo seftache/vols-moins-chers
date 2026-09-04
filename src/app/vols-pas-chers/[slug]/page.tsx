@@ -151,7 +151,7 @@ export default async function VolPasCherDetailPage({ params }: Props) {
             addressLocality: 'Abidjan',
           },
           currenciesAccepted: 'XOF, EUR, USD, CAD',
-          paymentAccepted: 'Wave, Orange Money, MTN Mobile Money, Moov Money, Carte Bancaire',
+          paymentAccepted: 'Mobile Money, Wave, PayPal, Carte Bancaire',
         },
         {
           '@type': 'BreadcrumbList',
@@ -458,7 +458,7 @@ export default async function VolPasCherDetailPage({ params }: Props) {
           addressLocality: 'Abidjan',
         },
         currenciesAccepted: 'XOF, EUR, USD, CAD',
-        paymentAccepted: 'Wave, Orange Money, MTN Mobile Money, Moov Money, Carte Bancaire',
+        paymentAccepted: 'Mobile Money, Wave, PayPal, Carte Bancaire',
       },
       {
         '@type': 'BreadcrumbList',
@@ -651,7 +651,7 @@ export default async function VolPasCherDetailPage({ params }: Props) {
               </a>
 
               <p className="text-[11px] text-center text-zinc-400">
-                Paiement sécurisé par Wave, Orange Money, MTN MoMo ou Carte Bancaire
+                Paiement sécurisé par Mobile Money, Wave, PayPal ou Carte Bancaire
               </p>
             </div>
           </div>
@@ -693,9 +693,9 @@ export default async function VolPasCherDetailPage({ params }: Props) {
               <div className="w-10 h-10 rounded-xl bg-[#D85A30]/15 flex items-center justify-center text-[#D85A30]">
                 <ShieldCheck size={20} />
               </div>
-              <h3 className="font-playfair text-lg text-white font-medium">Paiement Local & Concierge Dédié</h3>
+              <h3 className="font-playfair text-lg text-white font-medium">Paiement Sécurisé & Concierge Dédié</h3>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                Réglez en toute confiance sans frais de change par Wave, Orange Money ou MTN MoMo. Un concierge humain vous assiste jusqu'à l'embarquement.
+                Réglez en toute confiance sans frais de change par Mobile Money, Wave, PayPal ou carte bancaire. Un concierge dédié vous assiste jusqu'à l'embarquement.
               </p>
             </div>
           </div>

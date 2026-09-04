@@ -62,7 +62,7 @@ export const ROUTE_ZONE_HUBS: RouteZoneHub[] = [
       },
       {
         "title": "Règlement Souple & Local",
-        "desc": "Payez en toute simplicité en FCFA via Wave, Orange Money, MTN MoMo ou carte de crédit."
+        "desc": "Payez en toute simplicité en FCFA via Mobile Money, Wave, PayPal ou carte de crédit."
       }
     ],
     "faqs": [
@@ -280,7 +280,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Quels sont les moyens de paiement acceptés ?",
-        "answer": "Vous pouvez régler en toute sécurité en FCFA par Wave, Orange Money, MTN MoMo, Moov Money ou par carte bancaire internationale."
+        "answer": "Vous pouvez régler en toute sécurité en FCFA par Mobile Money, Wave, PayPal ou carte bancaire internationale."
       }
     ]
   },
@@ -423,7 +423,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Peut-on payer son billet d'avion pour le Brésil par Mobile Money ?",
-        "answer": "Oui, Unique Voyage accepte Wave, Orange Money et MTN MoMo pour toutes les destinations internationales."
+        "answer": "Oui, Unique Voyage accepte Mobile Money, Wave, PayPal pour toutes les destinations internationales."
       }
     ]
   },
@@ -561,7 +561,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Puis-je payer mon billet d'avion pour Bruxelles avec Wave ?",
-        "answer": "Absolument, Unique Voyage supporte Wave, Orange Money, MTN MoMo et cartes bancaires."
+        "answer": "Absolument, Unique Voyage supporte Mobile Money, Wave, PayPal et cartes bancaires."
       },
       {
         "question": "Quand les prix sont-ils les plus bas vers la Belgique ?",
@@ -607,7 +607,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "Le tarif moyen se situe autour de 490 000 FCFA, mais notre IA détecte régulièrement des offres négociées dès 410 000 FCFA."
       },
       {
-        "question": "Puis-je payer depuis le Sénégal avec Wave ou Orange Money Sénégal ?",
+        "question": "Puis-je payer depuis le Sénégal avec Mobile Money, Wave ou PayPal Sénégal ?",
         "answer": "Oui, notre plateforme accepte les paiements par Wave et Mobile Money en FCFA sans surcoût bancaire."
       },
       {
@@ -703,7 +703,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "La plupart des billets réservés via Unique Voyage comprennent 2 valises de 23 kg chacune."
       },
       {
-        "question": "Peut-on payer son billet d'avion au Cameroun par Orange Money ou MTN MoMo ?",
+        "question": "Peut-on payer son billet d'avion au Cameroun par Mobile Money ou carte bancaire ?",
         "answer": "Oui, Unique Voyage prend en charge les règlements par Mobile Money en FCFA et par carte bancaire."
       },
       {
@@ -751,7 +751,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "Le tarif standard tourne autour de 475 000 FCFA, mais notre conciergerie négocie des tarifs démarrant à 395 000 FCFA."
       },
       {
-        "question": "Les paiements par MTN Mobile Money Bénin et Moov Money sont-ils acceptés ?",
+        "question": "Les paiements par Mobile Money et cartes bancaires sont-ils acceptés ?",
         "answer": "Oui, vous pouvez régler vos billets via Mobile Money local en toute sérénité."
       },
       {
@@ -780,9 +780,9 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
     "bestMonths": "Novembre à Février et Mai à Juin",
     "zone": "afrique-europe",
     "metaTitle": "Vol Bamako Paris Pas Cher dès 415 000 FCFA | Billetterie Privée",
-    "metaDescription": "Trouvez votre vol Bamako Modibo Keïta vers Paris au meilleur prix. Conciergerie dédiée au Mali, paiements Wave/Orange Money et alertes WhatsApp.",
+    "metaDescription": "Trouvez votre vol Bamako Modibo Keïta vers Paris au meilleur prix. Conciergerie dédiée au Mali, paiements Mobile Money, Wave, PayPal et alertes WhatsApp.",
     "h1Title": "Billet d'avion Bamako (BKO) vers Paris (CDG/ORY)",
-    "description": "Vols directs et correspondances optimisées de Bamako vers Paris. Bénéficiez des tarifs négociés par la conciergerie Unique Voyage et réglez facilement en FCFA par Orange Money ou Wave.",
+    "description": "Vols directs et correspondances optimisées de Bamako vers Paris. Bénéficiez des tarifs négociés par la conciergerie Unique Voyage et réglez facilement en FCFA par Mobile Money, Wave ou PayPal.",
     "conciergeNote": "Ligne phare de la diaspora malienne. Notre conciergerie scrute en temps réel les places disponibles sur Corsair, Air France et les liaisons via Casablanca pour vous garantir les meilleurs tarifs avec bagages.",
     "relatedSlugs": [
       "dakar-paris",
@@ -801,7 +801,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Comment régler son billet d'avion depuis Bamako ?",
-        "answer": "Les paiements par Orange Money Mali, Wave et cartes bancaires sont pleinement acceptés."
+        "answer": "Les paiements par Mobile Money, Wave, PayPal et cartes bancaires sont pleinement acceptés."
       },
       {
         "question": "Quand faut-il réserver pour payer le moins cher vers la France ?",
@@ -951,7 +951,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Quels modes de règlement sont possibles ?",
-        "answer": "Paiement en Euros par carte bancaire ou en FCFA par Mobile Money (Wave, Orange, MTN)."
+        "answer": "Paiement en Euros par carte bancaire ou en FCFA par Mobile Money, Wave, PayPal."
       }
     ]
   },
@@ -1225,7 +1225,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Puis-je payer mon billet d'avion Abidjan Paris avec Wave ou Mobile Money ?",
-        "answer": "Oui, Unique Voyage accepte les paiements en FCFA par Wave, Orange Money, MTN MoMo, Moov Money ainsi que par carte bancaire Visa et Mastercard."
+        "answer": "Oui, Unique Voyage accepte les paiements en FCFA par Mobile Money, Wave, PayPal ainsi que par carte bancaire Visa et Mastercard."
       },
       {
         "question": "Quand faut-il réserver pour obtenir le billet le moins cher vers Paris ?",
@@ -1304,7 +1304,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Paiement Wave possible pour Abidjan Dakar ?",
-        "answer": "Oui, le paiement par Wave, Orange Money ou MTN Mobile Money est accepté et confirmé en quelques minutes."
+        "answer": "Oui, le paiement par Mobile Money, Wave, PayPal est accepté et confirmé en quelques minutes."
       }
     ]
   },
@@ -1519,7 +1519,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Paiement Wave disponible au Sénégal ?",
-        "answer": "Oui ! Vous pouvez payer votre billet directement par Wave Sénégal ou Orange Money."
+        "answer": "Oui ! Vous pouvez payer votre billet directement par Mobile Money, Wave ou PayPal."
       },
       {
         "question": "Quelle est la durée du vol direct ?",
@@ -1555,7 +1555,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Puis-je payer avec Wave Sénégal ?",
-        "answer": "Oui, paiement Wave et Orange Money accepté avec délivrance rapide du billet électronique."
+        "answer": "Oui, paiement Mobile Money, Wave et PayPal accepté avec délivrance rapide du billet électronique."
       },
       {
         "question": "Quelles sont les formalités d'entrée à Abidjan ?",
@@ -1627,7 +1627,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Paiement Mobile Money disponible ?",
-        "answer": "Oui, MTN MoMo Ghana et Wave sont acceptés."
+        "answer": "Oui, Mobile Money, Wave, PayPal et cartes bancaires sont acceptés."
       }
     ]
   },
@@ -2445,7 +2445,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "La plupart de nos billets négociés vers la France incluent 2 valises de 23 kg chacune en soute."
       },
       {
-        "question": "Puis-je payer par Orange Money Cameroun ou MTN MoMo ?",
+        "question": "Puis-je payer par Mobile Money ou carte bancaire ?",
         "answer": "Oui, vous pouvez régler votre réservation en toute sécurité par Mobile Money local sans surtaxe bancaire."
       },
       {
@@ -2494,7 +2494,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "Le tarif régulier tourne autour de 495 000 FCFA, mais notre conciergerie déniche des opportunités dès 380 000 FCFA."
       },
       {
-        "question": "Puis-je payer par T-Money ou Moov Money Togo ?",
+        "question": "Puis-je payer par Mobile Money au Togo ?",
         "answer": "Oui, Unique Voyage supporte les règlements par Mobile Money locaux et cartes bancaires."
       },
       {
@@ -2542,7 +2542,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Quels sont les modes de paiement possibles au Gabon ?",
-        "answer": "Paiement sécurisé par Airtel Money, Moov Money, Wave et carte bancaire Visa/Mastercard."
+        "answer": "Paiement sécurisé par Mobile Money, Wave, PayPal et carte bancaire Visa/Mastercard."
       },
       {
         "question": "Comment réserver via la conciergerie ?",
@@ -2589,7 +2589,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "Brussels Airlines (via Bruxelles) et Turkish Airlines (via Istanbul) proposent également d'excellentes liaisons régulières."
       },
       {
-        "question": "Puis-je payer par M-Pesa ou Orange Money RDC ?",
+        "question": "Puis-je payer par Mobile Money depuis la RDC ?",
         "answer": "Oui, nous acceptons les paiements locaux Mobile Money ainsi que les cartes internationales."
       },
       {
@@ -2638,7 +2638,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       },
       {
         "question": "Quels paiements sont acceptés en Guinée ?",
-        "answer": "Orange Money Guinée, MTN MoMo, Wave et cartes bancaires internationales."
+        "answer": "Mobile Money, Wave, PayPal et cartes bancaires internationales."
       },
       {
         "question": "Comment bloquer son billet au tarif le plus bas ?",
@@ -3295,8 +3295,8 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       "answer": "Les escales via Le Caire (EgyptAir) ou Istanbul (Turkish Airlines) durent généralement entre 2h et 4h, pour une durée totale de vol d'environ 9h à 11h."
     },
     {
-      "question": "Puis-je payer mon billet Abidjan - Beyrouth par Wave ou Orange Money ?",
-      "answer": "Oui, Unique Voyage vous permet de régler l'intégralité de vos billets directement en FCFA via Wave, Orange Money ou MTN Mobile Money sans frais de change bancaire."
+      "question": "Puis-je payer mon billet Abidjan - Beyrouth par Mobile Money, Wave ou PayPal ?",
+      "answer": "Oui, Unique Voyage vous permet de régler l'intégralité de vos billets directement en FCFA via Mobile Money, Wave, PayPal sans frais de change bancaire."
     }
   ]
 },
@@ -3317,7 +3317,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
     "TAP Air Portugal"
   ],
   "bestMonths": "Toute l'année",
-  "description": "Vol Dakar - Milan au meilleur tarif avec franchise bagages avantageuse. Le trait d'union direct entre la diaspora sénégalaise en Italie et Dakar avec paiement Wave et Orange Money.",
+  "description": "Vol Dakar - Milan au meilleur tarif avec franchise bagages avantageuse. Le trait d'union direct entre la diaspora sénégalaise en Italie et Dakar avec paiement Mobile Money, Wave et PayPal.",
   "zone": "afrique-europe",
   "metaTitle": "Vol Dakar - Milan (MXP) Pas Cher | Billets Diaspora Italie",
   "metaDescription": "Billet d'avion Dakar - Milan au meilleur prix. Tarifs négociés pour la diaspora sénégalaise, 2 bagages de 23kg et alertes baisses de prix WhatsApp.",
@@ -3473,7 +3473,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
     "Royal Air Maroc"
   ],
   "bestMonths": "Toute l'année",
-  "description": "Vol Dakar - Marseille au meilleur prix avec départs réguliers. Profitez de vols directs saisonniers ou de transits rapides avec paiement sécurisé Wave ou Orange Money.",
+  "description": "Vol Dakar - Marseille au meilleur prix avec départs réguliers. Profitez de vols directs saisonniers ou de transits rapides avec paiement sécurisé Mobile Money, Wave ou PayPal.",
   "zone": "afrique-europe",
   "metaTitle": "Vol Dakar - Marseille Pas Cher | Billets d'Avion Moins Chers",
   "metaDescription": "Vol direct Dakar - Marseille dès 420 000 FCFA. Tarifs négociés Corsair et Transavia. Réservation simple par WhatsApp et paiement Wave.",
@@ -3491,7 +3491,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
     },
     {
       "question": "Quelles sont les conditions de paiement ?",
-      "answer": "Vous pouvez régler directement en ligne ou via WhatsApp en utilisant Wave, Orange Money ou carte bancaire."
+      "answer": "Vous pouvez régler directement en ligne ou via WhatsApp en utilisant Mobile Money, Wave, PayPal ou carte bancaire."
     }
   ]
 },
@@ -3569,7 +3569,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
     },
     {
       "question": "Comment payer son billet depuis le Bénin ?",
-      "answer": "Le règlement s'effectue simplement via MTN Mobile Money Bénin, Moov Money Bénin ou par carte bancaire internationale."
+      "answer": "Le règlement s'effectue simplement via Mobile Money, Wave, PayPal ou carte bancaire internationale."
     }
   ]
 },

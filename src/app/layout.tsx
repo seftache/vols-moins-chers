@@ -166,14 +166,14 @@ export default function RootLayout({
                   "logo": "https://uniquevoyage.site/logos/Logo_UniqueVoyage.png",
                   "telephone": "+2250545745749",
                   "priceRange": "$$",
-                  "description": "Agence de billetterie et conciergerie voyage proposant les vols les moins chers du marché avec assistance personnalisée et paiement Mobile Money / Wave.",
+                  "description": "Agence de billetterie et conciergerie voyage proposant les vols les moins chers du marché avec assistance personnalisée et paiement Mobile Money, Wave, PayPal ou carte bancaire.",
                   "address": {
                     "@type": "PostalAddress",
                     "addressCountry": "CI",
                     "addressLocality": "Abidjan"
                   },
                   "currenciesAccepted": "XOF, EUR, USD, CAD",
-                  "paymentAccepted": "Wave, Orange Money, MTN Mobile Money, Moov Money, Carte Bancaire"
+                  "paymentAccepted": "Mobile Money, Wave, PayPal, Carte Bancaire"
                 },
                 {
                   "@type": "FAQPage",
@@ -192,7 +192,7 @@ export default function RootLayout({
                       "name": "Puis-je payer mon billet d'avion avec Wave ou Mobile Money ?",
                       "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Oui ! Unique Voyage facilite la réservation en acceptant les paiements locaux sécurisés par Wave, Orange Money, MTN MoMo, Moov Money, ainsi que par carte bancaire internationale."
+                        "text": "Oui ! Unique Voyage facilite la réservation en acceptant les paiements sécurisés par Mobile Money, Wave, PayPal, ainsi que par carte bancaire internationale (Visa, Mastercard)."
                       }
                     },
                     {

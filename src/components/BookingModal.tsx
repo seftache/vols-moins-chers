@@ -298,11 +298,10 @@ export default function BookingModal({ isOpen, onClose, flight, hotel }: Booking
                     className="w-full bg-[#1A1A1A] border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:border-[#D85A30] focus:ring-1 focus:ring-[#D85A30] focus:outline-none transition-all"
                   >
                     <option value="Wave">Wave (Recommandé)</option>
-                    <option value="Orange Money">Orange Money</option>
-                    <option value="MTN Mobile Money">MTN Mobile Money</option>
-                    <option value="Moov Money">Moov Money</option>
-                    <option value="Virement / Dépôt Bancaire">Virement / Dépôt Bancaire</option>
-                    <option value="Carte Bancaire">Carte Bancaire (En ligne)</option>
+                    <option value="Mobile Money">Mobile Money</option>
+                    <option value="PayPal">PayPal</option>
+                    <option value="Carte Bancaire">Carte Bancaire (Visa, Mastercard)</option>
+                    <option value="Virement Bancaire">Virement Bancaire</option>
                   </select>
                 </div>
               </div>
