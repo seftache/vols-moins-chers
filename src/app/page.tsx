@@ -817,7 +817,7 @@ export default function Home() {
                 <span className="ml-4 text-[#D85A30] transition-transform duration-300 group-open:rotate-180">▼</span>
               </summary>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                Les compagnies aériennes modifient leurs tarifs plusieurs fois par jour selon le remplissage des appareils. Grâce à nos connexions directes aux GDS de billetterie en gros (Travelpayouts) et à notre marge optimisée, nous détectons et bloquons les sièges au moment précis où ils atteignent leur plancher tarifaire, avant que les algorithmes des compagnies ne remontent les prix.
+                Les compagnies aériennes ajustent continuellement leurs tarifs selon le remplissage des vols. Grâce à notre technologie exclusive d'intelligence artificielle et à nos accords directs avec les plus grands transporteurs mondiaux, nous détectons et bloquons les sièges au moment précis où ils atteignent leur plancher tarifaire, en éliminant les marges superflues au profit de nos voyageurs.
               </p>
             </details>
 
@@ -827,7 +827,7 @@ export default function Home() {
                 <span className="ml-4 text-[#D85A30] transition-transform duration-300 group-open:rotate-180">▼</span>
               </summary>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                Nos utilisateurs recherchent quotidiennement des vols pas chers sur les trajets : <strong>Abidjan — Paris</strong>, <strong>Abidjan — Dubaï</strong>, <strong>Dakar — Paris</strong>, <strong>Accra — Londres</strong>, <strong>Casablanca — Abidjan</strong>, <strong>Montréal — Paris</strong> et <strong>New York — Abidjan</strong>. Vous pouvez rechercher n'importe quel itinéraire sur mesure grâce à notre moteur de recherche ci-dessus.
+                Nos voyageurs réservent quotidiennement des vols au meilleur tarif sur les liaisons : <strong>Abidjan — Paris</strong>, <strong>Abidjan — Dubaï</strong>, <strong>Dakar — Paris</strong>, <strong>Accra — Londres</strong>, <strong>Casablanca — Abidjan</strong>, <strong>Montréal — Paris</strong> et <strong>New York — Abidjan</strong>. Vous pouvez également nous solliciter directement sur WhatsApp pour tout itinéraire sur mesure.
               </p>
             </details>
           </div>

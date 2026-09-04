@@ -3221,7 +3221,396 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "Rejoignez gratuitement nos alertes VIP WhatsApp pour recevoir les déstockages de sièges en temps réel."
       }
     ]
-  }
+  },
+  {
+  "slug": "abidjan-guangzhou",
+  "originCode": "ABJ",
+  "originCity": "Abidjan",
+  "originCountry": "Côte d'Ivoire",
+  "destCode": "CAN",
+  "destCity": "Guangzhou",
+  "destCountry": "Chine",
+  "avgPriceFCFA": 690000,
+  "typicalDuration": "16h 30min (1 escale)",
+  "popularAirlines": [
+    "Ethiopian Airlines",
+    "Qatar Airways",
+    "Emirates",
+    "Turkish Airlines"
+  ],
+  "bestMonths": "Mars à Novembre (Foire de Canton)",
+  "description": "Trouvez votre vol Abidjan - Guangzhou (Canton) au tarif le plus bas garanti. La liaison incontournable pour les commerçants, entrepreneurs et importateurs ivoiriens vers la Chine avec franchise bagages négociée.",
+  "zone": "destinations-mondiales",
+  "metaTitle": "Vol Abidjan - Guangzhou (Chine) Pas Cher | Billets Foire de Canton",
+  "metaDescription": "Billet d'avion Abidjan - Guangzhou au meilleur tarif. Jusqu'à 3 bagages en soute négociés pour commerçants et importateurs. Alertes WhatsApp VIP.",
+  "h1Title": "Billet d'avion Abidjan ➔ Guangzhou (Canton) au tarif négocié",
+  "conciergeNote": "Liaison très prisée pour les sessions de la Foire de Canton. Notre conciergerie négocie des franchises jusqu'à 2x ou 3x 23kg pour vos voyages d'affaires.",
+  "relatedSlugs": [
+    "abidjan-dubai",
+    "abidjan-istanbul",
+    "abidjan-paris"
+  ],
+  "faqs": [
+    {
+      "question": "Quelle compagnie offre la meilleure franchise bagages vers Guangzhou depuis Abidjan ?",
+      "answer": "Ethiopian Airlines propose souvent 2 à 3 bagages de 23kg inclus sur les tarifs négociés pour la Chine au départ d'Abidjan."
+    },
+    {
+      "question": "Faut-il un visa pour Guangzhou avec un passeport ivoirien ?",
+      "answer": "Oui, un visa chinois d'affaires (type M) ou de tourisme (type L) est nécessaire avant votre départ. Notre conciergerie vous fournit les attestations de vol requises pour votre dossier d'ambassade."
+    }
+  ]
+},
+  {
+  "slug": "abidjan-beyrouth",
+  "originCode": "ABJ",
+  "originCity": "Abidjan",
+  "originCountry": "Côte d'Ivoire",
+  "destCode": "BEY",
+  "destCity": "Beyrouth",
+  "destCountry": "Liban",
+  "avgPriceFCFA": 580000,
+  "typicalDuration": "9h 15min (1 escale)",
+  "popularAirlines": [
+    "Middle East Airlines",
+    "Turkish Airlines",
+    "EgyptAir",
+    "Ethiopian Airlines"
+  ],
+  "bestMonths": "Toute l'année",
+  "description": "Réservez votre vol Abidjan - Beyrouth au meilleur prix. Liaison essentielle reliant la Côte d'Ivoire et le Liban avec franchise bagages généreuse et assistance conciergerie sur mesure.",
+  "zone": "destinations-mondiales",
+  "metaTitle": "Vol Abidjan - Beyrouth Pas Cher | Billets Négociés Unique Voyage",
+  "metaDescription": "Vols pas chers Abidjan - Beyrouth (BEY). Tarifs préférentiels pour familles et professionnels, paiement Mobile Money et assistance VIP WhatsApp.",
+  "h1Title": "Billet d'avion Abidjan ➔ Beyrouth au meilleur tarif",
+  "conciergeNote": "Vols quotidiens avec correspondances rapides via Istanbul, Le Caire ou Addis-Abeba sans changement de terminal complexe.",
+  "relatedSlugs": [
+    "abidjan-paris",
+    "abidjan-dubai",
+    "abidjan-istanbul"
+  ],
+  "faqs": [
+    {
+      "question": "Quelle est la durée moyenne d'escale pour un vol Abidjan - Beyrouth ?",
+      "answer": "Les escales via Le Caire (EgyptAir) ou Istanbul (Turkish Airlines) durent généralement entre 2h et 4h, pour une durée totale de vol d'environ 9h à 11h."
+    },
+    {
+      "question": "Puis-je payer mon billet Abidjan - Beyrouth par Wave ou Orange Money ?",
+      "answer": "Oui, Unique Voyage vous permet de régler l'intégralité de vos billets directement en FCFA via Wave, Orange Money ou MTN Mobile Money sans frais de change bancaire."
+    }
+  ]
+},
+  {
+  "slug": "dakar-milan",
+  "originCode": "DSS",
+  "originCity": "Dakar",
+  "originCountry": "Sénégal",
+  "destCode": "MXP",
+  "destCity": "Milan",
+  "destCountry": "Italie",
+  "avgPriceFCFA": 390000,
+  "typicalDuration": "6h 30min",
+  "popularAirlines": [
+    "Air Sénégal",
+    "ITA Airways",
+    "Royal Air Maroc",
+    "TAP Air Portugal"
+  ],
+  "bestMonths": "Toute l'année",
+  "description": "Vol Dakar - Milan au meilleur tarif avec franchise bagages avantageuse. Le trait d'union direct entre la diaspora sénégalaise en Italie et Dakar avec paiement Wave et Orange Money.",
+  "zone": "afrique-europe",
+  "metaTitle": "Vol Dakar - Milan (MXP) Pas Cher | Billets Diaspora Italie",
+  "metaDescription": "Billet d'avion Dakar - Milan au meilleur prix. Tarifs négociés pour la diaspora sénégalaise, 2 bagages de 23kg et alertes baisses de prix WhatsApp.",
+  "h1Title": "Billet d'avion Dakar ➔ Milan au tarif le plus bas",
+  "conciergeNote": "Ligne directe et liaisons optimisées très appréciées par la diaspora sénégalaise résidant en Lombardie et dans toute l'Italie du Nord.",
+  "relatedSlugs": [
+    "dakar-paris",
+    "dakar-madrid",
+    "dakar-istanbul"
+  ],
+  "faqs": [
+    {
+      "question": "Existe-t-il des vols directs entre Dakar et Milan ?",
+      "answer": "Air Sénégal et ITA Airways opèrent des vols directs réguliers entre Dakar Blaise Diagne (DSS) et Milan Malpensa (MXP) en environ 5h45 de vol."
+    },
+    {
+      "question": "Combien de bagages sont inclus sur les vols Dakar - Milan ?",
+      "answer": "La majorité de nos billets négociés incluent 2 valises de 23kg en soute afin de faciliter les voyages de la diaspora."
+    }
+  ]
+},
+  {
+  "slug": "dakar-madrid",
+  "originCode": "DSS",
+  "originCity": "Dakar",
+  "originCountry": "Sénégal",
+  "destCode": "MAD",
+  "destCity": "Madrid",
+  "destCountry": "Espagne",
+  "avgPriceFCFA": 360000,
+  "typicalDuration": "4h 45min (vol direct)",
+  "popularAirlines": [
+    "Iberia",
+    "Air Sénégal",
+    "Royal Air Maroc",
+    "Binter"
+  ],
+  "bestMonths": "Toute l'année",
+  "description": "Vol Dakar - Madrid pas cher en vol direct ou avec escale rapide. Réservez votre aller-retour Sénégal - Espagne au plancher tarifaire avec alerte VIP WhatsApp.",
+  "zone": "afrique-europe",
+  "metaTitle": "Vol Dakar - Madrid (MAD) Pas Cher | Vol Direct Sénégal - Espagne",
+  "metaDescription": "Vol direct Dakar - Madrid dès 360 000 FCFA. Billets d'avion négociés Iberia et Air Sénégal. Paiement Wave et conciergerie privée WhatsApp.",
+  "h1Title": "Vol direct Dakar ➔ Madrid au tarif négocié",
+  "conciergeNote": "Vol le plus rapide pour relier le Sénégal à la péninsule ibérique en moins de 5 heures de trajet sans escale.",
+  "relatedSlugs": [
+    "dakar-paris",
+    "dakar-milan",
+    "dakar-abidjan"
+  ],
+  "faqs": [
+    {
+      "question": "Quelles compagnies volent en direct entre Dakar et Madrid ?",
+      "answer": "Iberia opère des liaisons directes quotidiennes entre l'aéroport Blaise Diagne (DSS) et Madrid-Barajas (MAD)."
+    },
+    {
+      "question": "Comment recevoir les alertes promotions Dakar - Madrid ?",
+      "answer": "Enregistrez-vous sur notre canal WhatsApp VIP pour recevoir instantanément les ventes flash dès qu'un tarif passe sous la barre des 350 000 FCFA."
+    }
+  ]
+},
+  {
+  "slug": "abidjan-marseille",
+  "originCode": "ABJ",
+  "originCity": "Abidjan",
+  "originCountry": "Côte d'Ivoire",
+  "destCode": "MRS",
+  "destCity": "Marseille",
+  "destCountry": "France",
+  "avgPriceFCFA": 490000,
+  "typicalDuration": "7h 30min",
+  "popularAirlines": [
+    "Corsair",
+    "Air France",
+    "Royal Air Maroc",
+    "Tunisair"
+  ],
+  "bestMonths": "Mai à Octobre",
+  "description": "Vol Abidjan - Marseille au tarif le plus bas du marché. Voyagez facilement entre la Côte d'Ivoire et le Sud de la France avec une assistance VIP personnalisée.",
+  "zone": "afrique-europe",
+  "metaTitle": "Vol Abidjan - Marseille Pas Cher | Billets Moins Chers Sud de France",
+  "metaDescription": "Billet d'avion Abidjan - Marseille pas cher. Tarifs négociés Corsair et Air France, franchise bagages 2x23kg et alertes WhatsApp en direct.",
+  "h1Title": "Billet d'avion Abidjan ➔ Marseille au tarif le plus bas",
+  "conciergeNote": "Évitez le passage par Paris pour rejoindre la région PACA. Corsair propose des liaisons très confortables vers Marseille.",
+  "relatedSlugs": [
+    "abidjan-paris",
+    "abidjan-lyon",
+    "abidjan-bruxelles"
+  ],
+  "faqs": [
+    {
+      "question": "Y a-t-il des vols directs Abidjan Marseille ?",
+      "answer": "Corsair propose des vols directs saisonniers reliant Abidjan à Marseille sans escale. En dehors de ces périodes, les liaisons via Casablanca ou Tunis offrent d'excellents temps de parcours."
+    },
+    {
+      "question": "Combien de bagages peut-on emporter vers Marseille ?",
+      "answer": "Sur la grande majorité de nos tarifs négociés, 2 bagages de 23kg sont inclus en classe économique."
+    }
+  ]
+},
+  {
+  "slug": "abidjan-lyon",
+  "originCode": "ABJ",
+  "originCity": "Abidjan",
+  "originCountry": "Côte d'Ivoire",
+  "destCode": "LYS",
+  "destCity": "Lyon",
+  "destCountry": "France",
+  "avgPriceFCFA": 495000,
+  "typicalDuration": "7h 45min",
+  "popularAirlines": [
+    "Air France",
+    "Corsair",
+    "Royal Air Maroc",
+    "Brussels Airlines"
+  ],
+  "bestMonths": "Toute l'année",
+  "description": "Billet d'avion Abidjan - Lyon moins cher avec correspondance optimisée. Idéal pour les familles, étudiants et professionnels voyageant entre la Côte d'Ivoire et la région Auvergne-Rhône-Alpes.",
+  "zone": "afrique-europe",
+  "metaTitle": "Vol Abidjan - Lyon (Saint-Exupéry) Pas Cher | Unique Voyage",
+  "metaDescription": "Réservez votre vol Abidjan - Lyon au meilleur tarif. Billets étudiants et familles avec bagages inclus. Conciergerie WhatsApp et paiement Mobile Money.",
+  "h1Title": "Billet d'avion Abidjan ➔ Lyon au meilleur prix garanti",
+  "conciergeNote": "Parfait pour les nombreux étudiants ivoiriens basés à Lyon, Grenoble et Saint-Étienne, avec flexibilité sur les dates de rentrée.",
+  "relatedSlugs": [
+    "abidjan-paris",
+    "abidjan-marseille",
+    "abidjan-bruxelles"
+  ],
+  "faqs": [
+    {
+      "question": "Quel est le meilleur itinéraire pour faire Abidjan Lyon ?",
+      "answer": "Air France via Paris-CDG (ou transit TGV Air) et Royal Air Maroc via Casablanca constituent les deux options les plus rapides et économiques."
+    },
+    {
+      "question": "Peut-on bloquer un tarif étudiant pour Lyon ?",
+      "answer": "Oui, contactez notre conciergerie WhatsApp pour accéder aux tarifs avec franchise bagage renforcée spéciale étudiants."
+    }
+  ]
+},
+  {
+  "slug": "dakar-marseille",
+  "originCode": "DSS",
+  "originCity": "Dakar",
+  "originCountry": "Sénégal",
+  "destCode": "MRS",
+  "destCity": "Marseille",
+  "destCountry": "France",
+  "avgPriceFCFA": 420000,
+  "typicalDuration": "5h 30min",
+  "popularAirlines": [
+    "Corsair",
+    "Transavia",
+    "Air France",
+    "Royal Air Maroc"
+  ],
+  "bestMonths": "Toute l'année",
+  "description": "Vol Dakar - Marseille au meilleur prix avec départs réguliers. Profitez de vols directs saisonniers ou de transits rapides avec paiement sécurisé Wave ou Orange Money.",
+  "zone": "afrique-europe",
+  "metaTitle": "Vol Dakar - Marseille Pas Cher | Billets d'Avion Moins Chers",
+  "metaDescription": "Vol direct Dakar - Marseille dès 420 000 FCFA. Tarifs négociés Corsair et Transavia. Réservation simple par WhatsApp et paiement Wave.",
+  "h1Title": "Vol Dakar ➔ Marseille au plancher tarifaire",
+  "conciergeNote": "Ligne directe très convoitée reliant directement Dakar à la cité phocéenne en moins de 6 heures.",
+  "relatedSlugs": [
+    "dakar-paris",
+    "dakar-milan",
+    "dakar-madrid"
+  ],
+  "faqs": [
+    {
+      "question": "Quelle est la durée du vol direct Dakar Marseille ?",
+      "answer": "Le vol direct direct sans escale dure environ 5h30 entre l'aéroport Blaise Diagne (DSS) et Marseille-Provence (MRS)."
+    },
+    {
+      "question": "Quelles sont les conditions de paiement ?",
+      "answer": "Vous pouvez régler directement en ligne ou via WhatsApp en utilisant Wave, Orange Money ou carte bancaire."
+    }
+  ]
+},
+  {
+  "slug": "dakar-jeddah",
+  "originCode": "DSS",
+  "originCity": "Dakar",
+  "originCountry": "Sénégal",
+  "destCode": "JED",
+  "destCity": "Jeddah",
+  "destCountry": "Arabie Saoudite",
+  "avgPriceFCFA": 540000,
+  "typicalDuration": "8h 30min",
+  "popularAirlines": [
+    "Saudia",
+    "Ethiopian Airlines",
+    "Turkish Airlines",
+    "EgyptAir"
+  ],
+  "bestMonths": "Novembre à Avril (Umrah & Ramadan)",
+  "description": "Vol Dakar - Djeddah (Arabie Saoudite) pour l'Oumra et les pèlerinages au tarif le plus économique. Billets d'avion négociés avec franchise bagages et eau de Zamzam autorisée.",
+  "zone": "destinations-mondiales",
+  "metaTitle": "Vol Dakar - Djeddah (Jeddah) Pas Cher | Billets Oumra & Pèlerinage",
+  "metaDescription": "Vol Dakar - Djeddah au meilleur prix pour l'Oumra. Tarifs négociés Saudia et Turkish Airlines. Eau de Zamzam incluse et assistance WhatsApp.",
+  "h1Title": "Vol Dakar ➔ Djeddah (Arabie Saoudite) au tarif Oumra le plus bas",
+  "conciergeNote": "Billets conçus spécialement pour les pèlerins avec franchise bagages adaptée et gestion du bidon d'eau de Zamzam au retour.",
+  "relatedSlugs": [
+    "abidjan-jeddah",
+    "dakar-istanbul",
+    "dakar-dubai"
+  ],
+  "faqs": [
+    {
+      "question": "L'eau de Zamzam est-elle comprise dans le billet Dakar - Djeddah ?",
+      "answer": "Oui, les compagnies régulières comme Saudia et Turkish Airlines autorisent le bidon officiel de 5L d'eau de Zamzam en supplément sans frais."
+    },
+    {
+      "question": "Quelles sont les meilleures dates pour l'Oumra à prix réduit ?",
+      "answer": "Les mois de novembre, janvier et février proposent les tarifs les plus doux avant l'affluence du mois de Ramadan."
+    }
+  ]
+},
+  {
+  "slug": "cotonou-paris",
+  "originCode": "COO",
+  "originCity": "Cotonou",
+  "originCountry": "Bénin",
+  "destCode": "CDG",
+  "destCity": "Paris",
+  "destCountry": "France",
+  "avgPriceFCFA": 490000,
+  "typicalDuration": "6h 25min (vol direct)",
+  "popularAirlines": [
+    "Air France",
+    "Corsair",
+    "Brussels Airlines",
+    "Royal Air Maroc"
+  ],
+  "bestMonths": "Toute l'année",
+  "description": "Billet d'avion Cotonou - Paris au tarif le plus avantageux. Liaisons régulières et confortables entre le Bénin et la France avec nos alertes de baisse de prix WhatsApp.",
+  "zone": "afrique-europe",
+  "metaTitle": "Vol Cotonou - Paris Pas Cher | Billets Bénin - France Moins Chers",
+  "metaDescription": "Billet d'avion Cotonou - Paris dès 490 000 FCFA. Vols directs et optimisés, bagages inclus, assistance conciergerie VIP WhatsApp.",
+  "h1Title": "Billet d'avion Cotonou ➔ Paris au meilleur tarif",
+  "conciergeNote": "Liaisons directes sur Air France et Corsair au départ de Cotonou Cadjehoun avec 2 valises de 23kg incluses.",
+  "relatedSlugs": [
+    "lome-paris",
+    "abidjan-paris",
+    "douala-paris"
+  ],
+  "faqs": [
+    {
+      "question": "Quelles compagnies effectuent le vol direct Cotonou Paris ?",
+      "answer": "Air France et Corsair proposent des vols directs réguliers reliant directement Cotonou (COO) à Paris (CDG / Orly)."
+    },
+    {
+      "question": "Comment payer son billet depuis le Bénin ?",
+      "answer": "Le règlement s'effectue simplement via MTN Mobile Money Bénin, Moov Money Bénin ou par carte bancaire internationale."
+    }
+  ]
+},
+  {
+  "slug": "abidjan-bordeaux",
+  "originCode": "ABJ",
+  "originCity": "Abidjan",
+  "originCountry": "Côte d'Ivoire",
+  "destCode": "BOD",
+  "destCity": "Bordeaux",
+  "destCountry": "France",
+  "avgPriceFCFA": 495000,
+  "typicalDuration": "7h 45min (1 escale)",
+  "popularAirlines": [
+    "Air France",
+    "Corsair",
+    "Royal Air Maroc"
+  ],
+  "bestMonths": "Toute l'année",
+  "description": "Billet d'avion Abidjan - Bordeaux au meilleur tarif. Rejoignez la Nouvelle-Aquitaine depuis la Côte d'Ivoire au tarif le plus bas avec franchise bagages 2x23kg et alertes WhatsApp VIP.",
+  "zone": "afrique-europe",
+  "metaTitle": "Vol Abidjan - Bordeaux Pas Cher | Billets Moins Chers Unique Voyage",
+  "metaDescription": "Vol Abidjan - Bordeaux au meilleur prix. Tarifs négociés pour familles et étudiants, 2 bagages de 23kg inclus et suivi de prix WhatsApp.",
+  "h1Title": "Billet d'avion Abidjan ➔ Bordeaux au plancher tarifaire",
+  "conciergeNote": "Correspondance fluide via Paris ou Casablanca, très prisé pour la communauté et les étudiants de Nouvelle-Aquitaine.",
+  "relatedSlugs": [
+    "abidjan-paris",
+    "abidjan-marseille",
+    "abidjan-lyon"
+  ],
+  "faqs": [
+    {
+      "question": "Combien d'heures de vol entre Abidjan et Bordeaux ?",
+      "answer": "Avec une escale optimisée à Paris ou Casablanca, le temps de trajet total moyen est de 7h45 à 8h30."
+    },
+    {
+      "question": "Les bagages sont-ils compris dans le tarif négocié ?",
+      "answer": "Oui, la majorité de nos offres négociées incluent 2 bagages de 23kg en soute."
+    }
+  ]
+}
 ];
 
 export function getRouteBySlug(slug: string): FlightRouteSEO | undefined {
