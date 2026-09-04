@@ -520,10 +520,678 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
       {
         question: 'Paiement Mobile Money disponible ?',
         answer: 'Oui, MTN MoMo Ghana et Wave sont acceptés.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-bali',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'DPS',
+    destCity: 'Bali (Denpasar)',
+    destCountry: 'Indonésie',
+    avgPriceFCFA: 650000,
+    typicalDuration: '16h 00min (avec escale)',
+    popularAirlines: ['Qatar Airways', 'Singapore Airlines', 'Emirates', 'Turkish Airlines'],
+    bestMonths: 'Mai à Octobre (saison sèche)',
+    description: 'Billet d\'avion Paris Bali pas cher pour vos vacances de rêve en Indonésie. Plages, rizières et temples au meilleur prix garanti.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas pour un vol Paris Bali ?',
+        answer: 'Sur Unique Voyage, des billets pour Bali sont régulièrement trouvés dès 550€ à 680€ (360 000 FCFA à 445 000 FCFA) hors très haute saison.'
       },
       {
-        question: 'Quel aéroport d\'arrivée à Londres ?',
-        answer: 'Principalement London Heathrow (LHR) et London Gatwick (LGW).'
+        question: 'Quelles sont les meilleures compagnies pour aller à Bali ?',
+        answer: 'Singapore Airlines, Qatar Airways et Emirates offrent les meilleurs temps de vol avec escale courte et un confort optimal.'
+      },
+      {
+        question: 'Quelle est la meilleure période pour partir à Bali ?',
+        answer: 'La saison sèche de mai à octobre est idéale avec un ensoleillement maximal et une météo parfaite.'
+      },
+      {
+        question: 'Comment réserver ses vacances à Bali sur Unique Voyage ?',
+        answer: 'Cliquez sur le bouton de réservation WhatsApp pour bloquer votre tarif le plus bas en direct.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-bangkok',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'BKK',
+    destCity: 'Bangkok',
+    destCountry: 'Thaïlande',
+    avgPriceFCFA: 490000,
+    typicalDuration: '11h 30min (vol direct)',
+    popularAirlines: ['Thai Airways', 'Air France', 'Qatar Airways', 'Emirates'],
+    bestMonths: 'Novembre à Mars',
+    description: 'Vol Paris Bangkok moins cher. Voyagez en Thaïlande au meilleur prix garanti. Billets d\'avion directs et promos pour vos vacances au pays du sourire.',
+    faqs: [
+      {
+        question: 'Combien coûte un billet d\'avion Paris Bangkok ?',
+        answer: 'Les tarifs promotionnels démarrent régulièrement dès 450€ à 590€ (295 000 FCFA à 385 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Existe-t-il des vols directs entre Paris et Bangkok ?',
+        answer: 'Oui, Thai Airways et Air France opèrent des vols directs d\'environ 11h30 sans escale.'
+      },
+      {
+        question: 'Faut-il un visa pour la Thaïlande ?',
+        answer: 'Les ressortissants français et européens sont exemptés de visa pour les séjours touristiques jusqu\'à 60 jours.'
+      },
+      {
+        question: 'Puis-je payer en plusieurs fois ou par Wave ?',
+        answer: 'Paiement par carte bancaire internationale, virement ou Wave accepté.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-phuket',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'HKT',
+    destCity: 'Phuket',
+    destCountry: 'Thaïlande',
+    avgPriceFCFA: 520000,
+    typicalDuration: '13h 00min (avec escale)',
+    popularAirlines: ['Qatar Airways', 'Emirates', 'Singapore Airlines', 'Thai Airways'],
+    bestMonths: 'Décembre à Avril',
+    description: 'Vacances de rêve à Phuket : réservez votre vol Paris Phuket pas cher au prix le plus bas pour profiter des plus belles îles de la mer d\'Andaman.',
+    faqs: [
+      {
+        question: 'Quel est le meilleur prix pour un vol Paris Phuket ?',
+        answer: 'Des offres sont détectées dès 490€ (320 000 FCFA) aller-retour avec les meilleures compagnies du Golfe.'
+      },
+      {
+        question: 'Quelles îles visiter depuis Phuket ?',
+        answer: 'Phuket est le point de départ idéal pour les îles Phi Phi, James Bond Island et Koh Similan.'
+      },
+      {
+        question: 'Comment réserver son billet d\'avion pour Phuket ?',
+        answer: 'Réservez en un clic sur WhatsApp avec assistance personnalisée de notre conciergerie.'
+      },
+      {
+        question: 'Combien de bagages sont inclus ?',
+        answer: 'Au moins 25kg à 30kg de franchise bagages sur les compagnies régulières.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-maldives',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'MLE',
+    destCity: 'Maldives (Malé)',
+    destCountry: 'Maldives',
+    avgPriceFCFA: 580000,
+    typicalDuration: '11h 30min (avec escale)',
+    popularAirlines: ['Qatar Airways', 'Emirates', 'Etihad Airways', 'Air France'],
+    bestMonths: 'Janvier à Avril',
+    description: 'Séjour paradisiaque aux Maldives : billet d\'avion Paris Malé pas cher au meilleur tarif pour vos vacances de luxe, lunes de miel et bungalows sur pilotis.',
+    faqs: [
+      {
+        question: 'Combien coûte un vol Paris Maldives ?',
+        answer: 'Des offres débutent dès 550€ à 690€ (360 000 FCFA à 450 000 FCFA) selon les dates de voyage.'
+      },
+      {
+        question: 'Comment rejoindre son hôtel atoll depuis l\'aéroport de Malé ?',
+        answer: 'Les transferts se font en hydravion ou en hors-bord selon la distance de votre complexe hôtelier.'
+      },
+      {
+        question: 'Quelle est la saison idéale pour les Maldives ?',
+        answer: 'La période sèche de décembre à avril offre les eaux les plus limpides et un soleil permanent.'
+      },
+      {
+        question: 'Le visa est-il délivré à l\'arrivée ?',
+        answer: 'Oui, un visa touristique gratuit de 30 jours est accordé à l\'arrivée avec un passeport valide.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-maurice',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'MRU',
+    destCity: 'Île Maurice',
+    destCountry: 'Maurice',
+    avgPriceFCFA: 620000,
+    typicalDuration: '11h 00min (vol direct)',
+    popularAirlines: ['Air France', 'Air Mauritius', 'Corsair', 'Emirates'],
+    bestMonths: 'Septembre à Décembre et Avril à Mai',
+    description: 'Billet d\'avion Paris Île Maurice moins cher. Vols directs réguliers pour vos vacances soleil, plages de sable blanc et nature luxuriante.',
+    faqs: [
+      {
+        question: 'Existe-t-il des vols directs Paris Maurice ?',
+        answer: 'Oui, Air France, Corsair et Air Mauritius proposent des liaisons directes de nuit sans escale (environ 11h).'
+      },
+      {
+        question: 'Quel est le prix le plus bas pour l\'Île Maurice ?',
+        answer: 'Nos deals affichent régulièrement des billets dès 590€ (385 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Faut-il un visa pour voyager à l\'Île Maurice ?',
+        answer: 'Aucun visa n\'est requis pour les séjours touristiques de moins de 90 jours.'
+      },
+      {
+        question: 'Comment payer mon vol Île Maurice ?',
+        answer: 'Règlement par carte bancaire sécurisée ou via WhatsApp avec notre conciergerie.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-cancun',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'CUN',
+    destCity: 'Cancún',
+    destCountry: 'Mexique',
+    avgPriceFCFA: 490000,
+    typicalDuration: '11h 00min (vol direct)',
+    popularAirlines: ['Air France', 'Air Caraïbes', 'Iberia', 'Air Europa'],
+    bestMonths: 'Novembre à Avril',
+    description: 'Billet d\'avion Paris Cancún pas cher. Vacances tout compris sur la Riviera Maya au Mexique : cénotes, plages turquoise et sites mayas.',
+    faqs: [
+      {
+        question: 'Quel est le tarif moyen d\'un vol Paris Cancún ?',
+        answer: 'Les prix promotionnels commencent dès 450€ à 580€ (295 000 FCFA à 380 000 FCFA).'
+      },
+      {
+        question: 'Y a-t-il des vols directs sans escale ?',
+        answer: 'Air France assure des vols directs reliant Paris CDG à Cancún en 11h environ.'
+      },
+      {
+        question: 'Faut-il un visa pour le Mexique ?',
+        answer: 'Les citoyens français et de l\'Union Européenne n\'ont pas besoin de visa touristique.'
+      },
+      {
+        question: 'Quelles sont les activités phares à Cancún ?',
+        answer: 'Chichén Itzá, Tulum, les cénotes d\'eau douce et la vie nocturne animée.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-guadeloupe',
+    originCode: 'ORY',
+    originCity: 'Paris (Orly)',
+    originCountry: 'France',
+    destCode: 'PTP',
+    destCity: 'Guadeloupe (Pointe-à-Pitre)',
+    destCountry: 'France (Antilles)',
+    avgPriceFCFA: 380000,
+    typicalDuration: '8h 30min (vol direct)',
+    popularAirlines: ['Air Caraïbes', 'Corsair', 'Air France'],
+    bestMonths: 'Décembre à Mai',
+    description: 'Billet d\'avion Paris Guadeloupe pas cher. Vols directs quotidiens vers Pointe-à-Pitre au meilleur prix garanti avec Corsair et Air Caraïbes.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas pour un Paris Guadeloupe ?',
+        answer: 'Des promotions flash sont fréquemment disponibles dès 330€ à 450€ (215 000 FCFA à 295 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'De quel aéroport parisien partent les vols vers les Antilles ?',
+        answer: 'La quasi-totalité des vols vers la Guadeloupe décollent de l\'aéroport de Paris-Orly (ORY).'
+      },
+      {
+        question: 'Une carte d\'identité suffit-elle pour voyager en Guadeloupe ?',
+        answer: 'Oui, pour les ressortissants français et européens, la carte d\'identité en cours de validité suffit.'
+      },
+      {
+        question: 'Comment réserver rapidement ?',
+        answer: 'Contactez directement notre conseiller sur WhatsApp pour bloquer les dates les moins chères.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-martinique',
+    originCode: 'ORY',
+    originCity: 'Paris (Orly)',
+    originCountry: 'France',
+    destCode: 'FDF',
+    destCity: 'Martinique (Fort-de-France)',
+    destCountry: 'France (Antilles)',
+    avgPriceFCFA: 380000,
+    typicalDuration: '8h 30min (vol direct)',
+    popularAirlines: ['Air France', 'Corsair', 'Air Caraïbes'],
+    bestMonths: 'Décembre à Mai',
+    description: 'Billet d\'avion Paris Martinique pas cher. Découvrez l\'île aux fleurs au meilleur tarif pour vos vacances au soleil des Caraïbes.',
+    faqs: [
+      {
+        question: 'Combien coûte un vol direct Paris Martinique ?',
+        answer: 'Des offres débutent dès 340€ (220 000 FCFA) aller-retour hors vacances scolaires.'
+      },
+      {
+        question: 'Quelles compagnies opèrent en vol direct ?',
+        answer: 'Air France, Corsair et Air Caraïbes proposent plusieurs vols directs quotidiens depuis Paris Orly.'
+      },
+      {
+        question: 'Bagages inclus pour la Martinique ?',
+        answer: 'La plupart des tarifs réguliers incluent un bagage cabine et un bagage en soute de 23kg.'
+      },
+      {
+        question: 'Quel est le décalage horaire ?',
+        answer: '5 à 6 heures de décalage en moins par rapport à Paris.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-punta-cana',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'PUJ',
+    destCity: 'Punta Cana',
+    destCountry: 'République Dominicaine',
+    avgPriceFCFA: 490000,
+    typicalDuration: '9h 15min (vol direct)',
+    popularAirlines: ['Air France', 'Air Caraïbes', 'Iberia'],
+    bestMonths: 'Décembre à Avril',
+    description: 'Vacances à Punta Cana au meilleur prix : réservez votre vol Paris Punta Cana pas cher pour profiter des plages de cocotiers et resorts tout compris.',
+    faqs: [
+      {
+        question: 'Quel est le meilleur tarif pour Punta Cana ?',
+        answer: 'Tarifs promotionnels dès 480€ à 620€ (315 000 FCFA à 405 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Y a-t-il des vols directs pour Punta Cana ?',
+        answer: 'Oui, Air France et Air Caraïbes assurent des liaisons directes régulières.'
+      },
+      {
+        question: 'Faut-il une carte de tourisme ?',
+        answer: 'La taxe touristique est généralement incluse directement dans le prix de votre billet d\'avion.'
+      },
+      {
+        question: 'Réservation par WhatsApp disponible ?',
+        answer: 'Oui, notre équipe bloque votre place instantanément.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-marrakech',
+    originCode: 'ORY',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'RAK',
+    destCity: 'Marrakech',
+    destCountry: 'Maroc',
+    avgPriceFCFA: 160000,
+    typicalDuration: '3h 15min (vol direct)',
+    popularAirlines: ['Royal Air Maroc', 'Transavia', 'Air France', 'EasyJet', 'Ryanair'],
+    bestMonths: 'Mars à Mai et Septembre à Novembre',
+    description: 'Week-end et vacances à Marrakech : billet d\'avion Paris Marrakech pas cher au prix le plus bas garanti. Soleil, riads et souks en 3h de vol.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas pour un vol Paris Marrakech ?',
+        answer: 'Dès 70€ à 130€ (45 000 FCFA à 85 000 FCFA) aller-retour selon les promotions détectées en direct.'
+      },
+      {
+        question: 'Combien de temps de vol pour Marrakech ?',
+        answer: 'Seulement 3 heures et 15 minutes en vol direct.'
+      },
+      {
+        question: 'Faut-il un passeport pour le Maroc ?',
+        answer: 'Un passeport valide est obligatoire pour tous les voyageurs se rendant au Maroc.'
+      },
+      {
+        question: 'Paiement sécurisé en ligne ?',
+        answer: 'Oui, réglez par carte bancaire ou Wave en quelques secondes.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-tokyo',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'HND',
+    destCity: 'Tokyo',
+    destCountry: 'Japon',
+    avgPriceFCFA: 650000,
+    typicalDuration: '14h 00min (vol direct)',
+    popularAirlines: ['Air France', 'ANA (All Nippon Airways)', 'Japan Airlines', 'Qatar Airways'],
+    bestMonths: 'Mars à Mai (cerisiers) et Octobre à Novembre',
+    description: 'Voyage au Japon : billet d\'avion Paris Tokyo pas cher. Vols directs et avec escale vers Tokyo Haneda et Narita au meilleur tarif garanti.',
+    faqs: [
+      {
+        question: 'Combien coûte un vol Paris Tokyo au tarif le plus bas ?',
+        answer: 'Sur Unique Voyage, des billets sont trouvés dès 620€ à 790€ (405 000 FCFA à 518 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Quelles compagnies proposent des vols directs Paris Tokyo ?',
+        answer: 'Air France, ANA et Japan Airlines assurent des vols directs quotidiens sans escale.'
+      },
+      {
+        question: 'Faut-il un visa pour un voyage touristique au Japon ?',
+        answer: 'Les ressortissants français et européens sont exemptés de visa pour les séjours jusqu\'à 90 jours.'
+      },
+      {
+        question: 'Quel est le meilleur moment pour réserver ?',
+        answer: 'Pour la saison des cerisiers en fleurs (Sakura), il est conseillé de réserver 4 à 6 mois à l\'avance.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-new-york',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'JFK',
+    destCity: 'New York',
+    destCountry: 'États-Unis',
+    avgPriceFCFA: 320000,
+    typicalDuration: '8h 15min (vol direct)',
+    popularAirlines: ['Air France', 'Delta Air Lines', 'French Bee', 'Norse Atlantic', 'United Airlines'],
+    bestMonths: 'Avril à Juin et Septembre à Décembre',
+    description: 'Billet d\'avion Paris New York pas cher. Vols directs quotidiens vers JFK et Newark au meilleur prix pour vos vacances et séjours à Manhattan.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas pour un Paris New York ?',
+        answer: 'Des offres sont régulièrement proposées dès 280€ à 390€ (185 000 FCFA à 255 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Quelle autorisation pour entrer aux États-Unis ?',
+        answer: 'L\'autorisation électronique ESTA est obligatoire avant le départ pour les voyageurs éligibles.'
+      },
+      {
+        question: 'Quelles compagnies opèrent en vol direct ?',
+        answer: 'Air France, Delta, United, French Bee et Norse Atlantic assurent des liaisons directes régulières.'
+      },
+      {
+        question: 'Comment réserver son vol sur Unique Voyage ?',
+        answer: 'Cliquez sur le bouton de réservation pour bloquer instantanément votre tarif.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-montreal',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'YUL',
+    destCity: 'Montréal',
+    destCountry: 'Canada',
+    avgPriceFCFA: 310000,
+    typicalDuration: '7h 45min (vol direct)',
+    popularAirlines: ['Air France', 'Air Canada', 'Air Transat', 'Corsair'],
+    bestMonths: 'Mai à Octobre',
+    description: 'Vol Paris Montréal pas cher. Billets d\'avion directs vers le Québec au meilleur prix garanti pour vacances, étudiants et familles.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas pour Paris Montréal ?',
+        answer: 'Dès 290€ à 380€ (190 000 FCFA à 250 000 FCFA) aller-retour avec les meilleures compagnies régulières.'
+      },
+      {
+        question: 'Quel document est requis pour le Canada ?',
+        answer: 'L\'Autorisation de Voyage Électronique (AVE) est demandée pour les citoyens français et européens.'
+      },
+      {
+        question: 'Quelles compagnies proposent des vols directs ?',
+        answer: 'Air France, Air Canada, Air Transat et Corsair assurent des vols directs quotidiens.'
+      },
+      {
+        question: 'Modes de paiement disponibles ?',
+        answer: 'Carte bancaire internationale, virement ou Wave accepté.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-miami',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'MIA',
+    destCity: 'Miami',
+    destCountry: 'États-Unis',
+    avgPriceFCFA: 360000,
+    typicalDuration: '9h 45min (vol direct)',
+    popularAirlines: ['Air France', 'American Airlines', 'French Bee'],
+    bestMonths: 'Novembre à Mai',
+    description: 'Billet d\'avion Paris Miami moins cher pour vos vacances en Floride : South Beach, les Everglades et les Keys au tarif le plus bas.',
+    faqs: [
+      {
+        question: 'Combien coûte un vol direct Paris Miami ?',
+        answer: 'Tarifs promotionnels détectés dès 350€ (230 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Quelles compagnies relient directement Paris à Miami ?',
+        answer: 'Air France et American Airlines assurent des vols directs quotidiens de moins de 10h.'
+      },
+      {
+        question: 'Quelle météo à Miami ?',
+        answer: 'Climat tropical ensoleillé toute l\'année, particulièrement agréable de novembre à avril.'
+      },
+      {
+        question: 'Comment réserver sur WhatsApp ?',
+        answer: 'Cliquez sur réserver pour que notre conseiller finalise votre réservation.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-rome',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'FCO',
+    destCity: 'Rome',
+    destCountry: 'Italie',
+    avgPriceFCFA: 120000,
+    typicalDuration: '2h 05min (vol direct)',
+    popularAirlines: ['Air France', 'ITA Airways', 'EasyJet', 'Transavia', 'Ryanair'],
+    bestMonths: 'Mars à Juin et Septembre à Novembre',
+    description: 'City-break et vacances à Rome : billet d\'avion Paris Rome pas cher. Colisée, Vatican et dolce vita en 2h de vol au meilleur tarif.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas pour un Paris Rome ?',
+        answer: 'Dès 50€ à 95€ (32 000 FCFA à 62 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Combien de temps de vol entre Paris et Rome ?',
+        answer: 'Seulement 2 heures de vol direct.'
+      },
+      {
+        question: 'Une carte d\'identité suffit-elle ?',
+        answer: 'Oui, pour les ressortissants européens, la carte d\'identité nationale suffit.'
+      },
+      {
+        question: 'Comment réserver immédiatement ?',
+        answer: 'Validation rapide en quelques clics via notre service billetterie.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-barcelone',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'BCN',
+    destCity: 'Barcelone',
+    destCountry: 'Espagne',
+    avgPriceFCFA: 110000,
+    typicalDuration: '1h 45min (vol direct)',
+    popularAirlines: ['Vueling', 'Air France', 'Transavia', 'EasyJet', 'Ryanair'],
+    bestMonths: 'Avril à Octobre',
+    description: 'Billet d\'avion Paris Barcelone pas cher. Week-ends, plages et tapas en Catalogne au prix le plus bas garanti.',
+    faqs: [
+      {
+        question: 'Quel est le tarif moyen pour un vol Paris Barcelone ?',
+        answer: 'Dès 45€ à 80€ (30 000 FCFA à 52 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Quelle est la durée du vol ?',
+        answer: 'Moins de 1 heure et 45 minutes.'
+      },
+      {
+        question: 'Comment rejoindre le centre-ville depuis l\'aéroport El Prat ?',
+        answer: 'L\'Aérobus, le métro L9 ou le train relient le centre en 25 minutes.'
+      },
+      {
+        question: 'Paiement sécurisé disponible ?',
+        answer: 'Règlement sécurisé par carte bancaire ou Wave.'
+      }
+    ]
+  },
+  {
+    slug: 'paris-lisbonne',
+    originCode: 'CDG',
+    originCity: 'Paris',
+    originCountry: 'France',
+    destCode: 'LIS',
+    destCity: 'Lisbonne',
+    destCountry: 'Portugal',
+    avgPriceFCFA: 125000,
+    typicalDuration: '2h 30min (vol direct)',
+    popularAirlines: ['TAP Air Portugal', 'Air France', 'Transavia', 'EasyJet'],
+    bestMonths: 'Mars à Novembre',
+    description: 'Vol Paris Lisbonne pas cher. Échappée ensoleillée au Portugal au meilleur tarif garanti : tramways historiques, Belém et gastronomie.',
+    faqs: [
+      {
+        question: 'Combien coûte un vol Paris Lisbonne ?',
+        answer: 'Dès 55€ à 110€ (36 000 FCFA à 72 000 FCFA) aller-retour selon la saison.'
+      },
+      {
+        question: 'Combien de temps dure le vol direct ?',
+        answer: 'Environ 2 heures et 30 minutes.'
+      },
+      {
+        question: 'Faut-il un visa pour visiter Lisbonne ?',
+        answer: 'Non, pour les résidents de l\'espace Schengen, la carte d\'identité suffit.'
+      },
+      {
+        question: 'Comment réserver sur Unique Voyage ?',
+        answer: 'Contactez notre conciergerie pour réserver aux meilleurs tarifs négociés.'
+      }
+    ]
+  },
+  {
+    slug: 'bruxelles-bangkok',
+    originCode: 'BRU',
+    originCity: 'Bruxelles',
+    originCountry: 'Belgique',
+    destCode: 'BKK',
+    destCity: 'Bangkok',
+    destCountry: 'Thaïlande',
+    avgPriceFCFA: 510000,
+    typicalDuration: '11h 45min (vol direct)',
+    popularAirlines: ['Thai Airways', 'Qatar Airways', 'Emirates', 'Etihad Airways'],
+    bestMonths: 'Novembre à Mars',
+    description: 'Billet d\'avion Bruxelles Bangkok pas cher. Vols directs et avec escale depuis Brussels Airport vers la Thaïlande au prix le plus bas.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas Bruxelles Bangkok ?',
+        answer: 'Des offres démarrent dès 490€ à 620€ (320 000 FCFA à 405 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Existe-t-il un vol direct sans escale ?',
+        answer: 'Thai Airways assure des liaisons directes régulières au départ de Bruxelles.'
+      },
+      {
+        question: 'Paiement sécurisé possible ?',
+        answer: 'Oui, paiement en ligne par carte bancaire ou virement.'
+      },
+      {
+        question: 'Quelle est la durée du séjour sans visa ?',
+        answer: 'Jusqu\'à 60 jours sans visa pour les citoyens belges et européens.'
+      }
+    ]
+  },
+  {
+    slug: 'bruxelles-new-york',
+    originCode: 'BRU',
+    originCity: 'Bruxelles',
+    originCountry: 'Belgique',
+    destCode: 'JFK',
+    destCity: 'New York',
+    destCountry: 'États-Unis',
+    avgPriceFCFA: 340000,
+    typicalDuration: '8h 30min (vol direct)',
+    popularAirlines: ['Brussels Airlines', 'United Airlines', 'Delta Air Lines'],
+    bestMonths: 'Avril à Décembre',
+    description: 'Vol direct Bruxelles New York pas cher. Voyagez vers New York depuis la Belgique avec Brussels Airlines et United au meilleur tarif garanti.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas Bruxelles New York ?',
+        answer: 'Dès 320€ à 420€ (210 000 FCFA à 275 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Quelles compagnies opèrent en direct ?',
+        answer: 'Brussels Airlines et United Airlines effectuent des vols directs quotidiens.'
+      },
+      {
+        question: 'Formalité pour les États-Unis ?',
+        answer: 'Autorisation ESTA obligatoire avant le départ.'
+      },
+      {
+        question: 'Comment réserver ce vol ?',
+        answer: 'Réservation assistée par notre service client sur WhatsApp.'
+      }
+    ]
+  },
+  {
+    slug: 'montreal-paris',
+    originCode: 'YUL',
+    originCity: 'Montréal',
+    originCountry: 'Canada',
+    destCode: 'CDG',
+    destCity: 'Paris',
+    destCountry: 'France',
+    avgPriceFCFA: 310000,
+    typicalDuration: '7h 15min (vol direct)',
+    popularAirlines: ['Air France', 'Air Canada', 'Air Transat', 'Corsair'],
+    bestMonths: 'Février à Juin et Septembre à Novembre',
+    description: 'Billet d\'avion Montréal Paris pas cher. Vols directs quotidiens reliant le Québec à la France au prix le plus compétitif du marché.',
+    faqs: [
+      {
+        question: 'Quel est le prix le plus bas pour Montréal Paris ?',
+        answer: 'Des offres sont régulièrement proposées dès 450 $CAD à 590 $CAD (195 000 FCFA à 255 000 FCFA).'
+      },
+      {
+        question: 'Combien de temps de vol entre Montréal et Paris ?',
+        answer: 'Le vol direct sans escale dure environ 7h15.'
+      },
+      {
+        question: 'Paiement en ligne accepté ?',
+        answer: 'Oui, règlement en dollars canadiens, euros ou FCFA selon votre convenance.'
+      },
+      {
+        question: 'Combien de bagages en soute ?',
+        answer: 'Généralement 1 à 2 bagages de 23kg selon la classe choisie.'
+      }
+    ]
+  },
+  {
+    slug: 'new-york-paris',
+    originCode: 'JFK',
+    originCity: 'New York',
+    originCountry: 'États-Unis',
+    destCode: 'CDG',
+    destCity: 'Paris',
+    destCountry: 'France',
+    avgPriceFCFA: 320000,
+    typicalDuration: '7h 30min (vol direct)',
+    popularAirlines: ['Air France', 'Delta Air Lines', 'French Bee', 'Norse Atlantic'],
+    bestMonths: 'Janvier à Mai et Septembre à Novembre',
+    description: 'Vol pas cher New York Paris. Billets d\'avion directs JFK/Newark vers Paris Charles de Gaulle et Orly au meilleur prix garanti.',
+    faqs: [
+      {
+        question: 'Quel est le prix moyen d\'un vol New York Paris ?',
+        answer: 'Billets trouvés dès 350 $USD à 480 $USD (210 000 FCFA à 290 000 FCFA) aller-retour.'
+      },
+      {
+        question: 'Quelles compagnies opèrent en vol direct ?',
+        answer: 'Air France, Delta, Norse et French Bee proposent de multiples vols directs chaque jour.'
+      },
+      {
+        question: 'Durée du trajet direct ?',
+        answer: 'Environ 7h30 de vol sans escale.'
+      },
+      {
+        question: 'Comment réserver son billet ?',
+        answer: 'Réservation express et sécurisée via notre service de billetterie.'
       }
     ]
   }
