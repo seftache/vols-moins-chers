@@ -3,6 +3,7 @@ import { supabaseAdmin } from "../../lib/supabase-admin";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
 import OffresClient from "./OffresClient";
+import FlightSearchBar from "../../components/FlightSearchBar";
 
 export const metadata: Metadata = {
   title: "Bons Plans Billets d'Avion Moins Chers & Vols en Direct | Unique Voyage",
@@ -86,6 +87,21 @@ export default async function OffresPage() {
         <p className="text-sm font-light text-white/60 leading-relaxed max-w-2xl mx-auto">
           Consultez nos meilleures opportunités de vols aux tarifs les plus compétitifs du marché. Réservation officielle garantie par notre service billetterie.
         </p>
+      </section>
+
+      {/* MOTEUR DE RECHERCHE LIBRE OPTIONNEL */}
+      <section className="px-6 pb-12 md:px-16 lg:px-24">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-3">
+            <span className="text-[10px] uppercase tracking-widest text-[#D85A30] font-semibold">
+              Recherche personnalisée
+            </span>
+            <h2 className="font-playfair text-xl md:text-2xl text-white font-medium mt-1">
+              Vous ne trouvez pas votre trajet ? Recherchez n'importe quel vol dans le monde
+            </h2>
+          </div>
+          <FlightSearchBar />
+        </div>
       </section>
 
       {/* COMPOSANT CLIENT AVEC FILTRES DE DÉPART */}

@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../lib/supabase";
 import Link from "next/link";
 import AdBannerSection from "../components/AdBannerSection";
-import FlightSearchBar from "../components/FlightSearchBar";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -220,19 +219,19 @@ export default function Home() {
               pour voyager.
             </h1>
 
-            {/* Barre de Recherche de Vols en Direct */}
-            <div className="w-full">
-              <FlightSearchBar />
-            </div>
-
-            <div className="mt-4">
-              <motion.a
+            <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <Link
                 href="/offres"
-                whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
-                className="inline-block border border-white/20 bg-transparent px-8 py-4 text-[10px] sm:text-xs font-light uppercase tracking-[0.3em] text-white transition-colors hover:border-white/40"
+                className="inline-block bg-[#D85A30] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#b84a25] shadow-lg"
               >
-                Voir les offres pré-détectées par l'IA
-              </motion.a>
+                Explorer toutes les offres
+              </Link>
+              <Link
+                href="/vols-pas-chers"
+                className="inline-block border border-white/30 bg-black/40 backdrop-blur-sm px-8 py-4 text-xs font-light uppercase tracking-[0.2em] text-white transition-colors hover:border-[#D85A30] hover:text-[#D85A30]"
+              >
+                Rechercher par destination
+              </Link>
             </div>
           </div>
 

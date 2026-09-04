@@ -2406,6 +2406,821 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
         "answer": "Réservation express et sécurisée via notre service de billetterie."
       }
     ]
+  },
+  {
+    "slug": "yaounde-paris",
+    "originCode": "NSI",
+    "originCity": "Yaoundé",
+    "originCountry": "Cameroun",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 550000,
+    "typicalDuration": "7h 05min (vol direct)",
+    "popularAirlines": [
+      "Air France",
+      "Brussels Airlines",
+      "Royal Air Maroc"
+    ],
+    "bestMonths": "Janvier à Mai et Septembre à Novembre",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Yaoundé Paris Direct Pas Cher dès 430 000 FCFA | Unique Voyage",
+    "metaDescription": "Réservez votre billet d'avion Yaoundé Nsimalen vers Paris CDG. Tarifs négociés Air France, 2x23kg de bagages et alertes VIP WhatsApp.",
+    "h1Title": "Billet d'avion direct Yaoundé (NSI) vers Paris (CDG)",
+    "description": "Reliez la capitale camerounaise à Paris au meilleur tarif. Unique Voyage vous fait bénéficier de réductions négociées sur Air France et Brussels Airlines avec assistance conciergerie dédiée.",
+    "conciergeNote": "Liaison essentielle pour les familles et professionnels camerounais. Notre IA surveille les disponibilités en vol direct pour débloquer les classes tarifaires promotionnelles dès leur parution.",
+    "relatedSlugs": [
+      "douala-paris",
+      "bamako-paris",
+      "abidjan-paris",
+      "paris-abidjan"
+    ],
+    "faqs": [
+      {
+        "question": "Existe-t-il des vols directs entre Yaoundé et Paris ?",
+        "answer": "Oui, Air France opère des vols directs sans escale reliant l'aéroport international de Yaoundé-Nsimalen (NSI) à Paris Charles de Gaulle en un peu plus de 7 heures."
+      },
+      {
+        "question": "Combien de bagages en soute sont inclus ?",
+        "answer": "La plupart de nos billets négociés vers la France incluent 2 valises de 23 kg chacune en soute."
+      },
+      {
+        "question": "Puis-je payer par Orange Money Cameroun ou MTN MoMo ?",
+        "answer": "Oui, vous pouvez régler votre réservation en toute sécurité par Mobile Money local sans surtaxe bancaire."
+      },
+      {
+        "question": "Comment être alerté des promotions pour Paris ?",
+        "answer": "Inscrivez-vous à nos alertes VIP WhatsApp gratuites pour recevoir instantanément les baisses tarifaires."
+      }
+    ]
+  },
+  {
+    "slug": "lome-paris",
+    "originCode": "LFW",
+    "originCity": "Lomé",
+    "originCountry": "Togo",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 495000,
+    "typicalDuration": "6h 25min (vol direct)",
+    "popularAirlines": [
+      "Air France",
+      "Corsair",
+      "ASKY",
+      "Royal Air Maroc",
+      "Brussels Airlines"
+    ],
+    "bestMonths": "Février à Juin et Septembre à Novembre",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Lomé Paris Pas Cher dès 380 000 FCFA | Conciergerie Togo",
+    "metaDescription": "Trouvez votre vol direct Lomé Tokoin vers Paris au tarif le plus bas. Billetterie privée, bagages 2x23kg et alertes WhatsApp en direct.",
+    "h1Title": "Vol direct Lomé (LFW) ➔ Paris (CDG/ORY) au meilleur prix",
+    "description": "Vols directs sans escale et correspondances optimisées de Lomé vers Paris. Bénéficiez des tarifs préférentiels de notre conciergerie et réglez en FCFA par Mobile Money.",
+    "conciergeNote": "Lomé est un hub clé d'Afrique de l'Ouest. Grâce aux accords d'ASKY et Air France, nous détectons régulièrement des billets directs avec franchise bagage complète bien en-dessous du marché.",
+    "relatedSlugs": [
+      "cotonou-istanbul",
+      "abidjan-paris",
+      "dakar-paris",
+      "bamako-paris"
+    ],
+    "faqs": [
+      {
+        "question": "Quelles compagnies relient Lomé à Paris sans escale ?",
+        "answer": "Air France assure des liaisons directes régulières reliant Lomé Tokoin (LFW) à Paris Charles de Gaulle."
+      },
+      {
+        "question": "Quel est le prix moyen constaté pour Lomé - Paris ?",
+        "answer": "Le tarif régulier tourne autour de 495 000 FCFA, mais notre conciergerie déniche des opportunités dès 380 000 FCFA."
+      },
+      {
+        "question": "Puis-je payer par T-Money ou Moov Money Togo ?",
+        "answer": "Oui, Unique Voyage supporte les règlements par Mobile Money locaux et cartes bancaires."
+      },
+      {
+        "question": "Comment recevoir les offres VIP pour la France ?",
+        "answer": "Rejoignez notre canal privé WhatsApp pour être averti dès qu'un déstockage de sièges est détecté."
+      }
+    ]
+  },
+  {
+    "slug": "libreville-paris",
+    "originCode": "LBV",
+    "originCity": "Libreville",
+    "originCountry": "Gabon",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 580000,
+    "typicalDuration": "6h 55min (vol direct)",
+    "popularAirlines": [
+      "Air France",
+      "Royal Air Maroc",
+      "Turkish Airlines"
+    ],
+    "bestMonths": "Mars à Juin et Septembre à Novembre",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Libreville Paris Direct Pas Cher dès 460 000 FCFA | Unique Voyage",
+    "metaDescription": "Billets d'avion direct Libreville Léon Mba vers Paris CDG sur Air France. Conciergerie VIP, suivi tarifaire IA et alertes WhatsApp instantanées.",
+    "h1Title": "Vol direct Libreville (LBV) vers Paris (CDG) au tarif préférentiel",
+    "description": "Rejoignez Paris depuis Libreville en vol direct sans escale. Tarifs de groupe négociés, confort optimal et assistance d'un concierge dédié jusqu'à l'embarquement.",
+    "conciergeNote": "La ligne Libreville-Paris est très prisée. Notre conciergerie IA analyse les variations de prix d'Air France pour réserver vos places au moment exact où la courbe tarifaire est au plus bas.",
+    "relatedSlugs": [
+      "douala-paris",
+      "yaounde-paris",
+      "abidjan-paris",
+      "paris-abidjan"
+    ],
+    "faqs": [
+      {
+        "question": "Air France propose-t-elle des vols directs quotidiens depuis Libreville ?",
+        "answer": "Oui, Air France effectue des vols directs de nuit réguliers reliant Libreville à Paris CDG en moins de 7 heures."
+      },
+      {
+        "question": "Combien de bagages peut-on emporter ?",
+        "answer": "La plupart des billets réservés via Unique Voyage comprennent 2 bagages de 23 kg en soute."
+      },
+      {
+        "question": "Quels sont les modes de paiement possibles au Gabon ?",
+        "answer": "Paiement sécurisé par Airtel Money, Moov Money, Wave et carte bancaire Visa/Mastercard."
+      },
+      {
+        "question": "Comment réserver via la conciergerie ?",
+        "answer": "Cliquez sur Réserver pour échanger directement sur WhatsApp avec votre concierge dédié."
+      }
+    ]
+  },
+  {
+    "slug": "kinshasa-paris",
+    "originCode": "FIH",
+    "originCity": "Kinshasa",
+    "originCountry": "RDC",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 620000,
+    "typicalDuration": "7h 35min (vol direct)",
+    "popularAirlines": [
+      "Air France",
+      "Brussels Airlines",
+      "Turkish Airlines",
+      "Ethiopian Airlines"
+    ],
+    "bestMonths": "Janvier à Mai et Septembre à Novembre",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Kinshasa Paris Direct Pas Cher dès 490 000 FCFA | Conciergerie RDC",
+    "metaDescription": "Vols directs Kinshasa N'djili vers Paris sur Air France. Billetterie privée, franchise 2x23kg et alertes baisses de prix par WhatsApp.",
+    "h1Title": "Billet d'avion direct Kinshasa (FIH) vers Paris (CDG)",
+    "description": "Voyagez de Kinshasa à Paris dans des conditions d'excellence. Unique Voyage compare et négocie les meilleurs tarifs sur Air France, Brussels Airlines et Turkish Airlines.",
+    "conciergeNote": "La diaspora congolaise bénéficie de notre veille 24h/24 sur les départs de N'djili. Nous négocions des franchises bagages généreuses indispensables pour les longs séjours.",
+    "relatedSlugs": [
+      "douala-paris",
+      "yaounde-paris",
+      "libreville-paris",
+      "bruxelles-abidjan"
+    ],
+    "faqs": [
+      {
+        "question": "Quel est le temps de vol direct Kinshasa - Paris ?",
+        "answer": "Le vol direct sans escale sur Air France dure environ 7h35."
+      },
+      {
+        "question": "Quelles alternatives existent avec escale ?",
+        "answer": "Brussels Airlines (via Bruxelles) et Turkish Airlines (via Istanbul) proposent également d'excellentes liaisons régulières."
+      },
+      {
+        "question": "Puis-je payer par M-Pesa ou Orange Money RDC ?",
+        "answer": "Oui, nous acceptons les paiements locaux Mobile Money ainsi que les cartes internationales."
+      },
+      {
+        "question": "Comment profiter des alertes VIP ?",
+        "answer": "Abonnez-vous gratuitement à notre canal WhatsApp pour recevoir les alertes dès qu'un vol passe sous les 500 000 FCFA."
+      }
+    ]
+  },
+  {
+    "slug": "conakry-paris",
+    "originCode": "CKY",
+    "originCity": "Conakry",
+    "originCountry": "Guinée",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 490000,
+    "typicalDuration": "6h 15min (vol direct)",
+    "popularAirlines": [
+      "Air France",
+      "Royal Air Maroc",
+      "Emirates",
+      "Turkish Airlines"
+    ],
+    "bestMonths": "Novembre à Mai",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Conakry Paris Direct Pas Cher dès 385 000 FCFA | Unique Voyage",
+    "metaDescription": "Réservez votre vol direct Conakry vers Paris CDG. Tarifs négociés Air France, conciergerie privée et système d'alertes WhatsApp VIP.",
+    "h1Title": "Vol Conakry (CKY) ➔ Paris (CDG) en vol direct sans escale",
+    "description": "Envol direct depuis l'aéroport international Ahmed Sékou Touré vers Paris. Bénéficiez des tarifs préférentiels Unique Voyage avec paiement Mobile Money sécurisé.",
+    "conciergeNote": "Conakry est une liaison stratégique avec de fortes variations saisonnières. Notre IA identifie les baisses tarifaires 4 à 8 semaines avant le départ pour vous garantir une économie substantielle.",
+    "relatedSlugs": [
+      "dakar-paris",
+      "bamako-paris",
+      "abidjan-paris",
+      "paris-dakar"
+    ],
+    "faqs": [
+      {
+        "question": "Existe-t-il des vols directs Conakry - Paris ?",
+        "answer": "Oui, Air France dessert quotidiennement Conakry en vol direct sans escale vers Paris CDG."
+      },
+      {
+        "question": "Combien de valises sont incluses ?",
+        "answer": "La majorité des tarifs négociés par notre conciergerie incluent 2 pièces de 23 kg en soute."
+      },
+      {
+        "question": "Quels paiements sont acceptés en Guinée ?",
+        "answer": "Orange Money Guinée, MTN MoMo, Wave et cartes bancaires internationales."
+      },
+      {
+        "question": "Comment bloquer son billet au tarif le plus bas ?",
+        "answer": "Contactez notre concierge sur WhatsApp pour bloquer votre siège et finaliser l'émission."
+      }
+    ]
+  },
+  {
+    "slug": "casablanca-paris",
+    "originCode": "CMN",
+    "originCity": "Casablanca",
+    "originCountry": "Maroc",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 190000,
+    "typicalDuration": "3h 10min (vol direct)",
+    "popularAirlines": [
+      "Royal Air Maroc",
+      "Air France",
+      "Transavia",
+      "Air Arabia"
+    ],
+    "bestMonths": "Toute l'année (hors été)",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Casablanca Paris Direct dès 130 000 FCFA | Billetterie Privée",
+    "metaDescription": "Vols directs quotidiens Casablanca vers Paris Orly et CDG. Tarifs négociés Royal Air Maroc et Transavia avec alertes VIP WhatsApp.",
+    "h1Title": "Billet d'avion direct Casablanca (CMN) vers Paris (CDG/ORY)",
+    "description": "Reliez le Maroc à la France en un peu plus de 3 heures de vol. Unique Voyage traque les promotions de Royal Air Maroc et des compagnies régulières pour vous faire voyager au meilleur prix.",
+    "conciergeNote": "Ligne historique avec plus de 10 rotations quotidiennes. Notre système alerte nos membres dès qu'un aller-retour descend sous les 150 000 FCFA (230 €).",
+    "relatedSlugs": [
+      "abidjan-casablanca",
+      "paris-marrakech",
+      "abidjan-marrakech",
+      "paris-dakar"
+    ],
+    "faqs": [
+      {
+        "question": "Quelle est la durée de vol entre Casablanca et Paris ?",
+        "answer": "Le vol direct sans escale dure environ 3h10."
+      },
+      {
+        "question": "Quels aéroports parisiens sont desservis ?",
+        "answer": "Des vols atterrissent quotidiennement à Paris Charles de Gaulle (CDG) et Paris Orly (ORY)."
+      },
+      {
+        "question": "Combien coûte un vol aller-retour Casablanca Paris ?",
+        "answer": "Les tarifs promotionnels démarrent dès 130 000 FCFA (environ 200 €) hors vacances scolaires."
+      },
+      {
+        "question": "Comment réserver son billet ?",
+        "answer": "Notre conciergerie WhatsApp réserve et émet votre billet instantanément."
+      }
+    ]
+  },
+  {
+    "slug": "alger-paris",
+    "originCode": "ALG",
+    "originCity": "Alger",
+    "originCountry": "Algérie",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 180000,
+    "typicalDuration": "2h 25min (vol direct)",
+    "popularAirlines": [
+      "Air Algérie",
+      "Air France",
+      "Transavia",
+      "ASL Airlines"
+    ],
+    "bestMonths": "Octobre à Mai",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Alger Paris Pas Cher dès 110 000 FCFA | Unique Voyage",
+    "metaDescription": "Vols directs Alger Houari Boumédiène vers Paris. Comparateur intelligent, tarifs négociés Air Algérie et alertes WhatsApp en temps réel.",
+    "h1Title": "Vol direct Alger (ALG) vers Paris (CDG/ORY) au tarif le plus bas",
+    "description": "Traversez la Méditerranée en vol direct d'Alger vers Paris. Unique Voyage sélectionne les meilleurs tarifs sur Air Algérie, Air France et Transavia.",
+    "conciergeNote": "Ligne à très fort trafic de la diaspora. Notre conciergerie vous alerte sur les ventes flash et réajustements de sièges pour payer vos billets au tarif le plus avantageux.",
+    "relatedSlugs": [
+      "casablanca-paris",
+      "tunis-paris",
+      "paris-marrakech",
+      "paris-dakar"
+    ],
+    "faqs": [
+      {
+        "question": "Combien de temps dure le vol Alger Paris ?",
+        "answer": "Le vol direct sans escale dure environ 2h25."
+      },
+      {
+        "question": "Quelles compagnies opèrent des vols directs ?",
+        "answer": "Air Algérie, Air France, Transavia et ASL Airlines assurent de nombreux vols quotidiens."
+      },
+      {
+        "question": "Quel est le prix le plus bas pour un aller-retour ?",
+        "answer": "Des offres sont régulièrement détectées dès 110 000 FCFA (environ 170 €) en basse saison."
+      },
+      {
+        "question": "Comment fonctionne la conciergerie ?",
+        "answer": "Échangez directement avec un conseiller dédié sur WhatsApp pour réserver vos places."
+      }
+    ]
+  },
+  {
+    "slug": "tunis-paris",
+    "originCode": "TUN",
+    "originCity": "Tunis",
+    "originCountry": "Tunisie",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 175000,
+    "typicalDuration": "2h 30min (vol direct)",
+    "popularAirlines": [
+      "Tunisair",
+      "Air France",
+      "Transavia",
+      "Nouvelair"
+    ],
+    "bestMonths": "Toute l'année",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Tunis Paris Direct Pas Cher dès 105 000 FCFA | Unique Voyage",
+    "metaDescription": "Billets d'avion directs Tunis Carthage vers Paris Orly et CDG. Tarifs négociés Tunisair et Transavia avec alertes VIP WhatsApp.",
+    "h1Title": "Vol direct Tunis (TUN) ➔ Paris (CDG/ORY) au meilleur prix",
+    "description": "Vols directs quotidiens de Tunis vers Paris. Profitez de tarifs compétitifs sur Tunisair, Nouvelair et Transavia avec conciergerie privée.",
+    "conciergeNote": "Une des lignes les plus fréquentées du Maghreb. Notre IA traque en direct les baisses tarifaires pour vous faire voyager au meilleur prix.",
+    "relatedSlugs": [
+      "casablanca-paris",
+      "alger-paris",
+      "abidjan-paris",
+      "paris-marrakech"
+    ],
+    "faqs": [
+      {
+        "question": "Combien d'heures de vol entre Tunis et Paris ?",
+        "answer": "Le trajet direct dure environ 2h30 sans escale."
+      },
+      {
+        "question": "Quelles sont les compagnies les moins chères ?",
+        "answer": "Transavia et Nouvelair proposent régulièrement des billets très compétitifs, complétées par Tunisair et Air France."
+      },
+      {
+        "question": "Comment réserver au tarif le plus bas ?",
+        "answer": "Nos alertes WhatsApp vous informent dès qu'un vol passe sous son prix moyen."
+      },
+      {
+        "question": "Les bagages sont-ils inclus ?",
+        "answer": "Notre conciergerie vérifie et sélectionne les tarifs avec franchise bagage adaptée à vos besoins."
+      }
+    ]
+  },
+  {
+    "slug": "paris-dubai",
+    "originCode": "CDG",
+    "originCity": "Paris",
+    "originCountry": "France",
+    "destCode": "DXB",
+    "destCity": "Dubaï",
+    "destCountry": "Émirats Arabes Unis",
+    "avgPriceFCFA": 380000,
+    "typicalDuration": "6h 40min (vol direct)",
+    "popularAirlines": [
+      "Emirates",
+      "Air France",
+      "flydubai",
+      "Qatar Airways",
+      "Gulf Air"
+    ],
+    "bestMonths": "Novembre à Avril",
+    "zone": "afrique-moyen-orient",
+    "metaTitle": "Vol Paris Dubaï Direct Pas Cher dès 295 000 FCFA | Conciergerie VIP",
+    "metaDescription": "Vols directs sans escale Paris vers Dubaï sur Emirates A380 et Air France. Tarifs négociés de prestige et alertes privées WhatsApp.",
+    "h1Title": "Vol direct Paris (CDG) vers Dubaï (DXB) en Airbus A380",
+    "description": "Envolez-vous pour la métropole futuriste des Émirats au meilleur tarif. Unique Voyage vous fait bénéficier d'offres exclusives sur Emirates et Air France en vol direct.",
+    "conciergeNote": "La ligne Paris-Dubaï est l'une des plus prestigieuses au monde. Notre conciergerie compare les vols réguliers et les promotions Emirates pour vous garantir le confort absolu au prix le plus bas.",
+    "relatedSlugs": [
+      "dubai-bangkok",
+      "dubai-bali",
+      "abidjan-dubai",
+      "dakar-dubai"
+    ],
+    "faqs": [
+      {
+        "question": "Combien de temps dure le vol direct Paris - Dubaï ?",
+        "answer": "Le vol direct sans escale dure environ 6h40 à l'aller et 7h au retour."
+      },
+      {
+        "question": "Emirates opère-t-elle en Airbus A380 ?",
+        "answer": "Oui, Emirates exploite quotidiennement son fleuron l'Airbus A380 entre Paris Charles de Gaulle et Dubaï."
+      },
+      {
+        "question": "Quel est le prix moyen d'un aller-retour ?",
+        "answer": "Le tarif régulier tourne autour de 380 000 FCFA (environ 580 €), mais nos alertes détectent des billets dès 295 000 FCFA (450 €)."
+      },
+      {
+        "question": "Comment réserver avec le service conciergerie ?",
+        "answer": "Contactez notre concierge sur WhatsApp pour sécuriser vos billets et choisir vos sièges."
+      }
+    ]
+  },
+  {
+    "slug": "bruxelles-dubai",
+    "originCode": "BRU",
+    "originCity": "Bruxelles",
+    "originCountry": "Belgique",
+    "destCode": "DXB",
+    "destCity": "Dubaï",
+    "destCountry": "Émirats Arabes Unis",
+    "avgPriceFCFA": 375000,
+    "typicalDuration": "6h 35min (vol direct)",
+    "popularAirlines": [
+      "Emirates",
+      "Qatar Airways",
+      "Turkish Airlines",
+      "Etihad Airways"
+    ],
+    "bestMonths": "Novembre à Avril",
+    "zone": "afrique-moyen-orient",
+    "metaTitle": "Vol Bruxelles Dubaï Direct Pas Cher dès 290 000 FCFA | Unique Voyage",
+    "metaDescription": "Vols sans escale Bruxelles Zaventem vers Dubaï sur Emirates. Suivi algorithmique des tarifs, conciergerie privée et alertes WhatsApp.",
+    "h1Title": "Vol direct Bruxelles (BRU) vers Dubaï (DXB) au meilleur tarif",
+    "description": "Partez de Bruxelles pour Dubaï en vol direct sans escale avec Emirates. Profitez de tarifs négociés et de l'assistance d'une conciergerie haut de gamme.",
+    "conciergeNote": "Liaison directe quotidienne sur Boeing 777 d'Emirates. Notre système surveille les baisses tarifaires pour vous faire économiser jusqu'à 30% par rapport aux agences belges traditionnelles.",
+    "relatedSlugs": [
+      "paris-dubai",
+      "abidjan-bruxelles",
+      "bruxelles-bangkok",
+      "dubai-bangkok"
+    ],
+    "faqs": [
+      {
+        "question": "Y a-t-il un vol direct sans escale de Bruxelles à Dubaï ?",
+        "answer": "Oui, Emirates propose un vol direct quotidien sans escale reliant Bruxelles Zaventem (BRU) à Dubaï (DXB) en 6h35."
+      },
+      {
+        "question": "Quelles sont les formalités de visa pour les ressortissants européens ?",
+        "answer": "Les citoyens belges et de l'UE bénéficient d'un visa gratuit de 90 jours délivré à l'arrivée aux Émirats."
+      },
+      {
+        "question": "Puis-je payer en Euros par carte bancaire ?",
+        "answer": "Oui, notre billetterie accepte les paiements en Euros par carte bancaire sécurisée ainsi qu'en FCFA."
+      },
+      {
+        "question": "Comment recevoir les alertes sur WhatsApp ?",
+        "answer": "Inscrivez-vous à nos alertes VIP gratuites pour recevoir les opportunités dès qu'elles surviennent."
+      }
+    ]
+  },
+  {
+    "slug": "paris-londres",
+    "originCode": "CDG",
+    "originCity": "Paris",
+    "originCountry": "France",
+    "destCode": "LHR",
+    "destCity": "Londres",
+    "destCountry": "Royaume-Uni",
+    "avgPriceFCFA": 95000,
+    "typicalDuration": "1h 20min (vol direct)",
+    "popularAirlines": [
+      "British Airways",
+      "Air France",
+      "easyJet",
+      "Vueling"
+    ],
+    "bestMonths": "Toute l'année",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Paris Londres Pas Cher dès 55 000 FCFA | Billetterie Privée",
+    "metaDescription": "Vols directs fréquents Paris vers Londres Heathrow et Gatwick. Tarifs négociés British Airways et Air France avec assistance VIP WhatsApp.",
+    "h1Title": "Billet d'avion direct Paris (CDG/ORY) vers Londres (LHR/LGW)",
+    "description": "Rejoignez la capitale britannique en un peu plus d'une heure de vol. Unique Voyage sélectionne les meilleures options de vol pour vos week-ends et rendez-vous d'affaires à Londres.",
+    "conciergeNote": "Des dizaines de vols directs quotidiens relient Paris à Londres. Notre conciergerie trouve les billets au tarif le plus bas en évitant les surcoûts d'aéroports éloignés.",
+    "relatedSlugs": [
+      "accra-londres",
+      "paris-bruxelles",
+      "paris-rome",
+      "paris-madrid"
+    ],
+    "faqs": [
+      {
+        "question": "Quelle est la durée de vol entre Paris et Londres ?",
+        "answer": "Le vol direct sans escale dure environ 1h20."
+      },
+      {
+        "question": "Faut-il un passeport pour voyager au Royaume-Uni ?",
+        "answer": "Oui, depuis le Brexit, un passeport en cours de validité (et une autorisation ETA selon votre nationalité) est obligatoire."
+      },
+      {
+        "question": "Quel est le prix le plus bas pour un aller-retour ?",
+        "answer": "Des billets sont régulièrement détectés dès 55 000 FCFA (environ 85 €)."
+      },
+      {
+        "question": "Comment réserver son vol express ?",
+        "answer": "Notre conciergerie sur WhatsApp s'occupe de votre réservation en direct."
+      }
+    ]
+  },
+  {
+    "slug": "paris-madrid",
+    "originCode": "CDG",
+    "originCity": "Paris",
+    "originCountry": "France",
+    "destCode": "MAD",
+    "destCity": "Madrid",
+    "destCountry": "Espagne",
+    "avgPriceFCFA": 110000,
+    "typicalDuration": "2h 10min (vol direct)",
+    "popularAirlines": [
+      "Iberia",
+      "Air France",
+      "Air Europa",
+      "Transavia"
+    ],
+    "bestMonths": "Avril à Juin et Septembre à Novembre",
+    "zone": "afrique-europe",
+    "metaTitle": "Vol Paris Madrid Direct Pas Cher dès 65 000 FCFA | Unique Voyage",
+    "metaDescription": "Vols directs sans escale Paris vers Madrid Barajas sur Iberia et Air France. Tarifs négociés et alertes WhatsApp en temps réel.",
+    "h1Title": "Vol direct Paris (CDG/ORY) vers Madrid (MAD) en Espagne",
+    "description": "Découvrez la capitale espagnole au meilleur tarif. Unique Voyage vous propose des liaisons directes quotidiennes au départ de Paris CDG et Orly.",
+    "conciergeNote": "Madrid est une destination incontournable pour la culture, la gastronomie et le football. Notre IA détecte les offres flash pour partir en week-end à prix imbattable.",
+    "relatedSlugs": [
+      "paris-barcelone",
+      "paris-lisbonne",
+      "paris-rome",
+      "abidjan-paris"
+    ],
+    "faqs": [
+      {
+        "question": "Quelle est la durée de vol entre Paris et Madrid ?",
+        "answer": "Le vol direct sans escale dure environ 2h10."
+      },
+      {
+        "question": "Quelles compagnies assurent la liaison ?",
+        "answer": "Iberia, Air France, Air Europa et Transavia assurent des vols quotidiens fréquents."
+      },
+      {
+        "question": "Quel est le prix moyen d'un billet d'avion ?",
+        "answer": "Les tarifs promotionnels démarrent dès 65 000 FCFA (environ 100 €) aller-retour."
+      },
+      {
+        "question": "Comment contacter la conciergerie ?",
+        "answer": "Envoyez-nous un message WhatsApp pour recevoir notre accompagnement personnalisé."
+      }
+    ]
+  },
+  {
+    "slug": "paris-los-angeles",
+    "originCode": "CDG",
+    "originCity": "Paris",
+    "originCountry": "France",
+    "destCode": "LAX",
+    "destCity": "Los Angeles",
+    "destCountry": "États-Unis",
+    "avgPriceFCFA": 460000,
+    "typicalDuration": "11h 45min (vol direct)",
+    "popularAirlines": [
+      "Air France",
+      "Delta Air Lines",
+      "French Bee",
+      "Air Tahiti Nui"
+    ],
+    "bestMonths": "Mars à Mai et Septembre à Novembre",
+    "zone": "afrique-ameriques",
+    "metaTitle": "Vol Paris Los Angeles Direct Pas Cher dès 340 000 FCFA | Unique Voyage",
+    "metaDescription": "Vols directs sans escale Paris CDG vers Los Angeles LAX sur Air France et French Bee. Tarifs d'exception et conciergerie privée WhatsApp.",
+    "h1Title": "Billet d'avion direct Paris (CDG) vers Los Angeles (LAX) en Californie",
+    "description": "Envolez-vous pour la Californie et la côte Ouest américaine. Unique Voyage déniche les meilleures liaisons sans escale vers LAX avec assistance billetterie complète.",
+    "conciergeNote": "Liaison transatlantique majeure. Nos algorithmes analysent les grilles tarifaires de French Bee et Air France pour vous offrir les meilleurs sièges au tarif le plus bas.",
+    "relatedSlugs": [
+      "paris-new-york",
+      "paris-miami",
+      "paris-montreal",
+      "abidjan-new-york"
+    ],
+    "faqs": [
+      {
+        "question": "Existe-t-il des vols directs Paris - Los Angeles ?",
+        "answer": "Oui, Air France, Delta et French Bee assurent des vols directs quotidiens reliant Paris CDG à LAX en 11h45."
+      },
+      {
+        "question": "Faut-il une autorisation ESTA pour les USA ?",
+        "answer": "Oui, pour les ressortissants des pays exemptés de visa (France, Belgique, etc.), une autorisation ESTA est requise avant l'embarquement."
+      },
+      {
+        "question": "Quel est le meilleur prix pour un vol direct vers la Californie ?",
+        "answer": "Des offres sont régulièrement détectées dès 340 000 FCFA (environ 520 €) aller-retour."
+      },
+      {
+        "question": "Comment réserver avec un concierge dédié ?",
+        "answer": "Un simple message WhatsApp à notre conciergerie suffit pour réserver et bloquer vos dates."
+      }
+    ]
+  },
+  {
+    "slug": "paris-singapour",
+    "originCode": "CDG",
+    "originCity": "Paris",
+    "originCountry": "France",
+    "destCode": "SIN",
+    "destCity": "Singapour",
+    "destCountry": "Singapour",
+    "avgPriceFCFA": 490000,
+    "typicalDuration": "12h 45min (vol direct)",
+    "popularAirlines": [
+      "Singapore Airlines",
+      "Air France",
+      "Qatar Airways",
+      "Emirates"
+    ],
+    "bestMonths": "Février à Octobre",
+    "zone": "dubai-asie",
+    "metaTitle": "Vol Paris Singapour Direct Pas Cher dès 390 000 FCFA | Conciergerie VIP",
+    "metaDescription": "Vols directs sans escale Paris CDG vers Singapour Changi avec Singapore Airlines. Tarifs négociés d'exception et alertes WhatsApp en temps réel.",
+    "h1Title": "Vol direct Paris (CDG) ➔ Singapour (SIN) avec Singapore Airlines",
+    "description": "Voyagez vers la cité-jardin d'Asie du Sud-Est à bord des meilleures compagnies mondiales. Unique Voyage négocie pour vous des tarifs préférentiels sur Singapore Airlines et Air France.",
+    "conciergeNote": "Singapour est la porte d'entrée vers toute l'Asie et l'Australie. Notre service conciergerie vous alerte sur les promotions de la compagnie la plus primée au monde.",
+    "relatedSlugs": [
+      "paris-bangkok",
+      "paris-bali",
+      "paris-tokyo",
+      "dubai-bangkok"
+    ],
+    "faqs": [
+      {
+        "question": "Singapore Airlines propose-t-elle des vols directs sans escale ?",
+        "answer": "Oui, Singapore Airlines opère des vols directs quotidiens sans escale reliant Paris CDG à l'aéroport primé de Singapour Changi en 12h45."
+      },
+      {
+        "question": "Quels sont les avantages de voler sur cette ligne ?",
+        "answer": "Confort de bord incomparable, service primé, écrans individuels et restauration gastronomique incluse."
+      },
+      {
+        "question": "Quel est le tarif moyen constaté ?",
+        "answer": "Le tarif régulier est d'environ 500 000 FCFA (750 €), mais notre conciergerie détecte des promotions dès 390 000 FCFA (590 €)."
+      },
+      {
+        "question": "Comment contacter le concierge Unique Voyage ?",
+        "answer": "Cliquez sur Réserver pour échanger sur WhatsApp avec votre conseiller dédié."
+      }
+    ]
+  },
+  {
+    "slug": "dubai-paris",
+    "originCode": "DXB",
+    "originCity": "Dubaï",
+    "originCountry": "Émirats Arabes Unis",
+    "destCode": "CDG",
+    "destCity": "Paris",
+    "destCountry": "France",
+    "avgPriceFCFA": 370000,
+    "typicalDuration": "7h 10min (vol direct)",
+    "popularAirlines": [
+      "Emirates",
+      "Air France",
+      "flydubai"
+    ],
+    "bestMonths": "Mai à Octobre (hors pic estival)",
+    "zone": "afrique-moyen-orient",
+    "metaTitle": "Vol Dubaï Paris Direct Pas Cher dès 280 000 FCFA | Unique Voyage",
+    "metaDescription": "Vols directs Dubaï vers Paris Charles de Gaulle sur Emirates A380. Tarifs privilégiés et conciergerie privée avec alertes WhatsApp.",
+    "h1Title": "Vol direct Dubaï (DXB) vers Paris (CDG) au meilleur prix",
+    "description": "Voyagez des Émirats vers Paris dans des conditions de voyage luxueuses. Unique Voyage vous fait bénéficier des meilleurs tarifs directs sur Emirates et Air France.",
+    "conciergeNote": "Liaison directe inverse ultra-demandée par les résidents et expatriés aux Émirats. Notre conciergerie surveille les vols retour au tarif le plus bas.",
+    "relatedSlugs": [
+      "paris-dubai",
+      "dubai-londres",
+      "dubai-bangkok",
+      "dakar-dubai"
+    ],
+    "faqs": [
+      {
+        "question": "Quelle est la durée de vol Dubaï - Paris ?",
+        "answer": "Le vol direct sans escale dure environ 7h10."
+      },
+      {
+        "question": "Quelles sont les franchises bagages sur Emirates ?",
+        "answer": "Emirates accorde généralement entre 25 kg et 35 kg de bagages selon la classe tarifaire sélectionnée."
+      },
+      {
+        "question": "Comment réserver depuis les Émirats ?",
+        "answer": "Règlement simple en ligne par carte bancaire ou virement, avec assistance concierge WhatsApp 7j/7."
+      },
+      {
+        "question": "Quand acheter son billet pour payer moins cher ?",
+        "answer": "En profitant de nos alertes VIP WhatsApp dès qu'une promotion Emirates est mise en ligne."
+      }
+    ]
+  },
+  {
+    "slug": "dubai-londres",
+    "originCode": "DXB",
+    "originCity": "Dubaï",
+    "originCountry": "Émirats Arabes Unis",
+    "destCode": "LHR",
+    "destCity": "Londres",
+    "destCountry": "Royaume-Uni",
+    "avgPriceFCFA": 340000,
+    "typicalDuration": "7h 35min (vol direct)",
+    "popularAirlines": [
+      "Emirates",
+      "British Airways",
+      "Gulf Air",
+      "Qatar Airways"
+    ],
+    "bestMonths": "Toute l'année",
+    "zone": "afrique-moyen-orient",
+    "metaTitle": "Vol Dubaï Londres Direct Pas Cher dès 260 000 FCFA | Unique Voyage",
+    "metaDescription": "Liaison directe de prestige Dubaï vers Londres Heathrow sur Emirates et British Airways. Tarifs négociés et alertes WhatsApp en direct.",
+    "h1Title": "Vol direct Dubaï (DXB) vers Londres (LHR/LGW) au tarif négocié",
+    "description": "Une des routes d'affaires les plus fréquentées du globe. Unique Voyage vous garantit les meilleurs tarifs sur Emirates et British Airways.",
+    "conciergeNote": "Emirates opère jusqu'à 6 vols en A380 par jour vers Londres. Notre conciergerie sécurise vos sièges au prix le plus bas en surveillant les déstockages de cabine.",
+    "relatedSlugs": [
+      "paris-dubai",
+      "dubai-paris",
+      "dubai-bangkok",
+      "accra-londres"
+    ],
+    "faqs": [
+      {
+        "question": "Combien de vols directs relient Dubaï à Londres chaque jour ?",
+        "answer": "Plus de 10 vols directs quotidiens sans escale sont opérés entre Dubaï (DXB) et les aéroports londoniens (Heathrow et Gatwick)."
+      },
+      {
+        "question": "Combien dure le vol ?",
+        "answer": "Le vol sans escale dure environ 7h35."
+      },
+      {
+        "question": "Quel est le prix le plus bas disponible ?",
+        "answer": "Nos alertes détectent des billets dès 260 000 FCFA (environ 400 $USD) aller-retour."
+      },
+      {
+        "question": "Comment être assisté pour la réservation ?",
+        "answer": "Votre concierge WhatsApp est disponible 7j/7 pour émettre vos billets au tarif négocié."
+      }
+    ]
+  },
+  {
+    "slug": "montreal-cancun",
+    "originCode": "YUL",
+    "originCity": "Montréal",
+    "originCountry": "Canada",
+    "destCode": "CUN",
+    "destCity": "Cancún",
+    "destCountry": "Mexique",
+    "avgPriceFCFA": 320000,
+    "typicalDuration": "4h 50min (vol direct)",
+    "popularAirlines": [
+      "Air Transat",
+      "Sunwing Airlines",
+      "Air Canada Rouge",
+      "Flair Airlines"
+    ],
+    "bestMonths": "Novembre à Avril",
+    "zone": "amerique-caraibes",
+    "metaTitle": "Vol Montréal Cancún Direct Pas Cher dès 230 000 FCFA | Unique Voyage",
+    "metaDescription": "Vols directs sans escale Montréal vers Cancún au Mexique. Échappez au froid québécois avec nos tarifs négociés et alertes VIP WhatsApp.",
+    "h1Title": "Vol direct Montréal (YUL) ➔ Cancún (CUN) au Mexique",
+    "description": "Partez pour les plages paradisiaques de la Riviera Maya. Unique Voyage déniche pour vous les meilleures offres charters et régulières au départ de Montréal.",
+    "conciergeNote": "Destination vacances préférée des Québécois. Notre conciergerie suit les ventes flash d'Air Transat et Sunwing pour vous offrir des allers-retours tout compris au tarif le plus bas.",
+    "relatedSlugs": [
+      "montreal-punta-cana",
+      "paris-cancun",
+      "paris-punta-cana",
+      "montreal-paris"
+    ],
+    "faqs": [
+      {
+        "question": "Quelle est la durée de vol entre Montréal et Cancún ?",
+        "answer": "Le vol direct sans escale dure environ 4h50 au départ de Montréal Trudeau (YUL)."
+      },
+      {
+        "question": "Quelles compagnies assurent des vols directs ?",
+        "answer": "Air Transat, Sunwing, Air Canada Rouge et Flair Airlines proposent des vols réguliers sans escale."
+      },
+      {
+        "question": "Faut-il un visa pour le Mexique depuis le Canada ?",
+        "answer": "Les résidents canadiens et détenteurs de passeports de l'UE ou de pays exemptés n'ont besoin que d'un passeport valide et d'un formulaire FMM."
+      },
+      {
+        "question": "Comment être averti des rabais de dernière minute ?",
+        "answer": "Rejoignez gratuitement nos alertes VIP WhatsApp pour recevoir les déstockages de sièges en temps réel."
+      }
+    ]
   }
 ];
 

@@ -1,30 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Plane, Calendar, Search, ArrowRightLeft, Sparkles, ShieldCheck, CheckCircle2, MessageSquare } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-
-const POPULAR_AIRPORTS = [
-  { code: "ABJ", city: "Abidjan", country: "Côte d'Ivoire", airport: "Félix Houphouët-Boigny" },
-  { code: "CDG", city: "Paris", country: "France", airport: "Charles de Gaulle" },
-  { code: "DSS", city: "Dakar", country: "Sénégal", airport: "Blaise Diagne" },
-  { code: "DXB", city: "Dubaï", country: "Émirats Arabes Unis", airport: "Dubai Intl" },
-  { code: "YUL", city: "Montréal", country: "Canada", airport: "Pierre-Elliott-Trudeau" },
-  { code: "JFK", city: "New York", country: "États-Unis", airport: "John F. Kennedy" },
-  { code: "ACC", city: "Accra", country: "Ghana", airport: "Kotoka Intl" },
-  { code: "CMN", city: "Casablanca", country: "Maroc", airport: "Mohammed V" },
-  { code: "BRU", city: "Bruxelles", country: "Belgique", airport: "Brussels Airport" },
-  { code: "CAN", city: "Canton (Guangzhou)", country: "Chine", airport: "Baiyun Intl" },
-  { code: "JED", city: "Jeddah / La Mecque", country: "Arabie Saoudite", airport: "King Abdulaziz" },
-  { code: "IST", city: "Istanbul", country: "Turquie", airport: "Istanbul Airport" },
-  { code: "BKK", city: "Bangkok", country: "Thaïlande", airport: "Suvarnabhumi" },
-  { code: "NRT", city: "Tokyo", country: "Japon", airport: "Narita Intl" },
-];
+import { Plane, Calendar, Search, ArrowRightLeft, Sparkles, ShieldCheck, CheckCircle2, MessageSquare, MapPin } from "lucide-react";
 
 export default function FlightSearchBar() {
   const [tripType, setTripType] = useState<"round" | "oneway">("round");
-  const [origin, setOrigin] = useState("ABJ");
-  const [destination, setDestination] = useState("DXB");
+  const [origin, setOrigin] = useState("Abidjan (ABJ)");
+  const [destination, setDestination] = useState("Paris (CDG)");
   const [departDate, setDepartDate] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() + 14);
@@ -45,45 +27,44 @@ export default function FlightSearchBar() {
     setDestination(temp);
   };
 
-  const originInfo = POPULAR_AIRPORTS.find((a) => a.code === origin) || { city: origin, code: origin };
-  const destInfo = POPULAR_AIRPORTS.find((a) => a.code === destination) || { city: destination, code: destination };
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSearching(true);
 
-    const message = `Bonjour Unique Voyage, je souhaite réserver un vol sur mesure au meilleur tarif :
-🛫 Départ : ${originInfo.city} (${origin})
-🏁 Destination : ${destInfo.city} (${destination})
+    const message = `Bonjour Unique Voyage Conciergerie, je souhaite trouver le vol le moins cher au monde pour ma liaison sur mesure :
+🛫 Départ : ${origin || "Non précisé"}
+🏁 Destination : ${destination || "Non précisé"}
 📅 Type de vol : ${tripType === "round" ? "Aller-Retour" : "Aller Simple"}
 🗓️ Date départ : ${departDate}
-${tripType === "round" ? `🗓️ Date retour : ${returnDate}\n` : ""}👥 Passagers : ${passengers} (${cabinClass})
+${tripType === "round" ? `🗓️ Date retour : ${returnDate}\n` : ""}👥 Voyageurs : ${passengers} (${cabinClass})
 
-Pouvez-vous me confirmer le prix le plus bas disponible et le paiement par Wave / Mobile Money ?`;
+Pouvez-vous me trouver le meilleur tarif négocié du marché et me proposer les options avec paiement Wave / Mobile Money ?`;
 
     const whatsappUrl = `https://wa.me/2250545745749?text=${encodeURIComponent(message)}`;
-    
-    // Petite simulation de chargement élégante puis ouverture WhatsApp
+
     setTimeout(() => {
       setIsSearching(false);
       window.open(whatsappUrl, "_blank");
-    }, 600);
+    }, 500);
   };
 
+  const quickOrigins = ["Abidjan", "Dakar", "Paris", "Douala", "Bruxelles", "Cotonou", "Bamako"];
+  const quickDests = ["Dubaï", "Istanbul", "Paris", "Montréal", "Zanzibar", "New York", "Bangkok", "Tokyo"];
+
   return (
-    <div className="w-full max-w-5xl mx-auto my-6 sm:my-8 px-2 sm:px-0">
-      <div className="relative rounded-2xl sm:rounded-3xl bg-zinc-950/85 backdrop-blur-2xl border-2 border-white/15 p-4 sm:p-7 shadow-[0_0_60px_rgba(0,0,0,0.9),0_0_30px_rgba(216,90,48,0.2)]">
+    <div className="w-full max-w-5xl mx-auto my-6 px-2 sm:px-0">
+      <div className="relative rounded-2xl sm:rounded-3xl bg-zinc-950/90 backdrop-blur-2xl border border-white/15 p-5 sm:p-7 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_rgba(216,90,48,0.15)]">
         
-        {/* En-tête du moteur de recherche : Badges & Type de vol */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-5 border-b border-white/10 pb-4">
+        {/* En-tête : Badges & Type de vol */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6 border-b border-white/10 pb-4">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-[#D85A30]/20 border border-[#D85A30]/40 text-[#D85A30]">
               <Sparkles size={13} />
-              Recherche de vol en direct
+              Recherche libre de vol mondial
             </span>
             <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-zinc-400">
               <ShieldCheck size={13} className="text-emerald-400" />
-              Garantie Meilleur Prix
+              Conciergerie & Négociation IA
             </span>
           </div>
 
@@ -113,67 +94,93 @@ Pouvez-vous me confirmer le prix le plus bas disponible et le paiement par Wave 
         <form onSubmit={handleSearch} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 items-center">
             
-            {/* Ville de départ (4 cols) */}
+            {/* Ville de départ LIBRE */}
             <div className="md:col-span-5 relative">
               <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
-                Ville de départ
+                Ville de départ (Monde entier)
               </label>
-              <div className="relative flex items-center bg-white/5 border border-white/15 rounded-xl px-3.5 py-2.5 focus-within:border-[#D85A30] focus-within:ring-1 focus-within:ring-[#D85A30] transition-all">
+              <div className="relative flex items-center bg-white/5 border border-white/15 rounded-xl px-3.5 py-3 focus-within:border-[#D85A30] focus-within:ring-1 focus-within:ring-[#D85A30] transition-all">
                 <Plane className="text-[#D85A30] mr-2.5 shrink-0 -rotate-45" size={18} />
-                <select
+                <input
+                  type="text"
                   value={origin}
                   onChange={(e) => setOrigin(e.target.value)}
-                  className="w-full bg-transparent text-white font-medium text-sm sm:text-base focus:outline-none cursor-pointer [&>option]:bg-zinc-900 [&>option]:text-white"
-                >
-                  {POPULAR_AIRPORTS.map((apt) => (
-                    <option key={apt.code} value={apt.code}>
-                      {apt.city} ({apt.code}) — {apt.country}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Tapez votre ville de départ..."
+                  className="w-full bg-transparent text-white font-medium text-sm sm:text-base focus:outline-none placeholder:text-zinc-600"
+                  required
+                />
+              </div>
+              {/* Suggestions rapides */}
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                <span className="text-[10px] text-zinc-500 mr-1 flex items-center gap-0.5">
+                  <MapPin size={10} /> Départs fréquents :
+                </span>
+                {quickOrigins.map((city) => (
+                  <button
+                    key={city}
+                    type="button"
+                    onClick={() => setOrigin(city)}
+                    className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-zinc-400 hover:text-white transition-colors"
+                  >
+                    {city}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Bouton d'inversion Aller/Retour (2 cols) */}
-            <div className="md:col-span-2 flex justify-center -my-2 md:my-0">
+            {/* Bouton d'inversion Aller/Retour */}
+            <div className="md:col-span-2 flex justify-center -my-1 md:my-0">
               <button
                 type="button"
                 onClick={swapAirports}
-                className="p-2.5 rounded-full bg-white/10 hover:bg-[#D85A30] text-zinc-300 hover:text-white border border-white/15 transition-all shadow-md active:scale-90"
-                title="Inverser les aéroports"
+                className="p-3 rounded-full bg-white/10 hover:bg-[#D85A30] text-zinc-300 hover:text-white border border-white/15 transition-all shadow-md active:scale-90"
+                title="Inverser départ et destination"
                 aria-label="Inverser départ et destination"
               >
                 <ArrowRightLeft size={16} />
               </button>
             </div>
 
-            {/* Ville d'arrivée (5 cols) */}
+            {/* Ville d'arrivée LIBRE */}
             <div className="md:col-span-5 relative">
               <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
-                Destination d'arrivée
+                Destination d'arrivée (Monde entier)
               </label>
-              <div className="relative flex items-center bg-white/5 border border-white/15 rounded-xl px-3.5 py-2.5 focus-within:border-[#D85A30] focus-within:ring-1 focus-within:ring-[#D85A30] transition-all">
+              <div className="relative flex items-center bg-white/5 border border-white/15 rounded-xl px-3.5 py-3 focus-within:border-[#D85A30] focus-within:ring-1 focus-within:ring-[#D85A30] transition-all">
                 <Plane className="text-[#D85A30] mr-2.5 shrink-0 rotate-45" size={18} />
-                <select
+                <input
+                  type="text"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
-                  className="w-full bg-transparent text-white font-medium text-sm sm:text-base focus:outline-none cursor-pointer [&>option]:bg-zinc-900 [&>option]:text-white"
-                >
-                  {POPULAR_AIRPORTS.map((apt) => (
-                    <option key={apt.code} value={apt.code}>
-                      {apt.city} ({apt.code}) — {apt.country}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Tapez n'importe quelle destination dans le monde..."
+                  className="w-full bg-transparent text-white font-medium text-sm sm:text-base focus:outline-none placeholder:text-zinc-600"
+                  required
+                />
+              </div>
+              {/* Suggestions rapides */}
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                <span className="text-[10px] text-zinc-500 mr-1 flex items-center gap-0.5">
+                  <MapPin size={10} /> Populaires :
+                </span>
+                {quickDests.map((city) => (
+                  <button
+                    key={city}
+                    type="button"
+                    onClick={() => setDestination(city)}
+                    className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-zinc-400 hover:text-white transition-colors"
+                  >
+                    {city}
+                  </button>
+                ))}
               </div>
             </div>
 
           </div>
 
-          {/* Deuxième rangée : Dates, Passagers et Bouton de validation */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 items-end pt-1">
+          {/* Deuxième rangée : Dates, Passagers & Soumission */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 items-end pt-3 border-t border-white/10">
             
-            {/* Date Départ (3 cols) */}
+            {/* Date Départ */}
             <div className="lg:col-span-3">
               <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
                 Date de départ
@@ -191,7 +198,7 @@ Pouvez-vous me confirmer le prix le plus bas disponible et le paiement par Wave 
               </div>
             </div>
 
-            {/* Date Retour (3 cols) */}
+            {/* Date Retour */}
             <div className="lg:col-span-3">
               <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
                 Date de retour {tripType === "oneway" && "(Optionnel)"}
@@ -211,7 +218,7 @@ Pouvez-vous me confirmer le prix le plus bas disponible et le paiement par Wave 
               </div>
             </div>
 
-            {/* Passagers & Classe (3 cols) */}
+            {/* Passagers & Classe */}
             <div className="lg:col-span-3">
               <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
                 Voyageurs & Classe
@@ -239,22 +246,22 @@ Pouvez-vous me confirmer le prix le plus bas disponible et le paiement par Wave 
               </div>
             </div>
 
-            {/* Bouton de Soumission (3 cols) */}
+            {/* Bouton de Soumission */}
             <div className="lg:col-span-3">
               <button
                 type="submit"
                 disabled={isSearching}
-                className="w-full bg-[#D85A30] hover:bg-[#b84a25] text-white font-bold py-3 px-4 rounded-xl uppercase tracking-wider text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xl hover:shadow-[#D85A30]/40 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="w-full bg-[#D85A30] hover:bg-[#b84a25] text-white font-bold py-3.5 px-4 rounded-xl uppercase tracking-wider text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xl hover:shadow-[#D85A30]/40 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
               >
                 {isSearching ? (
                   <span className="inline-flex items-center gap-2">
                     <span className="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                    Recherche...
+                    Transmission...
                   </span>
                 ) : (
                   <>
                     <Search size={16} />
-                    <span>Trouver le vol</span>
+                    <span>Demander ce vol</span>
                   </>
                 )}
               </button>
@@ -263,15 +270,15 @@ Pouvez-vous me confirmer le prix le plus bas disponible et le paiement par Wave 
           </div>
         </form>
 
-        {/* Pied du formulaire : Réassurance client */}
-        <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between text-[11px] text-zinc-400 gap-2">
+        {/* Pied : Réassurance */}
+        <div className="mt-5 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between text-[11px] text-zinc-400 gap-2">
           <div className="flex items-center gap-1.5">
             <CheckCircle2 size={13} className="text-emerald-400" />
-            <span>Paiement 100% sécurisé : <strong>Wave, Mobile Money (Orange/MTN)</strong> ou Virement</span>
+            <span>Paiement local sans frais : <strong>Wave, Mobile Money</strong> ou Carte</span>
           </div>
           <div className="flex items-center gap-1 text-[#D85A30]">
             <MessageSquare size={13} />
-            <span>Assistance réservation directe 7j/7</span>
+            <span>Votre concierge IA vous répond 7j/7 sur WhatsApp</span>
           </div>
         </div>
 
