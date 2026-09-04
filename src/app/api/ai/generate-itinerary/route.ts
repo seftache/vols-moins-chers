@@ -9,7 +9,7 @@ export const maxDuration = 60; // Vercel hobby max is 60s
 // CONFIGURATION NVIDIA / DEEPSEEK
 // ============================================================
 const NVIDIA_MODEL = 'meta/llama-3.2-3b-instruct';
-const MAX_DEALS_PER_RUN = 3;
+const MAX_DEALS_PER_RUN = 5;
 
 const SYSTEM_PROMPT = `Tu es un concierge voyage premium. On te donne un VOL RÉEL et potentiellement un HÔTEL RÉEL. Génère un itinéraire de séjour au format JSON.
 

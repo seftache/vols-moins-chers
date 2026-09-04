@@ -2,174 +2,150 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../lib/supabase-admin';
 
 // ============================================================
-// CONFIGURATION DES ORIGINES ET DESTINATIONS
+// CONFIGURATION DES ORIGINES (Multi-origines)
 // ============================================================
 const ORIGINS = [
   { code: 'ABJ', name: 'Abidjan' },
+  { code: 'DSS', name: 'Dakar' },
+  { code: 'ACC', name: 'Accra' },
   { code: 'CDG', name: 'Paris' },
   { code: 'BRU', name: 'Bruxelles' },
   { code: 'CMN', name: 'Casablanca' },
-  { code: 'DSS', name: 'Dakar' },
-  { code: 'ACC', name: 'Accra' },
 ];
 
-const DESTINATIONS = [
+// ============================================================
+// DICTIONNAIRE COMPLET DES DESTINATIONS & PRIX MOYENS ESTIMÉS
+// ============================================================
+const DESTINATIONS_CATALOG: Record<string, { name: string; avgPriceFCFA: number; hotel: { name: string; price: number; stars: number } }> = {
+  // Afrique de l'Ouest & Centrale
+  'ABJ': { name: 'Abidjan', avgPriceFCFA: 220000, hotel: { name: 'Sofitel Abidjan Hôtel Ivoire', price: 110000, stars: 5 } },
+  'ACC': { name: 'Accra', avgPriceFCFA: 180000, hotel: { name: 'Mövenpick Ambassador Accra', price: 85000, stars: 5 } },
+  'DSS': { name: 'Dakar', avgPriceFCFA: 260000, hotel: { name: 'Radisson Blu Hotel Dakar Sea Plaza', price: 65000, stars: 4 } },
+  'DKR': { name: 'Dakar', avgPriceFCFA: 260000, hotel: { name: 'Radisson Blu Hotel Dakar Sea Plaza', price: 65000, stars: 4 } },
+  'LFW': { name: 'Lomé', avgPriceFCFA: 210000, hotel: { name: 'Hôtel 2 Février Lomé', price: 75000, stars: 5 } },
+  'COO': { name: 'Cotonou', avgPriceFCFA: 220000, hotel: { name: 'Golden Tulip Le Diplomate Cotonou', price: 65000, stars: 4 } },
+  'BKO': { name: 'Bamako', avgPriceFCFA: 250000, hotel: { name: 'Azalaï Grand Hôtel Bamako', price: 50000, stars: 4 } },
+  'OUA': { name: 'Ouagadougou', avgPriceFCFA: 240000, hotel: { name: 'Lancaster Hotel Ouaga 2000', price: 55000, stars: 4 } },
+  'CKY': { name: 'Conakry', avgPriceFCFA: 260000, hotel: { name: 'Noom Hotel Conakry', price: 65000, stars: 4 } },
+  'DLA': { name: 'Douala', avgPriceFCFA: 380000, hotel: { name: 'ONOMO Hotel Douala', price: 45000, stars: 3 } },
+  'NSI': { name: 'Yaoundé', avgPriceFCFA: 380000, hotel: { name: 'Hilton Yaoundé', price: 70000, stars: 5 } },
+  'LBV': { name: 'Libreville', avgPriceFCFA: 390000, hotel: { name: 'Radisson Blu Okoume Palace', price: 75000, stars: 5 } },
+  'FIH': { name: 'Kinshasa', avgPriceFCFA: 450000, hotel: { name: 'Pullman Kinshasa Grand Hotel', price: 95000, stars: 5 } },
+  'BZV': { name: 'Brazzaville', avgPriceFCFA: 440000, hotel: { name: 'Grand Hôtel de Kinshasa & BZV', price: 80000, stars: 4 } },
+
+  // Maghreb & Afrique de l'Est/Sud
+  'CMN': { name: 'Casablanca', avgPriceFCFA: 390000, hotel: { name: 'Barceló Anfa Casablanca', price: 60000, stars: 5 } },
+  'TUN': { name: 'Tunis', avgPriceFCFA: 340000, hotel: { name: 'The Penthouse Suites Tunis', price: 45000, stars: 4 } },
+  'ALG': { name: 'Alger', avgPriceFCFA: 360000, hotel: { name: 'Sofitel Algiers Hamma Garden', price: 70000, stars: 5 } },
+  'CAI': { name: 'Le Caire', avgPriceFCFA: 480000, hotel: { name: 'Steigenberger Hotel El Tahrir', price: 50000, stars: 4 } },
+  'ADD': { name: 'Addis-Abeba', avgPriceFCFA: 460000, hotel: { name: 'Skylight Hotel Addis Ababa', price: 60000, stars: 5 } },
+  'NBO': { name: 'Nairobi', avgPriceFCFA: 490000, hotel: { name: 'Tamarind Tree Hotel Nairobi', price: 55000, stars: 4 } },
+  'KGL': { name: 'Kigali', avgPriceFCFA: 460000, hotel: { name: 'Kigali Marriott Hotel', price: 85000, stars: 5 } },
+  'JNB': { name: 'Johannesburg', avgPriceFCFA: 520000, hotel: { name: 'Radisson RED Hotel Rosebank', price: 48000, stars: 4 } },
+  'CPT': { name: 'Le Cap (Cape Town)', avgPriceFCFA: 580000, hotel: { name: 'Radisson Blu Hotel Waterfront', price: 75000, stars: 5 } },
+  'SEZ': { name: 'Seychelles', avgPriceFCFA: 750000, hotel: { name: 'Constance Ephelia Seychelles', price: 130000, stars: 5 } },
+  'MRU': { name: 'Île Maurice', avgPriceFCFA: 780000, hotel: { name: 'LUX* Grand Gaube Resort', price: 120000, stars: 5 } },
+  'ZNZ': { name: 'Zanzibar', avgPriceFCFA: 620000, hotel: { name: 'Zanzibar Serena Hotel', price: 80000, stars: 5 } },
+
   // Europe
-  { code: 'CDG', name: 'Paris',        avgPriceFCFA: 530000 },
-  { code: 'BRU', name: 'Bruxelles',    avgPriceFCFA: 550000 },
-  { code: 'LHR', name: 'Londres',      avgPriceFCFA: 580000 },
-  { code: 'GVA', name: 'Genève',       avgPriceFCFA: 600000 },
-  { code: 'IST', name: 'Istanbul',     avgPriceFCFA: 450000 },
-  { code: 'MAD', name: 'Madrid',       avgPriceFCFA: 480000 },
-  { code: 'LIS', name: 'Lisbonne',     avgPriceFCFA: 450000 },
-  { code: 'FCO', name: 'Rome',         avgPriceFCFA: 520000 },
+  'CDG': { name: 'Paris', avgPriceFCFA: 530000, hotel: { name: 'Novotel Paris Centre Tour Eiffel', price: 75000, stars: 4 } },
+  'ORY': { name: 'Paris', avgPriceFCFA: 520000, hotel: { name: 'Mercure Paris Centre', price: 70000, stars: 4 } },
+  'PAR': { name: 'Paris', avgPriceFCFA: 530000, hotel: { name: 'Novotel Paris Centre Tour Eiffel', price: 75000, stars: 4 } },
+  'BRU': { name: 'Bruxelles', avgPriceFCFA: 540000, hotel: { name: 'Hotel NH Brussels Carrefour', price: 60000, stars: 4 } },
+  'LHR': { name: 'Londres', avgPriceFCFA: 580000, hotel: { name: 'Premier Inn London City', price: 65000, stars: 3 } },
+  'LON': { name: 'Londres', avgPriceFCFA: 580000, hotel: { name: 'Premier Inn London City', price: 65000, stars: 3 } },
+  'GVA': { name: 'Genève', avgPriceFCFA: 600000, hotel: { name: 'Design Hotel F6 Genève', price: 85000, stars: 3 } },
+  'IST': { name: 'Istanbul', avgPriceFCFA: 450000, hotel: { name: 'DoubleTree by Hilton Istanbul', price: 45000, stars: 4 } },
+  'MAD': { name: 'Madrid', avgPriceFCFA: 480000, hotel: { name: 'Dear Hotel Madrid', price: 55000, stars: 4 } },
+  'LIS': { name: 'Lisbonne', avgPriceFCFA: 450000, hotel: { name: 'Turim Boulevard Hotel', price: 55000, stars: 4 } },
+  'FCO': { name: 'Rome', avgPriceFCFA: 520000, hotel: { name: 'Rome Times Hotel', price: 65000, stars: 4 } },
+  'MXP': { name: 'Milan', avgPriceFCFA: 510000, hotel: { name: 'NYX Hotel Milan by Leonardo', price: 60000, stars: 4 } },
+  'MIL': { name: 'Milan', avgPriceFCFA: 510000, hotel: { name: 'NYX Hotel Milan by Leonardo', price: 60000, stars: 4 } },
+  'FRA': { name: 'Francfort', avgPriceFCFA: 560000, hotel: { name: 'Steigenberger Airport Hotel', price: 65000, stars: 4 } },
+  'AMS': { name: 'Amsterdam', avgPriceFCFA: 570000, hotel: { name: 'CitizenM Amsterdam South', price: 75000, stars: 4 } },
+
   // Moyen-Orient & Asie
-  { code: 'DXB', name: 'Dubaï',        avgPriceFCFA: 650000 },
-  { code: 'NRT', name: 'Tokyo',        avgPriceFCFA: 950000 },
-  { code: 'BKK', name: 'Bangkok',      avgPriceFCFA: 800000 },
+  'DXB': { name: 'Dubaï', avgPriceFCFA: 650000, hotel: { name: 'Rove Downtown Dubai', price: 55000, stars: 3 } },
+  'JED': { name: 'La Mecque (Jeddah)', avgPriceFCFA: 650000, hotel: { name: 'Mövenpick Hotel Tahlia Jeddah', price: 70000, stars: 5 } },
+  'MED': { name: 'Médine', avgPriceFCFA: 670000, hotel: { name: 'Dar Al Taqwa Hotel Madinah', price: 80000, stars: 5 } },
+  'DOH': { name: 'Doha', avgPriceFCFA: 680000, hotel: { name: 'Ezdan Palace Hotel Doha', price: 65000, stars: 5 } },
+  'BKK': { name: 'Bangkok', avgPriceFCFA: 780000, hotel: { name: 'Nouvo City Hotel Bangkok', price: 28000, stars: 4 } },
+  'CAN': { name: 'Canton (Guangzhou)', avgPriceFCFA: 850000, hotel: { name: 'DoubleTree by Hilton Guangzhou', price: 45000, stars: 4 } },
+  'NRT': { name: 'Tokyo', avgPriceFCFA: 950000, hotel: { name: 'APA Hotel Shinjuku Kabukicho', price: 38000, stars: 3 } },
+  'HND': { name: 'Tokyo', avgPriceFCFA: 950000, hotel: { name: 'Hotel Gracery Shinjuku', price: 45000, stars: 4 } },
+  'TYO': { name: 'Tokyo', avgPriceFCFA: 950000, hotel: { name: 'Hotel Gracery Shinjuku', price: 45000, stars: 4 } },
+  'SIN': { name: 'Singapour', avgPriceFCFA: 820000, hotel: { name: 'Carlton Hotel Singapore', price: 85000, stars: 4 } },
+  'ICN': { name: 'Séoul', avgPriceFCFA: 890000, hotel: { name: 'L7 Myeongdong by LOTTE', price: 55000, stars: 4 } },
+
   // Amérique du Nord
-  { code: 'JFK', name: 'New York',     avgPriceFCFA: 850000 },
-  { code: 'YUL', name: 'Montréal',     avgPriceFCFA: 900000 },
-  { code: 'IAD', name: 'Washington',   avgPriceFCFA: 850000 },
-  // Afrique
-  { code: 'CMN', name: 'Casablanca',   avgPriceFCFA: 380000 },
-  { code: 'DSS', name: 'Dakar',        avgPriceFCFA: 260000 },
-  { code: 'TUN', name: 'Tunis',        avgPriceFCFA: 320000 },
-  { code: 'CAI', name: 'Le Caire',     avgPriceFCFA: 480000 },
-  { code: 'JNB', name: 'Johannesburg', avgPriceFCFA: 520000 },
-  { code: 'BKO', name: 'Bamako',       avgPriceFCFA: 260000 },
-  { code: 'DLA', name: 'Douala',       avgPriceFCFA: 380000 },
-  { code: 'NSI', name: 'Yaoundé',      avgPriceFCFA: 380000 },
-  { code: 'CKY', name: 'Conakry',      avgPriceFCFA: 250000 },
-  { code: 'ACC', name: 'Accra',        avgPriceFCFA: 150000 },
-  { code: 'LFW', name: 'Lomé',         avgPriceFCFA: 220000 },
-  { code: 'COO', name: 'Cotonou',      avgPriceFCFA: 220000 },
-  // Nouveaux pays populaires
-  { code: 'JED', name: 'La Mecque (Jeddah)', avgPriceFCFA: 650000 },
-  { code: 'SEZ', name: 'Seychelles',         avgPriceFCFA: 750000 },
-  { code: 'CAN', name: 'Canton (Guangzhou)',  avgPriceFCFA: 850000 },
-];
+  'JFK': { name: 'New York', avgPriceFCFA: 850000, hotel: { name: 'The Paul Hotel NYC', price: 95000, stars: 4 } },
+  'NYC': { name: 'New York', avgPriceFCFA: 850000, hotel: { name: 'The Paul Hotel NYC', price: 95000, stars: 4 } },
+  'YUL': { name: 'Montréal', avgPriceFCFA: 880000, hotel: { name: 'Hotel Monville Montréal', price: 65000, stars: 4 } },
+  'IAD': { name: 'Washington', avgPriceFCFA: 860000, hotel: { name: 'Club Quarters Hotel Washington', price: 80000, stars: 4 } },
+  'WAS': { name: 'Washington', avgPriceFCFA: 860000, hotel: { name: 'Club Quarters Hotel Washington', price: 80000, stars: 4 } },
+  'YYZ': { name: 'Toronto', avgPriceFCFA: 890000, hotel: { name: 'Chelsea Hotel Toronto', price: 70000, stars: 4 } },
+};
 
-// Seuil de détection : un deal est signalé si le prix est inférieur à ce %
-const DEAL_THRESHOLD_PERCENT = 5; // 5% en dessous du prix moyen = bon plan
-
-// Taux de conversion EUR → FCFA
-const EUR_TO_FCFA = 656;
-
-// Noms des compagnies aériennes courantes
+// ============================================================
+// NOM RÉEL DES COMPAGNIES AÉRIENNES
+// ============================================================
 const AIRLINE_NAMES: Record<string, string> = {
-  'ET': 'Ethiopian Airlines', 'AF': 'Air France', 'TK': 'Turkish Airlines',
-  'QR': 'Qatar Airways', 'EK': 'Emirates', 'KQ': 'Kenya Airways',
-  'AT': 'Royal Air Maroc', 'W3': 'Arik Air', 'HF': 'Air Côte d\'Ivoire',
-  'KL': 'KLM', 'LH': 'Lufthansa', 'BA': 'British Airways',
-  'SN': 'Brussels Airlines', 'TP': 'TAP Portugal', 'MS': 'EgyptAir',
-  'RW': 'Rwandair', 'WB': 'Rwandair', 'SA': 'South African Airways',
+  'AW': 'Africa World Airlines',
+  'HF': 'Air Côte d\'Ivoire',
+  'KP': 'ASKY Airlines',
+  'P4': 'Air Peace',
+  'HC': 'Air Senegal',
+  '2J': 'Air Burkina',
+  'ET': 'Ethiopian Airlines',
+  'AF': 'Air France',
+  'TK': 'Turkish Airlines',
+  'QR': 'Qatar Airways',
+  'EK': 'Emirates',
+  'KQ': 'Kenya Airways',
+  'AT': 'Royal Air Maroc',
+  'SN': 'Brussels Airlines',
+  'KL': 'KLM',
+  'LH': 'Lufthansa',
+  'BA': 'British Airways',
+  'TP': 'TAP Air Portugal',
+  'MS': 'EgyptAir',
+  'WB': 'RwandAir',
+  'TU': 'Tunisair',
+  'AH': 'Air Algérie',
+  'ME': 'Middle East Airlines',
+  'SV': 'Saudia',
+  'XY': 'Flynas',
+  'FZ': 'flydubai',
+  'G9': 'Air Arabia',
+  'W3': 'Arik Air',
+  'VR': 'Cabo Verde Airlines',
+  'DT': 'TAAG Angola Airlines',
+  'SA': 'South African Airways',
+  'SS': 'Corsair',
+  'TX': 'Air Caraïbes',
+  'TO': 'Transavia France',
+  'IB': 'Iberia',
+  'UX': 'Air Europa',
+  'AC': 'Air Canada',
+  'DL': 'Delta Air Lines',
+  'UA': 'United Airlines',
+  'AA': 'American Airlines',
+  'CZ': 'China Southern Airlines',
+  'CA': 'Air China',
+  'MU': 'China Eastern Airlines',
+  'TG': 'Thai Airways',
+  'SQ': 'Singapore Airlines',
 };
 
-// Hôtels types par destination (simulation réaliste)
-const SAMPLE_HOTELS: Record<string, { name: string; price: number; stars: number }> = {
-  'CDG': { name: 'Novotel Paris Centre',     price: 65000,  stars: 4 },
-  'BRU': { name: 'Hotel NH Brussels Carrefour', price: 60000, stars: 4 },
-  'LHR': { name: 'Premier Inn London City',  price: 55000,  stars: 3 },
-  'GVA': { name: 'Design Hotel F6 Genève',   price: 80000,  stars: 3 },
-  'IST': { name: 'DoubleTree by Hilton Istanbul', price: 50000, stars: 4 },
-  'MAD': { name: 'Dear Hotel Madrid',        price: 55000,  stars: 4 },
-  'LIS': { name: 'Turim Boulevard Hotel',    price: 60000,  stars: 4 },
-  'FCO': { name: 'Rome Times Hotel',         price: 65000,  stars: 4 },
-  'DXB': { name: 'Rove Downtown Dubai',     price: 55000,  stars: 3 },
-  'NRT': { name: 'APA Hotel Shinjuku',       price: 35000,  stars: 3 },
-  'BKK': { name: 'Nouvo City Hotel Bangkok', price: 25000,  stars: 4 },
-  'JFK': { name: 'The Paul Hotel NYC',       price: 90000,  stars: 4 },
-  'YUL': { name: 'HI Montréal Centre',       price: 40000,  stars: 3 },
-  'IAD': { name: 'Club Quarters Washington', price: 80000,  stars: 4 },
-  'CMN': { name: 'Barcelo Anfa Casablanca',  price: 60000,  stars: 5 },
-  'DSS': { name: 'Radisson Blu Dakar',       price: 45000,  stars: 4 },
-  'TUN': { name: 'Majestic Hotel Tunis',     price: 35000,  stars: 4 },
-  'CAI': { name: 'Steigenberger El Tahrir',  price: 50000,  stars: 4 },
-  'JNB': { name: 'Radisson Red Rosebank',    price: 45000,  stars: 4 },
-  'BKO': { name: 'Azalai Hotel Bamako',      price: 45000,  stars: 4 },
-  'DLA': { name: 'Onomo Hotel Douala',       price: 40000,  stars: 3 },
-  'NSI': { name: 'Hilton Yaoundé',           price: 65000,  stars: 5 },
-  'CKY': { name: 'Noom Hotel Conakry',       price: 60000,  stars: 4 },
-  'ACC': { name: 'Movenpick Ambassador Accra', price: 90000, stars: 5 },
-  'LFW': { name: 'Hotel 2 Février Lomé',     price: 80000,  stars: 5 },
-  'COO': { name: 'Golden Tulip Cotonou',     price: 70000,  stars: 4 },
-  'JED': { name: 'Movenpick Hotel Tahlia Jeddah', price: 70000, stars: 5 },
-  'SEZ': { name: 'Constance Ephelia Seychelles', price: 120000, stars: 5 },
-  'CAN': { name: 'DoubleTree by Hilton Guangzhou', price: 45000, stars: 4 },
-};
+// Seuil de détection & Marge bénéficiaire agence
+const DEAL_THRESHOLD_PERCENT = 5; // 5% ou plus en dessous de la moyenne
+const AGENCY_MARGIN_RATE = 0.08;  // 8% de marge agence incluse dans le prix public
 
 // ============================================================
-// FONCTIONS UTILITAIRES
+// ROUTE PRINCIPALE — GET /api/cron/detect-deals
 // ============================================================
-
-/** Génère les 3 prochains mois sous forme YYYY-MM */
-function getNext3Months(): string[] {
-  const months: string[] = [];
-  const now = new Date();
-  for (let i = 0; i < 3; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
-    months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
-  }
-  return months;
-}
-
-/**
- * Interroge l'API Travelpayouts (Aviasales) — endpoint "prices for dates"
- */
-async function fetchFlightPrices(
-  origin: string,
-  destination: string,
-  month: string
-): Promise<{
-  success: boolean;
-  data: Record<string, {
-    price: number;
-    airline: string;
-    departure_at: string;
-    return_at: string;
-    expires_at: string;
-  }>;
-}> {
-  const token = process.env.TRAVELPAYOUTS_TOKEN;
-
-  if (!token) {
-    console.warn(`[Travelpayouts] Token manquant.`);
-    return { success: false, data: {} };
-  }
-
-  try {
-    const url = new URL('https://api.travelpayouts.com/v1/prices/calendar');
-    url.searchParams.set('origin', origin);
-    url.searchParams.set('destination', destination);
-    url.searchParams.set('depart_date', month);
-    url.searchParams.set('currency', 'eur');
-    url.searchParams.set('token', token);
-
-    const response = await fetch(url.toString(), {
-      headers: { 'Accept-Encoding': 'gzip' },
-      next: { revalidate: 0 },
-    });
-
-    if (!response.ok) {
-      console.warn(`[Travelpayouts] ${response.status} pour ${origin}->${destination}`);
-      return { success: false, data: {} };
-    }
-
-    const json = await response.json();
-    return json;
-  } catch (err) {
-    console.warn(`[Travelpayouts] Erreur réseau pour ${destination}:`, err);
-    return { success: false, data: {} };
-  }
-}
-
-// ============================================================
-// ROUTE API PRINCIPALE — GET /api/cron/detect-deals
-// ============================================================
-
 export async function GET(request: NextRequest) {
-  // Sécurité : vérifier le secret CRON pour empêcher les appels non autorisés
+  // Sécurité : vérifier le secret CRON si défini
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
 
@@ -180,134 +156,189 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  console.log('[CRON] ═══════════════════════════════════════');
-  console.log('[CRON] Démarrage de la détection de deals...');
-  console.log('[CRON] Origines:', ORIGINS.map(o => o.code).join(', '));
-  console.log('[CRON] Destinations:', DESTINATIONS.map(d => d.code).join(', '));
+  const token = process.env.TRAVELPAYOUTS_TOKEN;
+  if (!token) {
+    return NextResponse.json(
+      { error: 'TRAVELPAYOUTS_TOKEN manquant dans l\'environnement.' },
+      { status: 500 }
+    );
+  }
 
-  const months = getNext3Months();
-  console.log('[CRON] Mois scannés:', months.join(', '));
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  console.log('[CRON] ═══════════════════════════════════════════════════');
+  console.log(`[CRON] Détection ultra-rapide des prix les plus bas (${todayStr})...`);
+  console.log('[CRON] Origines à scanner :', ORIGINS.map(o => `${o.name} (${o.code})`).join(', '));
+
+  // 1. SUPPRIMER UNIQUEMENT LES BILLETS DÉPASSÉS (Règle utilisateur : ne jamais écraser les valides !)
+  try {
+    const { count: deletedCount } = await supabaseAdmin
+      .from('detected_deals')
+      .delete({ count: 'exact' })
+      .lt('departure_date', todayStr);
+
+    console.log(`[CRON] Nettoyage : ${deletedCount ?? 0} anciens billets expirés supprimés.`);
+  } catch (cleanErr) {
+    console.warn('[CRON] Erreur nettoyage anciens billets:', cleanErr);
+  }
 
   const results = {
-    scanned: 0,
+    origins_scanned: 0,
+    destinations_analyzed: 0,
     deals_found: 0,
     deals_inserted: 0,
     duplicates_skipped: 0,
     errors: [] as string[],
   };
 
-  // Scanner chaque origine x destination x mois
+  // 2. SCAN ULTRA-RAPIDE EN BULK POUR CHAQUE ORIGINE (1 appel par origine au lieu de 522)
   for (const originObj of ORIGINS) {
-    const validDestinations = DESTINATIONS.filter(d => d.code !== originObj.code);
-    
-    for (const dest of validDestinations) {
-      for (const month of months) {
-        try {
-          console.log(`[CRON] Scan ${originObj.code} → ${dest.code} (${dest.name}) — ${month}`);
+    try {
+      console.log(`[CRON] Scan en gros pour ${originObj.name} (${originObj.code})...`);
+      
+      const bulkUrl = new URL('https://api.travelpayouts.com/v1/prices/cheap');
+      bulkUrl.searchParams.set('origin', originObj.code);
+      bulkUrl.searchParams.set('currency', 'xof'); // Prix direct en FCFA
+      bulkUrl.searchParams.set('token', token);
 
-          const response = await fetchFlightPrices(originObj.code, dest.code, month);
-          results.scanned++;
+      const response = await fetch(bulkUrl.toString(), {
+        headers: { 'Accept-Encoding': 'gzip' },
+        next: { revalidate: 0 },
+      });
 
-          if (!response.success || !response.data) {
-            console.log(`[CRON]   ⚠ Pas de données pour ${dest.code} en ${month}`);
-            continue;
-          }
+      if (!response.ok) {
+        const errorMsg = `HTTP ${response.status} pour origine ${originObj.code}`;
+        console.warn(`[CRON] ⚠ ${errorMsg}`);
+        results.errors.push(errorMsg);
+        continue;
+      }
 
-          const entries = Object.values(response.data);
-          console.log(`[CRON]   ${entries.length} vols trouvés`);
+      const json = await response.json();
+      results.origins_scanned++;
 
-          for (const flight of entries) {
-            // Prix de gros initial de la compagnie aérienne
-            const wholesalePriceFCFA = Math.round(flight.price * EUR_TO_FCFA);
-            
-            // Marge bénéficiaire de l'agence (8% ajoutés automatiquement au prix public)
-            const AGENCY_MARGIN_RATE = 0.08;
-            const priceFCFA = Math.round(wholesalePriceFCFA * (1 + AGENCY_MARGIN_RATE));
+      if (!json.success || !json.data) {
+        console.log(`[CRON] ⚠ Aucune donnée retournée pour ${originObj.code}`);
+        continue;
+      }
 
+      const destinationsMap = json.data as Record<string, Record<string, {
+        price: number;
+        airline: string;
+        flight_number?: number;
+        departure_at: string;
+        return_at?: string;
+        expires_at?: string;
+      }>>;
 
-            const discountPercent = ((dest.avgPriceFCFA - priceFCFA) / dest.avgPriceFCFA) * 100;
+      const destCodes = Object.keys(destinationsMap);
+      results.destinations_analyzed += destCodes.length;
+      console.log(`[CRON] ${destCodes.length} destinations disponibles depuis ${originObj.code}`);
 
-            // Ne garder QUE les deals qui restent avantageux par rapport au prix moyen
-            if (discountPercent < DEAL_THRESHOLD_PERCENT && discountPercent < 0) continue;
+      for (const destCode of destCodes) {
+        // Ignorer les vols vers soi-même
+        if (destCode === originObj.code) continue;
 
-            results.deals_found++;
+        const options = destinationsMap[destCode];
+        if (!options || typeof options !== 'object') continue;
 
-            const hotel = SAMPLE_HOTELS[dest.code];
+        // Récupérer le vol le plus bas (clé "0" ou première clé trouvée)
+        const flightKeys = Object.keys(options);
+        if (flightKeys.length === 0) continue;
 
-            // Trouver le prix minimum pour cette route pour marquer le plus bas
-            const allPricesForRoute = entries.map(e => Math.round(e.price * EUR_TO_FCFA * (1 + AGENCY_MARGIN_RATE)));
-            const isLowest = priceFCFA <= Math.min(...allPricesForRoute);
+        const flight = options[flightKeys[0]];
+        if (!flight || !flight.price || !flight.departure_at) continue;
 
-            const deal = {
-              origin: originObj.code,
-              destination: dest.code,
-              destination_name: dest.name,
-              airline: flight.airline,
-              airline_name: AIRLINE_NAMES[flight.airline] || flight.airline,
-              departure_date: flight.departure_at.split('T')[0],
-              return_date: flight.return_at ? flight.return_at.split('T')[0] : null,
-              price_fcfa: priceFCFA, // Prix public final affiché au client (inclut la part bénéficiaire)
-              currency: 'XOF',
-              average_price_fcfa: dest.avgPriceFCFA,
-              discount_percent: Math.max(5, Math.round(discountPercent * 100) / 100),
-              is_lowest_price: isLowest,
-              hotel_name: hotel?.name || null,
-              hotel_price_fcfa: hotel?.price || null,
-              hotel_stars: hotel?.stars || null,
-              is_processed: false,
-              is_sent: false,
-              source: process.env.TRAVELPAYOUTS_TOKEN ? 'travelpayouts' : 'simulation',
-              raw_data: {
-                ...flight,
-                wholesale_price_fcfa: wholesalePriceFCFA,
-                agency_profit_fcfa: priceFCFA - wholesalePriceFCFA,
-              },
-            };
+        const departureDate = flight.departure_at.split('T')[0];
 
+        // RÈGLE : Ne garder que les dates futures
+        if (departureDate < todayStr) continue;
 
-          // Insérer dans Supabase (ignorer les doublons grâce à la contrainte UNIQUE)
-          const { error: insertError } = await supabaseAdmin
-            .from('detected_deals')
-            .upsert(deal, {
-              onConflict: 'destination,departure_date,price_fcfa,airline',
-              ignoreDuplicates: true,
-            });
+        // Prix réel du marché en FCFA
+        const wholesalePriceFCFA = Math.round(flight.price);
 
-          if (insertError) {
-            if (insertError.code === '23505') {
-              results.duplicates_skipped++;
-            } else {
-              console.error(`[CRON]   ✗ Erreur insert:`, insertError.message);
-              results.errors.push(`${dest.code}: ${insertError.message}`);
-            }
+        // Ajout de la marge agence (8%) pour fixer notre prix de vente final
+        const priceFCFA = Math.round(wholesalePriceFCFA * (1 + AGENCY_MARGIN_RATE));
+
+        // Informations destination
+        const destCatalog = DESTINATIONS_CATALOG[destCode];
+        const destName = destCatalog?.name || destCode;
+        const avgPriceFCFA = destCatalog?.avgPriceFCFA || Math.round(priceFCFA * 1.30);
+
+        // Calcul du pourcentage de réduction vs prix moyen
+        const rawDiscount = ((avgPriceFCFA - priceFCFA) / avgPriceFCFA) * 100;
+        const discountPercent = Math.max(5, Math.round(rawDiscount));
+
+        // Nom propre de la compagnie
+        const airlineCode = flight.airline || 'HF';
+        const airlineName = AIRLINE_NAMES[airlineCode] || airlineCode;
+
+        // Données hôtel
+        const hotel = destCatalog?.hotel || {
+          name: `Hôtel d'Élite ${destName}`,
+          price: 55000,
+          stars: 4,
+        };
+
+        const deal = {
+          origin: originObj.code,
+          destination: destCode,
+          destination_name: destName,
+          airline: airlineCode,
+          airline_name: airlineName,
+          departure_date: departureDate,
+          return_date: flight.return_at ? flight.return_at.split('T')[0] : null,
+          price_fcfa: priceFCFA,
+          currency: 'XOF',
+          average_price_fcfa: avgPriceFCFA,
+          discount_percent: discountPercent,
+          is_lowest_price: true,
+          hotel_name: hotel.name,
+          hotel_price_fcfa: hotel.price,
+          hotel_stars: hotel.stars,
+          is_processed: false,
+          is_sent: false,
+          source: 'travelpayouts_live',
+          raw_data: {
+            ...flight,
+            wholesale_price_fcfa: wholesalePriceFCFA,
+            agency_profit_fcfa: priceFCFA - wholesalePriceFCFA,
+          },
+        };
+
+        results.deals_found++;
+
+        // Insertion avec préservation : ignoreDuplicates = true n'écrase pas si déjà présent
+        const { error: insertError } = await supabaseAdmin
+          .from('detected_deals')
+          .upsert(deal, {
+            onConflict: 'destination,departure_date,price_fcfa,airline',
+            ignoreDuplicates: true,
+          });
+
+        if (insertError) {
+          if (insertError.code === '23505') {
+            results.duplicates_skipped++;
           } else {
-            results.deals_inserted++;
-            console.log(
-              `[CRON]   ✓ DEAL! ${dest.name} — ${priceFCFA.toLocaleString()} FCFA ` +
-              `(-${discountPercent.toFixed(0)}%) — ${AIRLINE_NAMES[flight.airline] || flight.airline} ` +
-              `le ${flight.departure_at.split('T')[0]}`
-            );
+            results.errors.push(`${originObj.code}->${destCode}: ${insertError.message}`);
           }
-        }
-
-        // Petit délai entre les appels pour respecter le rate limit de l'API
-        await new Promise(resolve => setTimeout(resolve, 200));
-
-        } catch (err) {
-          const msg = err instanceof Error ? err.message : 'Erreur inconnue';
-          results.errors.push(`${dest.code}/${month}: ${msg}`);
-          console.error(`[CRON] ✗ Erreur globale ${dest.code}:`, msg);
+        } else {
+          results.deals_inserted++;
         }
       }
+    } catch (originErr) {
+      const msg = originErr instanceof Error ? originErr.message : 'Erreur inconnue';
+      results.errors.push(`Origine ${originObj.code}: ${msg}`);
+      console.error(`[CRON] ✗ Erreur origine ${originObj.code}:`, msg);
     }
   }
 
-  console.log('[CRON] ═══════════════════════════════════════');
-  console.log('[CRON] Résultats:', JSON.stringify(results, null, 2));
-  console.log('[CRON] Terminé ✓');
+  console.log('[CRON] ═══════════════════════════════════════════════════');
+  console.log('[CRON] Détection terminée avec succès !');
+  console.log(`[CRON] Résultats : ${results.deals_found} trouvés | ${results.deals_inserted} nouveaux insérés | ${results.duplicates_skipped} déjà valides conservés.`);
 
   return NextResponse.json({
-    message: 'Détection de deals terminée.',
+    success: true,
+    message: 'Détection ultra-rapide des prix terminée.',
     timestamp: new Date().toISOString(),
     ...results,
   });

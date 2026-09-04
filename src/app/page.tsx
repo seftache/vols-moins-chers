@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../lib/supabase";
 import Link from "next/link";
 import AdBannerSection from "../components/AdBannerSection";
+import FlightSearchBar from "../components/FlightSearchBar";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -174,15 +175,15 @@ export default function Home() {
       {/* =====================================================================
           1. HERO SECTION
           ===================================================================== */}
-      <section className="relative h-screen w-full overflow-hidden bg-black">
+      <section className="relative min-h-screen w-full overflow-hidden bg-black flex flex-col justify-between">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop')" }}
         >
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         </div>
 
-        <div className="relative z-10 flex h-full flex-col justify-between px-6 py-8 md:px-16 md:py-12 lg:px-24">
+        <div className="relative z-10 flex min-h-screen flex-col justify-between px-6 py-8 md:px-16 md:py-10 lg:px-24">
           <header className="flex w-full items-center justify-between">
             <a href="#" className="flex items-center">
               <svg viewBox="55 65 280 130" className="h-12 md:h-16 w-auto" xmlns="http://www.w3.org/2000/svg">
@@ -208,33 +209,38 @@ export default function Home() {
             </div>
           </header>
 
-          <div className="flex w-full max-w-4xl flex-col items-start justify-center">
-            <p className="mb-6 text-[10px] font-light uppercase tracking-[0.3em] text-white/80 sm:text-xs">
+          <div className="flex w-full max-w-5xl flex-col items-start justify-center my-auto py-8">
+            <p className="mb-4 text-[10px] font-light uppercase tracking-[0.3em] text-white/80 sm:text-xs">
               La conciergerie de voyage 3.0, propulsée par l'IA.
             </p>
 
-            <h1 className="mb-12 font-playfair text-5xl leading-[1.1] text-white sm:text-6xl md:text-7xl lg:text-8xl">
+            <h1 className="mb-6 font-playfair text-4xl leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Ne payez plus jamais<br />
               le plein tarif<br />
               pour voyager.
             </h1>
 
-            <div className="mt-8">
+            {/* Barre de Recherche de Vols en Direct */}
+            <div className="w-full">
+              <FlightSearchBar />
+            </div>
+
+            <div className="mt-4">
               <motion.a
                 href="/offres"
                 whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
                 className="inline-block border border-white/20 bg-transparent px-8 py-4 text-[10px] sm:text-xs font-light uppercase tracking-[0.3em] text-white transition-colors hover:border-white/40"
               >
-                Découvrir la collection
+                Voir les offres pré-détectées par l'IA
               </motion.a>
             </div>
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-4">
+          <div className="flex w-full flex-col items-center justify-center gap-4 py-4">
             <span className="text-[10px] uppercase tracking-[0.3em] text-white/70">
-              Découvrir
+              Découvrir les opportunités
             </span>
-            <div className="h-[50px] w-[1px] bg-white/50" />
+            <div className="h-[40px] w-[1px] bg-white/50" />
           </div>
         </div>
       </section>
@@ -765,6 +771,81 @@ export default function Home() {
           >
             Voir toutes les offres
           </Link>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          5.5 GUIDE & FOIRE AUX QUESTIONS (SEO & CONFIANCE)
+          ===================================================================== */}
+      <section className="relative w-full bg-[#0d0d0d] px-6 py-24 md:px-16 lg:px-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#D85A30]">
+              Expertise & Transparence
+            </span>
+            <h2 className="mt-3 font-playfair text-3xl md:text-4xl lg:text-5xl text-white font-medium">
+              Comment réserver un billet d'avion moins cher ?
+            </h2>
+            <p className="mt-4 text-sm text-zinc-400 max-w-2xl mx-auto">
+              Retrouvez toutes les réponses pour voyager au prix le plus bas d'Afrique et d'Europe en toute sérénité.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <details className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-[#D85A30]/40 open:bg-white/[0.04]">
+              <summary className="flex cursor-pointer items-center justify-between font-playfair text-lg text-white font-medium">
+                Comment Unique Voyage trouve-t-il les billets d'avion les moins chers ?
+                <span className="ml-4 text-[#D85A30] transition-transform duration-300 group-open:rotate-180">▼</span>
+              </summary>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Notre intelligence artificielle scanne en temps réel les bases de données mondiales des compagnies aériennes (Air France, Corsair, Emirates, Turkish Airlines, Air Côte d'Ivoire, Ethiopian Airlines, etc.). Elle identifie instantanément les baisses de tarifs inattendues, les promos flash et les erreurs tarifaires pour vous faire économiser jusqu'à 60% par rapport aux tarifs standards.
+              </p>
+            </details>
+
+            <details className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-[#D85A30]/40 open:bg-white/[0.04]">
+              <summary className="flex cursor-pointer items-center justify-between font-playfair text-lg text-white font-medium">
+                Puis-je payer mon billet d'avion avec Wave ou Mobile Money ?
+                <span className="ml-4 text-[#D85A30] transition-transform duration-300 group-open:rotate-180">▼</span>
+              </summary>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Absolument ! Unique Voyage a spécialement conçu son service pour l'Afrique et la diaspora. Vous pouvez régler vos billets d'avion en toute sécurité par <strong>Wave</strong>, <strong>Orange Money</strong>, <strong>MTN Mobile Money</strong>, <strong>Moov Money</strong> ou par carte bancaire internationale (Visa, Mastercard). Dès confirmation, votre billet électronique officiel vous est délivré sans délai.
+              </p>
+            </details>
+
+            <details className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-[#D85A30]/40 open:bg-white/[0.04]">
+              <summary className="flex cursor-pointer items-center justify-between font-playfair text-lg text-white font-medium">
+                Pourquoi les billets sont-ils souvent moins chers que sur les sites officiels ?
+                <span className="ml-4 text-[#D85A30] transition-transform duration-300 group-open:rotate-180">▼</span>
+              </summary>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Les compagnies aériennes modifient leurs tarifs plusieurs fois par jour selon le remplissage des appareils. Grâce à nos connexions directes aux GDS de billetterie en gros (Travelpayouts) et à notre marge optimisée, nous détectons et bloquons les sièges au moment précis où ils atteignent leur plancher tarifaire, avant que les algorithmes des compagnies ne remontent les prix.
+              </p>
+            </details>
+
+            <details className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-[#D85A30]/40 open:bg-white/[0.04]">
+              <summary className="flex cursor-pointer items-center justify-between font-playfair text-lg text-white font-medium">
+                Quelles sont les liaisons de vol les plus demandées ?
+                <span className="ml-4 text-[#D85A30] transition-transform duration-300 group-open:rotate-180">▼</span>
+              </summary>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Nos utilisateurs recherchent quotidiennement des vols pas chers sur les trajets : <strong>Abidjan — Paris</strong>, <strong>Abidjan — Dubaï</strong>, <strong>Dakar — Paris</strong>, <strong>Accra — Londres</strong>, <strong>Casablanca — Abidjan</strong>, <strong>Montréal — Paris</strong> et <strong>New York — Abidjan</strong>. Vous pouvez rechercher n'importe quel itinéraire sur mesure grâce à notre moteur de recherche ci-dessus.
+              </p>
+            </details>
+          </div>
+
+          {/* Tags de maillage interne SEO */}
+          <div className="mt-14 pt-8 border-t border-white/10 text-center">
+            <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4">Recherches fréquentes de billets d'avion</p>
+            <div className="flex flex-wrap justify-center gap-2 text-xs text-zinc-400">
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Billet d'avion Abidjan Paris pas cher</span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Vol Abidjan Dubaï moins cher</span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Billet d'avion Dakar Paris</span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Vol pas cher Accra</span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Promo vol Montréal</span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Billet d'avion moins cher La Mecque (Jeddah)</span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Comparateur de vol Afrique Wave</span>
+            </div>
+          </div>
         </div>
       </section>
 

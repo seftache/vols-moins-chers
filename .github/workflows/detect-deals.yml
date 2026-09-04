@@ -1,0 +1,29 @@
+name: Scan des Vols & Génération IA Multi-Horaires
+
+on:
+  schedule:
+    # Horaires demandés : 1h, 5h, 10h, 15h, 22h UTC (correspond à l'heure d'Abidjan GMT+0)
+    - cron: '0 1,5,10,15,22 * * *'
+  workflow_dispatch: # Permet de déclencher manuellement le scan depuis l'interface GitHub
+
+jobs:
+  scan-and-generate:
+    name: Détection des Meilleurs Billets & Itinéraires IA
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Détection ultra-rapide des prix les plus bas
+        run: |
+          echo "Démarrage du scan Travelpayouts multi-origines..."
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X GET "https://uniquevoyage.site/api/cron/detect-deals" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}")
+          echo "$RESPONSE"
+          
+      - name: 2. Pause de sécurité
+        run: sleep 15
+
+      - name: 3. Génération des itinéraires IA pour les nouveaux bons plans
+        run: |
+          echo "Génération des itinéraires de voyage IA..."
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X GET "https://uniquevoyage.site/api/ai/generate-itinerary" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}")
+          echo "$RESPONSE"

@@ -18,24 +18,34 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL("https://uniquevoyage.site"),
   title: {
-    default: "Unique Voyage — Billets d'Avion & Hôtels au Meilleur Prix Garanti",
-    template: "%s | Unique Voyage",
+    default: "Billets d'Avion Moins Chers & Bons Plans Vol | Unique Voyage",
+    template: "%s | Billets d'Avion Moins Chers | Unique Voyage",
   },
   description:
-    "Plateforme mondiale de billetterie et conciergerie voyage. Découvrez nos offres de vols à prix cassés au départ de Paris, Abidjan, Montréal, New York, Dakar et Canton.",
+    "Trouvez votre billet d'avion moins cher au meilleur prix garanti. Notre algorithme détecte en direct les baisses de prix et erreurs tarifaires vers Abidjan, Paris, Dakar, Dubaï, Montréal, New York et le monde entier. Paiement Wave et Mobile Money sécurisé.",
   keywords: [
-    "vols pas chers",
-    "billet avion pas cher",
-    "cheap flights",
-    "vol paris new york pas cher",
+    "billet avion moins cher",
+    "billet d'avion moins cher",
+    "billet d'avion pas cher",
+    "bon plan voyage",
+    "bons plans vols",
+    "vol pas cher abidjan",
+    "billet avion abidjan paris",
+    "vol pas cher dakar",
+    "billet avion dakar moins cher",
+    "vol pas cher accra",
     "vol abidjan dubai pas cher",
     "vol montreal paris pas cher",
+    "comparateur vol afrique",
     "promo billet avion",
-    "erreur de prix vol",
-    "billetterie pas cher",
-    "voyage afrique europe usa asie",
-    "conciergerie billetterie voyage",
-    "unique voyage"
+    "erreur tarifaire vol",
+    "vols derniere minute pas cher",
+    "voyage pas cher afrique europe",
+    "meilleur prix billet avion",
+    "unique voyage",
+    "agence de voyage abidjan",
+    "paiement wave billet avion",
+    "paiement mobile money billet avion"
   ],
   authors: [{ name: "Unique Voyage" }],
   creator: "Unique Voyage",
@@ -48,9 +58,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Unique Voyage — L'art de voyager au meilleur prix",
+    title: "Billets d'Avion Moins Chers & Bons Plans Vol | Unique Voyage",
     description:
-      "L'algorithme qui traque les erreurs tarifaires et les baisses de prix invisibles des compagnies aériennes à l'échelle mondiale.",
+      "Ne payez plus jamais le plein tarif pour voyager. L'intelligence artificielle qui traque les prix les plus bas et les promos secrètes des compagnies aériennes.",
     url: "https://uniquevoyage.site",
     siteName: "Unique Voyage",
     images: [
@@ -58,7 +68,7 @@ export const metadata: Metadata = {
         url: "/logos/Logo_UniqueVoyage.png",
         width: 1200,
         height: 630,
-        alt: "Logo Unique Voyage",
+        alt: "Unique Voyage - Billets d'avion moins chers",
       },
     ],
     locale: "fr_FR",
@@ -66,9 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Unique Voyage — Billets d'Avion & Séjours au Meilleur Prix",
+    title: "Billets d'Avion Moins Chers & Bons Plans | Unique Voyage",
     description:
-      "Vols à prix cassés et hébergements économiques au départ de Paris, Abidjan, Montréal, New York et Dakar.",
+      "Trouvez les vols les moins chers au départ d'Abidjan, Dakar, Paris et partout dans le monde avec Unique Voyage.",
     images: ["/logos/Logo_UniqueVoyage.png"],
   },
   robots: {
@@ -108,7 +118,7 @@ export default function RootLayout({
                   "@id": "https://uniquevoyage.site/#website",
                   "url": "https://uniquevoyage.site",
                   "name": "Unique Voyage",
-                  "description": "Billetterie privée mondiale & détection de vols pas chers",
+                  "description": "Comparateur intelligent & billetterie de billets d'avion moins chers dans le monde entier",
                   "potentialAction": {
                     "@type": "SearchAction",
                     "target": "https://uniquevoyage.site/offres?q={search_term_string}",
@@ -123,11 +133,52 @@ export default function RootLayout({
                   "logo": "https://uniquevoyage.site/logos/Logo_UniqueVoyage.png",
                   "telephone": "+2250545745749",
                   "priceRange": "$$",
+                  "description": "Agence de billetterie et conciergerie voyage proposant les vols les moins chers du marché avec assistance personnalisée et paiement Mobile Money / Wave.",
                   "address": {
                     "@type": "PostalAddress",
                     "addressCountry": "CI",
                     "addressLocality": "Abidjan"
-                  }
+                  },
+                  "currenciesAccepted": "XOF, EUR, USD, CAD",
+                  "paymentAccepted": "Wave, Orange Money, MTN Mobile Money, Moov Money, Carte Bancaire"
+                },
+                {
+                  "@type": "FAQPage",
+                  "@id": "https://uniquevoyage.site/#faq",
+                  "mainEntity": [
+                    {
+                      "@type": "Question",
+                      "name": "Comment trouver un billet d'avion moins cher sur Unique Voyage ?",
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Unique Voyage utilise un algorithme de scan continu qui analyse les baisses de prix, erreurs tarifaires et promotions flash de plus de 50 compagnies aériennes. Vous pouvez utiliser notre barre de recherche directe ou consulter les offres pré-détectées par notre intelligence artificielle."
+                      }
+                    },
+                    {
+                      "@type": "Question",
+                      "name": "Puis-je payer mon billet d'avion avec Wave ou Mobile Money ?",
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Oui ! Unique Voyage facilite la réservation en acceptant les paiements locaux sécurisés par Wave, Orange Money, MTN MoMo, Moov Money, ainsi que par carte bancaire internationale."
+                      }
+                    },
+                    {
+                      "@type": "Question",
+                      "name": "Pourquoi les prix de billets d'avion sur Unique Voyage sont-ils plus bas ?",
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Nous traquons en temps réel les prix de gros et les variations de tarifs des systèmes de réservation mondiaux (GDS/Travelpayouts) afin d'identifier le moment exact où le tarif est au plus bas, sans intermédiaires inutiles."
+                      }
+                    },
+                    {
+                      "@type": "Question",
+                      "name": "Quelles sont les villes de départ disponibles ?",
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Nos vols couvrent tous les aéroports internationaux majeurs : Abidjan (ABJ), Dakar (DSS), Accra (ACC), Paris (CDG/ORY), Bruxelles (BRU), Casablanca (CMN), Montréal (YUL), New York (JFK), et plus de 50 autres destinations."
+                      }
+                    }
+                  ]
                 }
               ]
             }),
