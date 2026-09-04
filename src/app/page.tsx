@@ -835,43 +835,58 @@ export default function Home() {
 
           {/* Liens de maillage interne SEO ultra-performants */}
           <div className="mt-14 pt-8 border-t border-white/10 text-center">
-            <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4 font-semibold">Liaisons aériennes les plus recherchées</p>
+            <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4 font-semibold">Liaisons aériennes & Grands Hubs</p>
             <div className="flex flex-wrap justify-center gap-2 text-xs">
-              <Link href="/vols/abidjan-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Billet d'avion Abidjan — Paris
+              <Link href="/vols-pas-chers/abidjan-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Paris direct
               </Link>
-              <Link href="/vols/abidjan-dubai" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Vol Abidjan — Dubaï pas cher
-              </Link>
-              <Link href="/vols/abidjan-dakar" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Billet d'avion Abidjan — Dakar
-              </Link>
-              <Link href="/vols/dakar-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Vol Dakar — Paris moins cher
-              </Link>
-              <Link href="/vols/abidjan-casablanca" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Vol Abidjan — Casablanca
-              </Link>
-              <Link href="/vols/abidjan-montreal" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Billet d'avion Abidjan — Montréal
-              </Link>
-              <Link href="/vols/abidjan-new-york" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Vol Abidjan — New York
-              </Link>
-              <Link href="/vols/abidjan-bruxelles" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Vol direct Abidjan — Bruxelles
-              </Link>
-              <Link href="/vols/abidjan-accra" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Vol Abidjan — Accra
-              </Link>
-              <Link href="/vols/abidjan-istanbul" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+              <Link href="/vols-pas-chers/abidjan-istanbul" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
                 Vol Abidjan — Istanbul
               </Link>
-              <Link href="/vols/abidjan-jeddah" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Billet Abidjan — Jeddah (La Mecque)
+              <Link href="/vols-pas-chers/abidjan-dubai" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Dubaï
               </Link>
-              <Link href="/vols/accra-londres" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
-                Vol direct Accra — Londres
+              <Link href="/vols-pas-chers/dakar-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Dakar — Paris
+              </Link>
+              <Link href="/vols-pas-chers/dakar-istanbul" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol direct Dakar — Istanbul
+              </Link>
+              <Link href="/vols-pas-chers/douala-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol direct Douala — Paris
+              </Link>
+              <Link href="/vols-pas-chers/cotonou-istanbul" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Cotonou — Istanbul
+              </Link>
+              <Link href="/vols-pas-chers/bamako-paris" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Bamako — Paris
+              </Link>
+              <Link href="/vols-pas-chers/abidjan-bruxelles" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol direct Abidjan — Bruxelles
+              </Link>
+              <Link href="/vols-pas-chers/abidjan-zanzibar" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Zanzibar
+              </Link>
+              <Link href="/vols-pas-chers/abidjan-sao-paulo" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — São Paulo Brésil
+              </Link>
+              <Link href="/vols-pas-chers/abidjan-marrakech" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Marrakech
+              </Link>
+              <Link href="/vols-pas-chers/abidjan-le-caire" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Abidjan — Le Caire
+              </Link>
+              <Link href="/vols-pas-chers/dubai-bangkok" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol direct Dubaï — Bangkok
+              </Link>
+              <Link href="/vols-pas-chers/dubai-bali" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Dubaï — Bali
+              </Link>
+              <Link href="/vols-pas-chers/montreal-abidjan" className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/10 transition-all">
+                Vol Montréal — Abidjan
+              </Link>
+              <Link href="/vols-pas-chers" className="px-3.5 py-1.5 rounded-full bg-[#D85A30]/20 border border-[#D85A30]/40 text-[#D85A30] hover:text-white hover:bg-[#D85A30] transition-all font-semibold">
+                Tous les Hubs & 50+ Liaisons Négociées →
               </Link>
             </div>
           </div>

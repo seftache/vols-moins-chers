@@ -103,41 +103,49 @@ export default async function OffresPage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
-            <Link href="/vols/abidjan-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+            <Link href="/vols-pas-chers/abidjan-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
               ✈️ Billet Abidjan — Paris dès 230 000 FCFA
             </Link>
-            <Link href="/vols/abidjan-dubai" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+            <Link href="/vols-pas-chers/abidjan-dubai" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
               ✈️ Vol Abidjan — Dubaï dès 380 000 FCFA
             </Link>
-            <Link href="/vols/abidjan-dakar" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Billet Abidjan — Dakar dès 195 000 FCFA
-            </Link>
-            <Link href="/vols/dakar-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Vol Dakar — Paris dès 235 000 FCFA
-            </Link>
-            <Link href="/vols/abidjan-casablanca" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Vol Abidjan — Casablanca dès 260 000 FCFA
-            </Link>
-            <Link href="/vols/abidjan-montreal" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Billet Abidjan — Montréal dès 650 000 FCFA
-            </Link>
-            <Link href="/vols/abidjan-new-york" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Vol Abidjan — New York dès 590 000 FCFA
-            </Link>
-            <Link href="/vols/abidjan-bruxelles" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Vol direct Abidjan — Bruxelles dès 320 000 FCFA
-            </Link>
-            <Link href="/vols/abidjan-accra" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Vol direct Abidjan — Accra dès 145 000 FCFA
-            </Link>
-            <Link href="/vols/abidjan-istanbul" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+            <Link href="/vols-pas-chers/abidjan-istanbul" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
               ✈️ Vol direct Abidjan — Istanbul dès 310 000 FCFA
             </Link>
-            <Link href="/vols/abidjan-jeddah" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Vol Abidjan — Jeddah (Omra) dès 540 000 FCFA
+            <Link href="/vols-pas-chers/dakar-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Dakar — Paris dès 235 000 FCFA
             </Link>
-            <Link href="/vols/accra-londres" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
-              ✈️ Vol direct Accra — Londres dès 390 000 FCFA
+            <Link href="/vols-pas-chers/dakar-istanbul" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Dakar — Istanbul dès 320 000 FCFA
+            </Link>
+            <Link href="/vols-pas-chers/douala-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Douala — Paris dès 390 000 FCFA
+            </Link>
+            <Link href="/vols-pas-chers/cotonou-istanbul" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Cotonou — Istanbul dès 335 000 FCFA
+            </Link>
+            <Link href="/vols-pas-chers/bamako-paris" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Bamako — Paris dès 350 000 FCFA
+            </Link>
+            <Link href="/vols-pas-chers/abidjan-bruxelles" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Abidjan — Bruxelles dès 320 000 FCFA
+            </Link>
+            <Link href="/vols-pas-chers/abidjan-zanzibar" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Abidjan — Zanzibar dès 420 000 FCFA
+            </Link>
+            <Link href="/vols-pas-chers/abidjan-marrakech" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol Abidjan — Marrakech dès 285 000 FCFA
+            </Link>
+            <Link href="/vols-pas-chers/dubai-bangkok" className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#D85A30] hover:text-[#D85A30] transition-colors text-zinc-300">
+              ✈️ Vol direct Dubaï — Bangkok dès 220 000 FCFA
+            </Link>
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/vols-pas-chers"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/15 text-xs uppercase tracking-widest text-zinc-300 hover:text-white hover:border-[#D85A30] hover:bg-[#D85A30]/15 transition-all"
+            >
+              Explorer les 5 Grands Hubs & 50+ Liaisons Négociées →
             </Link>
           </div>
         </div>

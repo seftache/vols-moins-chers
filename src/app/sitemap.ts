@@ -1,14 +1,20 @@
 import { MetadataRoute } from 'next';
 import { supabaseAdmin } from '../lib/supabase-admin';
-import { getAllRouteSlugs } from '../lib/routes-seo';
+import { getAllRouteSlugs, getAllHubSlugs } from '../lib/routes-seo';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://uniquevoyage.site';
 
-  // 1. Pages statiques principales
+  // 1. Pages statiques principales & Hub Central
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/vols-pas-chers`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
@@ -21,16 +27,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Pages dédiées par liaison de vol (Programmatic SEO ultra-ciblé)
+  // 2. Grands Hubs Régionaux SEO
+  const hubSlugs = getAllHubSlugs();
+  const hubPages: MetadataRoute.Sitemap = hubSlugs.map((slug) => ({
+    url: `${baseUrl}/vols-pas-chers/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.95,
+  }));
+
+  // 3. Pages dédiées par liaison de vol (/vols-pas-chers/[slug])
   const routeSlugs = getAllRouteSlugs();
   const routePages: MetadataRoute.Sitemap = routeSlugs.map((slug) => ({
-    url: `${baseUrl}/vols/${slug}`,
+    url: `${baseUrl}/vols-pas-chers/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'daily',
     priority: 0.9,
   }));
 
-  // 3. Pages dynamiques de chaque itinéraire
+  // 4. Pages dynamiques de chaque itinéraire
   try {
     const { data: itineraries } = await supabaseAdmin
       .from('premium_itineraries')
@@ -43,8 +58,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    return [...staticRoutes, ...routePages, ...dynamicRoutes];
+    return [...staticRoutes, ...hubPages, ...routePages, ...dynamicRoutes];
   } catch (e) {
-    return [...staticRoutes, ...routePages];
+    return [...staticRoutes, ...hubPages, ...routePages];
   }
 }
