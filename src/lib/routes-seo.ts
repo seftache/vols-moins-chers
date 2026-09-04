@@ -142,7 +142,7 @@ export const ROUTE_ZONE_HUBS: RouteZoneHub[] = [
       },
       {
         "title": "Paiement Sécurisé en FCFA",
-        "desc": "Aucun frais de change bancaire international, réglez directement par Mobile Money ou Wave."
+        "desc": "Réglez directement vos billets par Mobile Money, Wave, PayPal ou carte bancaire."
       }
     ],
     "faqs": [
@@ -3296,7 +3296,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
     },
     {
       "question": "Puis-je payer mon billet Abidjan - Beyrouth par Mobile Money, Wave ou PayPal ?",
-      "answer": "Oui, Unique Voyage vous permet de régler l'intégralité de vos billets directement en FCFA via Mobile Money, Wave, PayPal sans frais de change bancaire."
+      "answer": "Oui, Unique Voyage vous permet de régler l'intégralité de vos billets directement via Mobile Money, Wave, PayPal ou carte bancaire."
     }
   ]
 },
@@ -3526,7 +3526,7 @@ export const SEO_FLIGHT_ROUTES: FlightRouteSEO[] = [
   "faqs": [
     {
       "question": "L'eau de Zamzam est-elle comprise dans le billet Dakar - Djeddah ?",
-      "answer": "Oui, les compagnies régulières comme Saudia et Turkish Airlines autorisent le bidon officiel de 5L d'eau de Zamzam en supplément sans frais."
+      "answer": "Oui, les compagnies régulières comme Saudia et Turkish Airlines autorisent le bidon officiel de 5L d'eau de Zamzam selon la politique de franchise de chaque transporteur."
     },
     {
       "question": "Quelles sont les meilleures dates pour l'Oumra à prix réduit ?",

@@ -190,9 +190,15 @@ export default async function OffresPage() {
                 </a>
               </span>
             </div>
-            <div className="flex gap-8">
+            <div className="flex gap-6 sm:gap-8">
               <Link href="/" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
                 Accueil
+              </Link>
+              <Link href="/mentions-legales" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
+                Mentions légales
+              </Link>
+              <Link href="/conditions-utilisation" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
+                Conditions d'utilisation
               </Link>
             </div>
           </div>

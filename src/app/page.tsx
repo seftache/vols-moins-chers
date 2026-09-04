@@ -164,7 +164,7 @@ export default function Home() {
     {
       number: "04",
       title: "La réservation",
-      text: "Convaincu ? Cliquez sur « Réserver le vol » ou « Réserver l'hôtel » et finalisez directement chez nos partenaires de confiance. C'est simple et gratuit.",
+      text: "Convaincu ? Cliquez sur « Réserver le vol » ou « Réserver l'hôtel » et finalisez directement votre voyage en toute sécurité et simplicité.",
     },
   ];
 
@@ -174,15 +174,15 @@ export default function Home() {
       {/* =====================================================================
           1. HERO SECTION
           ===================================================================== */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-black flex flex-col justify-between">
+      <section className="relative h-screen w-full overflow-hidden bg-black">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop')" }}
         >
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
 
-        <div className="relative z-10 flex h-full flex-col justify-between px-6 py-8 md:px-16 md:py-10 lg:px-24">
+        <div className="relative z-10 flex h-full flex-col justify-between px-6 py-8 md:px-16 md:py-12 lg:px-24">
           <header className="flex w-full items-center justify-between">
             <a href="#" className="flex items-center">
               <svg viewBox="55 65 280 130" className="h-12 md:h-16 w-auto" xmlns="http://www.w3.org/2000/svg">
@@ -198,69 +198,43 @@ export default function Home() {
                 <text x="200" y="156" fontFamily="Georgia, serif" fontSize="34" fill="#D85A30" fontWeight="700">Voyage</text>
               </svg>
             </a>
-            <div className="flex items-center gap-6">
-              <Link
-                href="/vols-pas-chers"
-                className="hidden sm:inline-block text-xs uppercase tracking-widest text-white/80 hover:text-[#D85A30] transition-colors"
-              >
-                Destinations
-              </Link>
+            <div className="flex items-center gap-8">
               <Link
                 href="/offres"
-                className="border border-white/60 bg-white/5 backdrop-blur-sm px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
+                className="border border-white bg-transparent px-6 py-3 text-xs font-light uppercase tracking-widest text-white transition-colors hover:border-[#D85A30] hover:bg-[#D85A30] hover:text-white"
               >
                 Explorer les offres
               </Link>
             </div>
           </header>
 
-          <div className="flex w-full max-w-4xl flex-col items-start justify-center my-auto py-6">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-4 text-[10px] font-light uppercase tracking-[0.3em] text-white/80 sm:text-xs"
-            >
+          <div className="flex w-full max-w-4xl flex-col items-start justify-center">
+            <p className="mb-6 text-[10px] font-light uppercase tracking-[0.3em] text-white/80 sm:text-xs">
               La conciergerie de voyage 3.0, propulsée par l'IA.
-            </motion.p>
+            </p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="mb-8 font-playfair text-4xl leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl"
-            >
+            <h1 className="mb-12 font-playfair font-normal text-5xl leading-[1.1] text-white sm:text-6xl md:text-7xl lg:text-8xl">
               Ne payez plus jamais<br />
               le plein tarif<br />
-              pour voyager.
-            </motion.h1>
+              depuis Abidjan.
+            </h1>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6 }}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
-            >
-              <Link
+            <div className="mt-8">
+              <motion.a
                 href="/offres"
-                className="inline-block bg-[#D85A30] px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#b84a25] shadow-2xl"
+                whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                className="inline-block border border-white/20 bg-transparent px-8 py-4 text-[10px] sm:text-xs font-light uppercase tracking-[0.3em] text-white transition-colors hover:border-white/40"
               >
-                Explorer les offres
-              </Link>
-              <Link
-                href="/vols-pas-chers"
-                className="inline-block border border-white/20 bg-black/30 backdrop-blur-sm px-8 py-5 text-xs font-light uppercase tracking-[0.2em] text-white transition-colors hover:border-[#D85A30] hover:text-[#D85A30]"
-              >
-                Voir par destination
-              </Link>
-            </motion.div>
+                Découvrir la collection
+              </motion.a>
+            </div>
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-4 py-3">
+          <div className="flex w-full flex-col items-center justify-center gap-4">
             <span className="text-[10px] uppercase tracking-[0.3em] text-white/70">
-              Découvrir les opportunités
+              Découvrir
             </span>
-            <div className="h-[40px] w-[1px] bg-white/50" />
+            <div className="h-[50px] w-[1px] bg-white/50" />
           </div>
         </div>
       </section>
@@ -778,7 +752,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base font-light text-[#A3A3A3] mb-12 max-w-2xl mx-auto"
           >
-            Inscrivez-vous gratuitement pour recevoir nos meilleures offres de vols et d'hôtels dès qu'elles sont détectées par notre IA.
+            Inscrivez-vous pour recevoir nos meilleures offres de vols et d'hôtels dès qu'elles sont détectées par notre IA.
           </motion.p>
           <Link
             href="/offres"
@@ -967,12 +941,12 @@ export default function Home() {
               </span>
             </div>
             <div className="flex gap-8">
-              <a href="#" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
+              <Link href="/mentions-legales" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
                 Mentions légales
-              </a>
-              <a href="#" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
+              </Link>
+              <Link href="/conditions-utilisation" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
                 Conditions d'utilisation
-              </a>
+              </Link>
             </div>
           </div>
         </div>

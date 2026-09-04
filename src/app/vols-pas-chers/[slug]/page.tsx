@@ -695,7 +695,7 @@ export default async function VolPasCherDetailPage({ params }: Props) {
               </div>
               <h3 className="font-playfair text-lg text-white font-medium">Paiement Sécurisé & Concierge Dédié</h3>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                Réglez en toute confiance sans frais de change par Mobile Money, Wave, PayPal ou carte bancaire. Un concierge dédié vous assiste jusqu'à l'embarquement.
+                Réglez en toute confiance par Mobile Money, Wave, PayPal ou carte bancaire. Un concierge dédié vous assiste jusqu'à l'embarquement.
               </p>
             </div>
           </div>
@@ -834,7 +834,11 @@ export default async function VolPasCherDetailPage({ params }: Props) {
 
       {/* FOOTER */}
       <footer className="w-full bg-black px-6 py-8 border-t border-white/10 text-center text-xs text-zinc-500">
-        <p className="mb-2">© 2026 Unique Voyage · Conciergerie IA de voyage haut de gamme pour l'Afrique francophone.</p>
+        <p className="mb-2">© 2026 Unique Voyage · Billetterie & Conciergerie de voyage.</p>
+        <div className="flex justify-center gap-6 my-2 text-[11px] text-zinc-400">
+          <Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</Link>
+          <Link href="/conditions-utilisation" className="hover:text-white transition-colors">Conditions d'utilisation</Link>
+        </div>
         <p>
           Design by{' '}
           <a href="https://gadjico.netlify.app" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#D85A30] underline">

@@ -402,12 +402,12 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
               © 2026 UniqueVoyage. Tous droits réservés.
             </span>
             <div className="flex gap-8">
-              <a href="#" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
+              <Link href="/mentions-legales" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
                 Mentions légales
-              </a>
-              <a href="#" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
+              </Link>
+              <Link href="/conditions-utilisation" className="text-[10px] font-light uppercase tracking-widest text-[#737373] transition-colors hover:text-white">
                 Conditions d'utilisation
-              </a>
+              </Link>
             </div>
           </div>
         </div>

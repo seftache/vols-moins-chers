@@ -274,7 +274,7 @@ Pouvez-vous me trouver le meilleur tarif négocié du marché et me proposer les
         <div className="mt-5 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between text-[11px] text-zinc-400 gap-2">
           <div className="flex items-center gap-1.5">
             <CheckCircle2 size={13} className="text-emerald-400" />
-            <span>Paiement local sans frais : <strong>Wave, Mobile Money</strong> ou Carte</span>
+            <span>Paiement sécurisé : <strong>Mobile Money, Wave, PayPal</strong> ou Carte bancaire</span>
           </div>
           <div className="flex items-center gap-1 text-[#D85A30]">
             <MessageSquare size={13} />

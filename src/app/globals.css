@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
-  --font-playfair: var(--font-playfair);
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-playfair: var(--font-playfair), "Playfair Display", Didot, "Bodoni MT", Georgia, serif;
 }
 
 body {

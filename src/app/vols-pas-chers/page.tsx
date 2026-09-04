@@ -90,7 +90,7 @@ export default function VolsPasChersHubIndexPage() {
             name: 'Comment fonctionne l\'alerte VIP par WhatsApp ?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Vous rejoignez gratuitement notre canal d\'alertes WhatsApp. Dès qu\'une opportunité se présente sur vos destinations préférées, vous recevez une notification personnalisée et pouvez réserver en direct.',
+              text: 'Vous rejoignez notre canal privé d\'alertes WhatsApp. Dès qu\'une opportunité se présente sur vos destinations préférées, vous recevez une notification personnalisée et pouvez réserver en direct.',
             },
           },
           {
@@ -192,7 +192,7 @@ export default function VolsPasChersHubIndexPage() {
               className="whitespace-nowrap px-8 py-4 bg-[#D85A30] hover:bg-[#b84a25] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center gap-2"
             >
               <Bell size={16} />
-              Rejoindre gratuitement
+              Rejoindre les alertes VIP
             </a>
           </div>
 
@@ -318,7 +318,11 @@ export default function VolsPasChersHubIndexPage() {
 
       {/* FOOTER */}
       <footer className="w-full bg-black px-6 py-8 border-t border-white/10 text-center text-xs text-zinc-500">
-        <p className="mb-2">© 2026 Unique Voyage · Conciergerie IA de voyage haut de gamme pour l'Afrique francophone.</p>
+        <p className="mb-2">© 2026 Unique Voyage · Billetterie & Conciergerie de voyage.</p>
+        <div className="flex justify-center gap-6 my-2 text-[11px] text-zinc-400">
+          <Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</Link>
+          <Link href="/conditions-utilisation" className="hover:text-white transition-colors">Conditions d'utilisation</Link>
+        </div>
         <p>
           Design by{' '}
           <a href="https://gadjico.netlify.app" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#D85A30] underline">
