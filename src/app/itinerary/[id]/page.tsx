@@ -145,9 +145,36 @@ export default async function ItineraryPage({ params }: { params: Promise<{ id: 
     ? hotel.booking_url
     : `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(hotel.name + ', ' + (hotel.neighborhood || itinerary.destination_name))}&checkin=${flight.departure_date}&checkout=${flight.return_date}${process.env.BOOKING_AFFILIATE_ID ? `&aid=${process.env.BOOKING_AFFILIATE_ID}` : ""}`;
 
-  const heroImage = (flight?.destination_image && flight.destination_image.startsWith('http'))
+  const destCode = (flight.destination || "").toUpperCase();
+  const destName = (itinerary.destination_name || "").toLowerCase();
+  let defaultHero = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80';
+  if (destName.includes('dubai')) defaultHero = 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('paris')) defaultHero = 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('dakar')) defaultHero = 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('abidjan')) defaultHero = 'https://images.unsplash.com/photo-1572979203492-4244a2c5a088?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('montreal')) defaultHero = 'https://images.unsplash.com/photo-1588714477688-cf28a50e94f7?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('canton') || destName.includes('guangzhou')) defaultHero = 'https://images.unsplash.com/photo-1583248369069-9d91f1640fe6?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('tokyo')) defaultHero = 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('new york')) defaultHero = 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('jeddah')) defaultHero = 'https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('bruxelle')) defaultHero = 'https://images.unsplash.com/photo-1559113202-c916b8e44373?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('istanbul')) defaultHero = 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('casablanca')) defaultHero = 'https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('bordeaux')) defaultHero = 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('marseille')) defaultHero = 'https://images.unsplash.com/photo-1589705279374-2287532cb672?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('lyon')) defaultHero = 'https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('bangkok')) defaultHero = 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('madrid')) defaultHero = 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('milan')) defaultHero = 'https://images.unsplash.com/photo-1513581166391-887a96ddeafd?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('londres')) defaultHero = 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('geneve')) defaultHero = 'https://images.unsplash.com/photo-1573108724029-4c46571d6490?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('accra')) defaultHero = 'https://images.unsplash.com/photo-1599818817478-f02a4bc03203?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('zanzibar')) defaultHero = 'https://images.unsplash.com/photo-1568454537842-d933259bb258?auto=format&fit=crop&w=1200&q=80';
+  else if (destName.includes('toronto') || destName.includes('yto')) defaultHero = 'https://images.unsplash.com/photo-1507992781348-310259076fa0?auto=format&fit=crop&w=1200&q=80';
+
+  const heroImage = (flight?.destination_image && flight.destination_image.startsWith('http') && !flight.destination_image.includes('photo-1436491865332'))
     ? flight.destination_image
-    : 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=3000&auto=format&fit=crop';
+    : defaultHero;
 
   // JSON-LD Structured Data Schema pour Google Rich Snippets
   const jsonLd = {

@@ -58,9 +58,8 @@ export default function OffresClient({ itineraries }: { itineraries: ItineraryIt
   });
 
   const getImageForDestination = (destName: string, flightImg?: string) => {
-    if (flightImg && flightImg.startsWith('http') && !flightImg.includes('photo-1519178173456')) return flightImg;
+    if (flightImg && flightImg.startsWith('http') && !flightImg.includes('photo-1519178173456') && !flightImg.includes('photo-1436491865332')) return flightImg;
     const dest = (destName || '')
-
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
@@ -68,13 +67,28 @@ export default function OffresClient({ itineraries }: { itineraries: ItineraryIt
     if (dest.includes('dubai')) return 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('paris')) return 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('dakar')) return 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('abidjan')) return 'https://images.unsplash.com/photo-1572979203492-4244a2c5a088?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('montreal')) return 'https://images.unsplash.com/photo-1588714477688-cf28a50e94f7?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('canton') || dest.includes('guangzhou') || dest.includes('chine')) return 'https://images.unsplash.com/photo-1583248369069-9d91f1640fe6?auto=format&fit=crop&w=1200&q=80';
     if (dest.includes('tokyo')) return 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80';
-    if (dest.includes('new york')) return 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80';
-    if (dest.includes('jeddah') || dest.includes('mecque')) return 'https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('new york') || dest.includes('jfk') || dest.includes('nyc')) return 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('jeddah') || dest.includes('djeddah') || dest.includes('mecque')) return 'https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('bruxelle') || dest.includes('brussel')) return 'https://images.unsplash.com/photo-1559113202-c916b8e44373?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('istanbul')) return 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('casablanca')) return 'https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('bordeaux')) return 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('marseille')) return 'https://images.unsplash.com/photo-1589705279374-2287532cb672?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('lyon')) return 'https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('bangkok')) return 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('madrid')) return 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('milan')) return 'https://images.unsplash.com/photo-1513581166391-887a96ddeafd?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('londres') || dest.includes('london')) return 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('geneve') || dest.includes('geneva')) return 'https://images.unsplash.com/photo-1573108724029-4c46571d6490?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('accra')) return 'https://images.unsplash.com/photo-1599818817478-f02a4bc03203?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('zanzibar')) return 'https://images.unsplash.com/photo-1568454537842-d933259bb258?auto=format&fit=crop&w=1200&q=80';
+    if (dest.includes('toronto') || dest.includes('yto')) return 'https://images.unsplash.com/photo-1507992781348-310259076fa0?auto=format&fit=crop&w=1200&q=80';
 
-    return 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80';
+    return 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80';
   };
 
   return (
