@@ -31,12 +31,27 @@ export default function OffresClient({ itineraries }: { itineraries: ItineraryIt
     { code: 'ALL', label: '🌍 Tous les départs' },
     { code: 'ABJ', label: '🇨🇮 Abidjan' },
     { code: 'CDG', label: '🇫🇷 Paris' },
-    { code: 'YUL', label: '🇨🇦 Montréal' },
-    { code: 'CAN', label: '🇨🇳 Canton (Chine)' },
     { code: 'DSS', label: '🇸🇳 Dakar' },
+    { code: 'CMN', label: '🇲🇦 Casablanca' },
+    { code: 'BRU', label: '🇧🇪 Bruxelles' },
+    { code: 'ACC', label: '🇬🇭 Accra' },
+    { code: 'YUL', label: '🇨🇦 Montréal' },
+    { code: 'CAN', label: '🇨🇳 Canton' },
   ];
 
-  const filteredItineraries = itineraries.filter((item) => {
+  // Filtre pour ne retenir UNIQUEMENT que les offres actives et valides (élimine les offres périmées)
+  const activeItineraries = itineraries.filter((item) => {
+    const flightDate = item.flight_details?.departure_date;
+    if (flightDate) {
+      const depTime = new Date(flightDate).getTime();
+      if (depTime < Date.now()) return false;
+    }
+    const generatedAt = new Date(item.generated_at).getTime();
+    const hours = (Date.now() - generatedAt) / (1000 * 3600);
+    return hours < 72;
+  });
+
+  const filteredItineraries = activeItineraries.filter((item) => {
     if (selectedOrigin === 'ALL') return true;
     const origin = item.flight_details?.origin || 'ABJ';
     return origin.toUpperCase() === selectedOrigin.toUpperCase();

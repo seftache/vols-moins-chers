@@ -28,8 +28,18 @@ export async function GET() {
     const destinationsMap: Record<string, any> = {};
     
     for (const itinerary of itineraries || []) {
-      const destName = itinerary.destination_name.toLowerCase().trim();
       const flight = itinerary.flight_details as any;
+      // Éviter les offres dont la date de départ est déjà dépassée
+      if (flight?.departure_date && new Date(flight.departure_date).getTime() < Date.now()) {
+        continue;
+      }
+      // Éviter les offres de plus de 72h
+      const genTime = new Date(itinerary.generated_at).getTime();
+      if ((Date.now() - genTime) / (1000 * 3600) >= 72) {
+        continue;
+      }
+
+      const destName = itinerary.destination_name.toLowerCase().trim();
       const price = flight ? (flight.price_fcfa || Infinity) : Infinity;
       
       // Si la destination n'existe pas encore ou si ce vol est moins cher, on le garde
